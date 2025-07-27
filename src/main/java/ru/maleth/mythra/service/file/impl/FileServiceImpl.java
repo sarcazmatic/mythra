@@ -30,6 +30,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void save(MultipartFile mpFile, String userName, String charName) throws IOException {
+        log.info("Сохраняем за юзером '{}' и персонажем '{}' аватар", userName, charName);
         File file = fileMapper.fromMPFile(mpFile);
         try {
             File fileToChange = fileRepo.findByCharacterCharNameAnd(userName, charName);
