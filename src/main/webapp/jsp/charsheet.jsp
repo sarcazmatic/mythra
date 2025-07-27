@@ -233,6 +233,20 @@
             background-color: dodgerblue;
         }
 
+        .attr-edit-button {
+            margin-top: auto;
+            font-size: medium;
+            width: 3em;
+            margin-bottom: 0.3em;
+            font-family: 'Philosopher', cursive;
+            background-color: #222;
+            border: 1px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
         .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -334,6 +348,8 @@
         }
 
         .input-field-attr-withname {
+            display: inline-flex;
+            justify-content: space-between;
             height: 33px;
             border-bottom: solid 1px #444;
         }
@@ -809,6 +825,7 @@
     <div class="atrbs-rows-left">
         <div class="input-field-attr-withname">
             <p id="str"></p>
+            <button id="strEdit" class="attr-edit-button">...</button>
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
@@ -826,6 +843,7 @@
     <div class="atrbs-rows-right">
         <div class="input-field-attr-withname">
             <p id="int"></p>
+            <button id="intEdit" class="attr-edit-button">...</button>
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
@@ -851,6 +869,8 @@
     <div class="atrbs-rows-left">
         <div class="input-field-attr-withname">
             <p id="dex"></p>
+            <button id="dexEdit" class="attr-edit-button">...</button>
+
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
@@ -875,6 +895,7 @@
     <div class="atrbs-rows-right">
         <div class="input-field-attr-withname">
             <p id="wis"></p>
+            <button id="wisEdit" class="attr-edit-button">...</button>
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
@@ -897,6 +918,22 @@
             </div>
         </div>
     </div>
+        <div class="atrbs-rows-left">
+        <div class="input-field-attr-withname">
+            <p id="con"></p>
+            <button id="conEdit" class="attr-edit-button">...</button>
+        </div>
+        <div class="atrbs-collumns">
+            <div class="input-field-attr">
+                <h2 id="conMod"></h2>
+            </div>
+            <div class="input-field-attr">
+                <br>
+                <output id="conSave" class="savethrow-text"></output>
+                <br>
+            </div>
+        </div>
+    </div>
     <div class="container-left-bottom">
         <div class=box-hp-top>
             <div class="input-field">
@@ -914,24 +951,10 @@
             <button class="dmg-button" id="dmg-button" name="dmg-button" onclick="hpDmgShow()">УРОН</button>
         </div>
     </div>
-    <div class="atrbs-rows-left">
-        <div class="input-field-attr-withname">
-            <p id="con"></p>
-        </div>
-        <div class="atrbs-collumns">
-            <div class="input-field-attr">
-                <h2 id="conMod"></h2>
-            </div>
-            <div class="input-field-attr">
-                <br>
-                <output id="conSave" class="savethrow-text"></output>
-                <br>
-            </div>
-        </div>
-    </div>
     <div class="atrbs-rows-right">
         <div class="input-field-attr-withname">
             <p id="cha"></p>
+            <button id="chaEdit" class="attr-edit-button">...</button>
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
