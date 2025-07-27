@@ -17,6 +17,7 @@ import ru.maleth.mythra.model.Character;
 
 @Entity
 @Table(name = "items")
+@Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
