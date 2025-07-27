@@ -12,7 +12,11 @@ import ru.maleth.mythra.repo.FileRepo;
 import ru.maleth.mythra.service.character.CharacterService;
 import ru.maleth.mythra.service.file.FileService;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @Slf4j
 @Service
@@ -38,9 +42,19 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public FileDTO findByUserNameAndCharName(String userName, String charName) {
+    public FileDTO findByUserNameAndCharName(String userName, String charName) throws IOException {
         log.info("Ищем файл по имени юзера '{}' и персонажа '{}'", userName, charName);
         File file = fileRepo.findByCharacterCharNameAnd(userName, charName);
+        try {
+            file.getName();
+        } catch (NullPointerException e) {
+            log.info("У персонажа юзера {} не было найдено аватара – выводим дефолт", userName);
+            //тут нужно сделать так, чтобы загружался впервые, а потом искался
+            file = File.builder()
+                    .name("placeholder")
+                    .content(Files.readAllBytes(Paths.get("src/main/resources/images/portait_placeholder.png")))
+                    .contentType("image/jpeg").build();
+        }
         return fileMapper.fromFile(file);
     }
 

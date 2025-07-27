@@ -40,7 +40,7 @@ public class FileController {
     @GetMapping("")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<byte[]> getFile(@PathVariable String userName,
-                                          @PathVariable String charName) {
+                                          @PathVariable String charName) throws IOException {
         log.info("Получен запрос на получение файла персонажа '{}'", charName);
         FileDTO fileDTO = fileService.findByUserNameAndCharName(userName, charName);
         return ResponseEntity.ok()

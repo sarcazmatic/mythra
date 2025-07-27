@@ -9,7 +9,7 @@ public interface FileService {
 
     void save(MultipartFile mpFile, String userName, String charName) throws IOException;
 
-    FileDTO findByUserNameAndCharName(String userName, String charName);
+    FileDTO findByUserNameAndCharName(String userName, String charName) throws IOException;
 
 
 }
