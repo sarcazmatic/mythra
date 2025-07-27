@@ -15,8 +15,6 @@ import ru.maleth.mythra.service.file.FileService;
 
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @Data

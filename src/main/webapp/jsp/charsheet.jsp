@@ -487,9 +487,37 @@
     var userName = document.getElementById("user-name").innerText;
     var charName = document.getElementById("char-name").innerText;
     var charId = document.getElementById("char-id").innerText;
+
+    const form = document.getElementById('imgForm');
+    document.getElementById('avatarLoader').addEventListener('change', button_clicker)
+    //при изменении input value (например, файл появился для аватарки) срабатывается button clicker
+
+    function inputFile() {
+        document.getElementById('avatarLoader').click()
+        //при клике открывается окно выбора файла так как avatarLoader – input type file
+    }
+
+    function button_clicker(evt) {
+        evt.preventDefault();
+        uploadFiles();
+    }
+
+    function uploadFiles() {
+        const userName = document.getElementById('user-name').innerText
+        const charName = document.getElementById('char-name').innerText
+        const url = '/file/' + userName + '/' + charName + '/upload';
+        const method = 'post';
+        const xhr = new XMLHttpRequest();
+        const data = new FormData(form);
+        xhr.open(method, url);
+        xhr.send(data);
+        xhr.onload = function () {
+            location.reload()
+        }
+    }
+
     var expModal = document.getElementById("expModal");
     var expButton = document.getElementById("sec-exp-button");
-
     var incomingExp;
     var currentExperience = document.getElementById("expNumber");
 
@@ -530,32 +558,6 @@
 
     function renderExp(data) {
         currentExperience.innerText = data.experience;
-    }
-
-    function inputFile() {
-        document.getElementById('avatarLoader').click()
-    }
-
-    const form = document.getElementById('imgForm');
-    document.getElementById('avatarLoader').addEventListener('change', button_clicker, true)
-
-    function button_clicker(evt) {
-        evt.preventDefault();
-        uploadFiles();
-    }
-
-    function uploadFiles() {
-        const userName = document.getElementById('user-name').innerText
-        const charName = document.getElementById('char-name').innerText
-        const url = '/file/' + userName + '/' + charName + '/upload';
-        const method = 'post';
-        const xhr = new XMLHttpRequest();
-        const data = new FormData(form);
-        xhr.open(method, url);
-        xhr.send(data);
-        xhr.onload = function () {
-            location.reload()
-        }
     }
 
 </script>
@@ -1161,8 +1163,8 @@
     var persSkill = document.getElementById("persSkill");
 
 
-    window.onload = loadHP();
     window.onload = loadImg();
+    window.onload = loadHP();
     window.onload = loadAttrsAndSkills();
 
     function loadHP() {

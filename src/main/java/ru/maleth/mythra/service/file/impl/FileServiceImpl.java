@@ -26,6 +26,12 @@ public class FileServiceImpl implements FileService {
     @Override
     public void save(MultipartFile mpFile, String userName, String charName) throws IOException {
         File file = fileMapper.fromMPFile(mpFile);
+        try {
+            File fileToChange = fileRepo.findByCharacterCharNameAnd(userName, charName);
+            file.setId(fileToChange.getId());
+        } catch (NullPointerException e) {
+            log.info("У персонажа юзера {} не было найдено аватара – ставим впервые", userName);
+        }
         Character character = characterService.findByUserNameAndCharName(userName, charName);
         file.setCharacter(character);
         fileRepo.save(file);
