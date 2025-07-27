@@ -1,4 +1,4 @@
-package ru.maleth.mythra.model;
+package ru.maleth.mythra.model.items;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,10 +13,10 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import ru.maleth.mythra.enums.ItemTypeEnum;
 import ru.maleth.mythra.enums.SlotEnum;
+import ru.maleth.mythra.model.Character;
 
 @Entity
 @Table(name = "items")
-@Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
@@ -29,10 +29,8 @@ public class Item {
     private Long weight;
     private SlotEnum slot;
     private ItemTypeEnum type;
-    private Integer numberOfDice;
-    private Integer qualityOfDice;
-    private Integer armor;
     private Integer numberOfUses;
+    private Integer enchantment;
     @ManyToOne
     @JoinColumn(name = "character_id")
     private Character character;

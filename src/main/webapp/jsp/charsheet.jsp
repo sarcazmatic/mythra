@@ -1176,6 +1176,7 @@
         img.class = "img-class"
         img.id = "avatar"
         img.alt = "avatar"
+        img.setAttribute("style", "object-fit: cover")
         img.setAttribute("onclick", "inputFile()")
         document.getElementById('imgForm').appendChild(img);
         renderImg(img)
@@ -1183,8 +1184,8 @@
 
     function renderImg(img) {
         var host = window.location.protocol
-        img.width = "251"
-        img.height = "251"
+        img.width = "265"
+        img.height = "265"
         img.src = host + "/file/" + userName + "/" + charName
     }
 
