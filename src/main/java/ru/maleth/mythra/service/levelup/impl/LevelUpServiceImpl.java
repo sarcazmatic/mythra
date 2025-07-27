@@ -10,7 +10,6 @@ import ru.maleth.mythra.enums.ProfEnum;
 import ru.maleth.mythra.model.CharClass;
 import ru.maleth.mythra.model.CharClassLevel;
 import ru.maleth.mythra.model.Character;
-import ru.maleth.mythra.model.Proficiency;
 import ru.maleth.mythra.repo.CharClassLevelRepo;
 import ru.maleth.mythra.repo.CharacterRepo;
 import ru.maleth.mythra.repo.ClassesRepo;

@@ -52,7 +52,7 @@ public class UpdateController {
 
     @PutMapping("/updateAttributes")
     @ResponseStatus(HttpStatus.OK)
-    public void updateAttributes(@RequestBody AttributesRaiserDTO attributesRaiserDTO) {
+    public void updAttributes(@RequestBody AttributesRaiserDTO attributesRaiserDTO) {
         log.info("Пришел запрос на повышение характеристик персонажа с id {} '{}'. Меняем: {}",
                 attributesRaiserDTO.getCharId(),
                 attributesRaiserDTO.getCharName(),
