@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -49,11 +50,12 @@ public class FileServiceImpl implements FileService {
             file.getName();
         } catch (NullPointerException e) {
             log.info("У персонажа юзера {} не было найдено аватара – выводим дефолт", userName);
-            //тут нужно сделать так, чтобы загружался впервые, а потом искался
             file = File.builder()
+                    .id(1L)
                     .name("placeholder")
                     .content(Files.readAllBytes(Paths.get("src/main/resources/images/portait_placeholder.png")))
-                    .contentType("image/jpeg").build();
+                    .contentType("image/jpeg")
+                    .build();;
         }
         return fileMapper.fromFile(file);
     }
