@@ -145,9 +145,11 @@ public class LevelUpServiceImpl implements LevelUpService {
         log.info("Изменяем поле 'уровень' класса персонажа '{}' в таблице Персонаж-Класс-Уровень c '{}' до '{}'", ccl.getCharClass().getName(), ccl.getClassLevel() - 1, ccl.getClassLevel());
         character.setIsLevelUpReady(false);
         log.info("Меняем запись в таблице персонажа '{}' isLevelUpReady на false (assert: {})", character.getCharName(), character.getIsLevelUpReady());
-        if (ccl.getCharClass().getName().equals("WARRIOR") && (ccl.getClassLevel()==4
-                || ccl.getClassLevel()==6 || ccl.getClassLevel()==8 || ccl.getClassLevel()==12
-                || ccl.getClassLevel()==14 || ccl.getClassLevel()==16 || ccl.getClassLevel()==19)) {
+        if (ccl.getCharClass().getName().equals("WARRIOR")
+                && (ccl.getClassLevel() % 4 == 0 && ccl.getClassLevel() != 20
+                || ccl.getClassLevel() == 19
+                || ccl.getClassLevel() == 6
+                || ccl.getClassLevel() == 14)){
             character.setIsFeatOrStatsReady(true);
             log.info("Проверяем на соответствие классу WARRIOR. Текущий класс -- '{}'. Проверяем уровень -- '{}'. При верном ставим готовность на true (assert '{}')", ccl.getCharClass().getName(), ccl.getClassLevel(), character.getIsFeatOrStatsReady());
         } else if (ccl.getClassLevel() % 4 == 0 && ccl.getClassLevel() != 20 || ccl.getClassLevel() == 19) {
