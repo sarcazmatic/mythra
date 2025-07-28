@@ -74,12 +74,11 @@ public class LevelUpServiceImpl implements LevelUpService {
         Map<String, String> attributes = new HashMap<>();
         Character character = characterRepo.findByCreator_NameAndCharName(userName, charName).orElseThrow(()
                 -> new RuntimeException("Не нашли персонажа в таблице Персонажи по имени " + charName));
-        log.info("Проверяем, готов ли персонаж '{}' к повышению навыков или выбору фита -- {}", charName, character.getIsFeatOrStatsReady());
-        if (!character.getIsFeatOrStatsReady()) {
+        if (Boolean.FALSE.equals(character.getIsFeatOrStatsReady())) {
             return null;
         }
+        log.info("Проверяем, готов ли персонаж '{}' к повышению навыков или выбору фита -- {}", charName, character.getIsFeatOrStatsReady());
         List<CharClassLevel> charClasses = charClassLevelRepo.findAllByCharacter_IdOrderByCharClass(character.getId());
-
         StringBuilder charClassesStringBuilder = new StringBuilder();
         if (charClasses.size() > 1) {
             charClassesStringBuilder.append(ClassEnum.valueOf(charClasses.get(0).getCharClass().getName()).getName());
@@ -149,7 +148,7 @@ public class LevelUpServiceImpl implements LevelUpService {
                 && (ccl.getClassLevel() % 4 == 0 && ccl.getClassLevel() != 20
                 || ccl.getClassLevel() == 19
                 || ccl.getClassLevel() == 6
-                || ccl.getClassLevel() == 14)){
+                || ccl.getClassLevel() == 14)) {
             character.setIsFeatOrStatsReady(true);
             log.info("Проверяем на соответствие классу WARRIOR. Текущий класс -- '{}'. Проверяем уровень -- '{}'. При верном ставим готовность на true (assert '{}')", ccl.getCharClass().getName(), ccl.getClassLevel(), character.getIsFeatOrStatsReady());
         } else if (ccl.getClassLevel() % 4 == 0 && ccl.getClassLevel() != 20 || ccl.getClassLevel() == 19) {

@@ -153,7 +153,8 @@ public class CharacterServiceImpl implements CharacterService {
                 }
             }
         }
-        
+
+        attrsAndSkills.put("featReady", String.valueOf(character.getIsFeatOrStatsReady()));
         attrsAndSkills.put("initiative", formatMods(character.getInitiative()));
         attrsAndSkills.put("strength", String.valueOf(strength));
         attrsAndSkills.put("strengthmod", formatMods(CharacterCalculator.calculateAttributeModifier(strength)));

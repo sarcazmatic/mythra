@@ -1185,7 +1185,6 @@
     var decSkill = document.getElementById("decSkill");
     var persSkill = document.getElementById("persSkill");
 
-
     window.onload = loadImg();
     window.onload = loadHP();
     window.onload = loadAttrsAndSkills();
@@ -1229,6 +1228,10 @@
     }
 
     function updateFields(responseData) {
+        if (responseData.featReady === "true") {
+            var host = window.location.protocol
+            window.location.replace(host + "/" + userName + "/" + charName + "/raiseattributes");
+        }
         currentStr.innerText = "Сила: " +responseData.strength;
         currentStrMod.innerText = responseData.strengthmod;
         currentStrSave.innerText = responseData.strengthsave + " Спасбросок";

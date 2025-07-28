@@ -158,17 +158,8 @@
             "charClassToLevelUp": classToLevelUp
         });
         ourRequest.send(newBody);
-        var levelToLevelUp = parseInt(arrayWithClassesAndLevels[i + 1]) + 1;
-        if ((classToLevelUp !== "Воин") && (levelToLevelUp % 4 === 0 && levelToLevelUp !== 20 || levelToLevelUp === 19)) {
-            document.getElementById('class-choice-form').method = "get";
-            document.getElementById('class-choice-form').action = "raiseattributes";
-        } else if ((classToLevelUp === "Воин") && (levelToLevelUp % 4 === 0 && levelToLevelUp !== 20 || levelToLevelUp === 19 || levelToLevelUp === 14 || levelToLevelUp === 6)) {
-            document.getElementById('class-choice-form').method = "get";
-            document.getElementById('class-choice-form').action = "raiseattributes";
-        } else {
-            document.getElementById('class-choice-form').method = "get";
-            document.getElementById('class-choice-form').action = "charsheet";
-        }
+        document.getElementById('class-choice-form').method = "get";
+        document.getElementById('class-choice-form').action = "charsheet";
     }
 
     async function multiClass(k) {
