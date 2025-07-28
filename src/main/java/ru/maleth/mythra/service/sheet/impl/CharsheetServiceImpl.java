@@ -205,6 +205,8 @@ public class CharsheetServiceImpl implements CharsheetService {
                 case "charisma" -> character.setCharisma(character.getCharisma()+1);
             }
         }
+        character.setIsFeatOrStatsReady(false);
+        log.info("Убираем флаг повышения атрибутов для персонажа '{}' -- assert false ('{}')", character.getCharName(), character.getIsFeatOrStatsReady());
         characterRepo.save(character);
     }
 

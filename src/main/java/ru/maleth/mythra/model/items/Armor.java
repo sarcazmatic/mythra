@@ -14,5 +14,6 @@ import lombok.RequiredArgsConstructor;
 public class Armor extends Item {
 
     private Integer armor;
+    private Boolean stealthDisadvantage;
 
 }

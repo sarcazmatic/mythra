@@ -222,6 +222,7 @@ public class CharacterCreationServiceImpl implements CharacterCreationService {
                 .currentHP(characterFullDto.getHitPoints())
                 .experience(0)
                 .isLevelUpReady(false)
+                .isFeatOrStatsReady(false)
                 .armorClass(10 + CharacterCalculator.calculateAttributeModifier(characterFullDto.getDexterity()))
                 .initiative(CharacterCalculator.calculateAttributeModifier(characterFullDto.getDexterity()))
                 .proficiencies(proficiencies)

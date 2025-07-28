@@ -57,5 +57,6 @@ public class Character {
     private User creator;
     @Column(name = "is_level_up_ready")
     private Boolean isLevelUpReady;
-
+    @Column(name = "is_feat_or_stats_ready")
+    private Boolean isFeatOrStatsReady;
 }
