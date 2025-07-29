@@ -206,7 +206,7 @@ public class CharsheetServiceImpl implements CharsheetService {
             }
         }
         character.setIsFeatOrStatsReady(false);
-        log.info("Убираем флаг повышения атрибутов для персонажа '{}' -- assert false ('{}')", character.getCharName(), character.getIsFeatOrStatsReady());
+        log.info("Убираем флаг повышения атрибутов для персонажа '{}' -- assert false == ('{}')", character.getCharName(), character.getIsFeatOrStatsReady());
         characterRepo.save(character);
     }
 

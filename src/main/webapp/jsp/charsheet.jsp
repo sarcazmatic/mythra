@@ -354,6 +354,20 @@
             border-bottom: solid 1px #444;
         }
 
+        .input-item-withname {
+            overflow-y: scroll;
+            scrollbar-width: none;
+            justify-content: space-between;
+        }
+
+        .items-rows {
+            display: grid;
+            text-align: left;
+            grid-template-rows: 35% 31% 30%;
+            row-gap: 7px;
+            padding-bottom: 1%;
+        }
+
         .input-field-attr {
             height: 115px;
             font-size: medium;
@@ -391,8 +405,8 @@
             display: grid;
             padding-left: 1.15%;
             position: absolute;
-            grid-template-columns: 48% 48%;
-            column-gap: 4%;
+            grid-template-rows: 15% 80%;
+            row-gap: normal;
             top: 39.5%;
             left: 57%;
             width: 35%;
@@ -402,6 +416,18 @@
             border-radius: 10px;
             border: solid 1px #444;
         }
+
+        .item-input-class {
+            margin-top: 3px;
+            margin-bottom: 3px;
+            margin-left: 2px;
+            height: available;
+            width: 65%;
+            padding-left: 10px;
+            border-radius: 6px;
+            border: solid 1px #444;
+        }
+
 
         .conditions-columns {
             display: grid;
@@ -437,6 +463,26 @@
         }
 
         .weapons-column-output {
+        }
+
+        .item-output {
+            align-self: end;
+        }
+
+        .inventory-add-button {
+            align-self: stretch;
+            margin-right: 4px;
+            margin-top: 4px;
+            margin-bottom: 4px;
+            font-size: medium;
+            width: 3em;
+            font-family: 'Philosopher', cursive;
+            background-color: #222;
+            border: solid 1px #444;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
     </style>
@@ -506,6 +552,7 @@
 
     const form = document.getElementById('imgForm');
     document.getElementById('avatarLoader').addEventListener('change', button_clicker)
+
     //при изменении input value (например, файл появился для аватарки) срабатывается button clicker
 
     function inputFile() {
@@ -918,7 +965,7 @@
             </div>
         </div>
     </div>
-        <div class="atrbs-rows-left">
+    <div class="atrbs-rows-left">
         <div class="input-field-attr-withname">
             <p id="con"></p>
             <button id="conEdit" class="attr-edit-button">...</button>
@@ -1073,67 +1120,120 @@
 </div>
 
 <div class="container-third-left-bottom">
-    <div class="conditions-columns">
-        <div class="conditions-input">
-            <output style="display: inline-block;align-self: center">Без сознания</output>
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Невидимость
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Окаменение
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Отравление
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Паралич
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Испуг
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Недееспособность
-            <input type="checkbox">
-        </div>
+    <div class="input-field-attr-withname">
+        <p>Инвентарь</p>
+        <button id="itemAdd" class="inventory-add-button">+</button>
     </div>
-    <div class="conditions-columns">
-        <div class="conditions-input">
-            Путы
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Очарование
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Ничком
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Глухота
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Слепота
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            Ошеломление
-            <input type="checkbox">
-        </div>
-        <div class="conditions-input">
-            <output style="display: inline-block;align-self: center">В захвате</output>
-            <input type="checkbox">
+    <div class="input-item-withname">
+        <div class="items-rows">
+            <div class="weapons-column">
+                <div class="weapons-column-output">
+                </div>
+                <div class="weapons-column-output">
+                    Кости
+                </div>
+                <div class="weapons-column-output">
+                    Атака
+                </div>
+                <div class="weapons-column-output">
+                    Урон
+                </div>
+            </div>
+            <div class="weapons-column">
+                <div class="weapons-column-output">
+                    Секира безбашенности
+                </div>
+                <div class="weapons-column-output">
+                    2к6
+                </div>
+                <div class="weapons-column-output">
+                    +7
+                </div>
+                <div class="weapons-column-output">
+                    +3
+                </div>
+            </div>
+            <div class="weapons-column">
+                <div class="weapons-column-output">
+                    Лоботряска
+                </div>
+                <div class="weapons-column-output">
+                    2к8
+                </div>
+                <div class="weapons-column-output">
+                    +7
+                </div>
+                <div class="weapons-column-output">
+                    +3
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<%--<div class="container-third-left-bottom">--%>
+<%--    <div class="conditions-columns">--%>
+<%--        <div class="conditions-input">--%>
+<%--            <output style="display: inline-block;align-self: center">Без сознания</output>--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Невидимость--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Окаменение--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Отравление--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Паралич--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Испуг--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Недееспособность--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--    <div class="conditions-columns">--%>
+<%--        <div class="conditions-input">--%>
+<%--            Путы--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Очарование--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Ничком--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Глухота--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Слепота--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            Ошеломление--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--        <div class="conditions-input">--%>
+<%--            <output style="display: inline-block;align-self: center">В захвате</output>--%>
+<%--            <input type="checkbox">--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+
 <script>
     var userName = document.getElementById("user-name").innerText;
     var charName = document.getElementById("char-name").innerText;
@@ -1217,7 +1317,7 @@
 
     function loadAttrsAndSkills() {
         var attrsAndSkillRequest = new XMLHttpRequest()
-        var uri = "/api/attrsAndSkills/"+charId
+        var uri = "/api/attrsAndSkills/" + charId
         attrsAndSkillRequest.open('GET', uri);
         attrsAndSkillRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
         attrsAndSkillRequest.send();
@@ -1232,12 +1332,12 @@
             var host = window.location.protocol
             window.location.replace(host + "/" + userName + "/" + charName + "/raiseattributes");
         }
-        currentStr.innerText = "Сила: " +responseData.strength;
+        currentStr.innerText = "Сила: " + responseData.strength;
         currentStrMod.innerText = responseData.strengthmod;
         currentStrSave.innerText = responseData.strengthsave + " Спасбросок";
         athSkill.innerText = responseData.athletics + " Атлетика";
 
-        currentDex.innerText = "Ловкость: " +responseData.dexterity;
+        currentDex.innerText = "Ловкость: " + responseData.dexterity;
         currentDexMod.innerText = responseData.dexteritymod;
         currentDexSave.innerText = responseData.dexteritysave + " Спасбросок";
         acrSkill.innerText = responseData.acrobatics + " Акробатика"
@@ -1245,11 +1345,11 @@
         sohSkill.innerText = responseData.sleight_of_hand + " Ловкость рук";
         iniSkill.innerText = responseData.initiative + " Инициатива";
 
-        currentCon.innerText = "Телосложение: " +responseData.constitution;
+        currentCon.innerText = "Телосложение: " + responseData.constitution;
         currentConMod.innerText = responseData.constitutionmod;
         currentConSave.innerText = responseData.constitutionsave + " Спасбросок";
 
-        currentInt.innerText = "Интеллект: " +responseData.intelligence;
+        currentInt.innerText = "Интеллект: " + responseData.intelligence;
         currentIntMod.innerText = responseData.intelligencemod;
         currentIntSave.innerText = responseData.intelligencesave + " Спасбросок";
         hisSkill.innerText = responseData.history + " История";
@@ -1258,7 +1358,7 @@
         natSkill.innerText = responseData.nature + " Природа"
         relSkill.innerText = responseData.religion + " Религия"
 
-        currentWis.innerText = "Мудрость: " +responseData.wisdom;
+        currentWis.innerText = "Мудрость: " + responseData.wisdom;
         currentWisMod.innerText = responseData.wisdommod;
         currentWisSave.innerText = responseData.wisdomsave + " Спасбросок";
         percSkill.innerText = responseData.perception + " Восприятие";
@@ -1267,7 +1367,7 @@
         insSkill.innerText = responseData.insight + " Проницательность";
         anhSkill.innerText = responseData.animal_handling + " Обращение с животными";
 
-        currentCha.innerText = "Харизма: " +responseData.charisma;
+        currentCha.innerText = "Харизма: " + responseData.charisma;
         currentChaMod.innerText = responseData.charismamod;
         currentChaSave.innerText = responseData.charismasave + " Спасбросок";
         perfSkill.innerText = responseData.performance + " Выступление";

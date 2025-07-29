@@ -50,7 +50,7 @@ public class FileServiceImpl implements FileService {
         try {
             file.getName();
         } catch (NullPointerException e) {
-            log.info("У персонажа юзера {} не было найдено аватара – выводим дефолт", userName);
+            log.info("У персонажа {} не было найдено аватара – выводим дефолт", charName);
             file = File.builder()
                     .id(1L)
                     .name("placeholder")

@@ -26,7 +26,7 @@ public class UpdateController {
     @GetMapping("/charAbil/{charId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String abilityLoader(@PathVariable(name = "charId") Long charId) {
-        log.info("Пришел запрос на загрузку абилок для персонажа с id {}", charId);
+        log.info("Пришел запрос на подгрузку абилок для персонажа с id {}", charId);
         String response = charsheetService.abilityLoader(charId);
         return response;
     }
@@ -34,7 +34,7 @@ public class UpdateController {
     @GetMapping("/attrsAndSkills/{charId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String attrsAndSkillsLoader(@PathVariable(name = "charId") Long charId) {
-        log.info("Пришел запрос на загрузку атрибутов и навыков для персонажа с id {}", charId);
+        log.info("Пришел запрос на подгрузку атрибутов и навыков для персонажа с id {}", charId);
         String response = characterService.loadAttrsAndSkills(charId);
         return response;
     }
@@ -42,7 +42,7 @@ public class UpdateController {
     @PutMapping("/abilCharge")
     @ResponseStatus(HttpStatus.OK)
     public String updAbilityCharge(@RequestBody AbilityChargeModifierDTO abilityChargeModifierDto) {
-        log.info("Пришел запрос на обновление кол-ва использований персонажем с id {} абилки '{}'. Новое значение: {} единиц",
+        log.info("Пришел запрос на подгрузку кол-ва использований персонажем с id {} абилки '{}'. Новое значение: {} единиц",
                 abilityChargeModifierDto.getCharId(),
                 abilityChargeModifierDto.getAbilName(),
                 abilityChargeModifierDto.getModifier());

@@ -74,10 +74,12 @@ public class LevelUpServiceImpl implements LevelUpService {
         Map<String, String> attributes = new HashMap<>();
         Character character = characterRepo.findByCreator_NameAndCharName(userName, charName).orElseThrow(()
                 -> new RuntimeException("Не нашли персонажа в таблице Персонажи по имени " + charName));
-        if (Boolean.FALSE.equals(character.getIsFeatOrStatsReady())) {
+        log.info("Проверяем, готов ли персонаж '{}' к повышению навыков или выбору фита", charName);
+        if (!character.getIsFeatOrStatsReady()) {
+            log.info("Проверка провалена -- assert false = '{}'", character.getIsFeatOrStatsReady());
             return null;
         }
-        log.info("Проверяем, готов ли персонаж '{}' к повышению навыков или выбору фита -- {}", charName, character.getIsFeatOrStatsReady());
+        log.info("Проверка пройдена -- assert true = '{}'", character.getIsFeatOrStatsReady());
         List<CharClassLevel> charClasses = charClassLevelRepo.findAllByCharacter_IdOrderByCharClass(character.getId());
         StringBuilder charClassesStringBuilder = new StringBuilder();
         if (charClasses.size() > 1) {

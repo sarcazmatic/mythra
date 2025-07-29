@@ -60,6 +60,7 @@ public class RaceUtils {
 
     public List<CharRaceAbility> charRaceAbilityFormer(Character character) {
         Race race = character.getCharRace();
+        log.info("Собираем расовые абилки персонажа '{}' для вывода на чаршит", character.getCharName());
         return switch (race.getRaceEnum()) {
             case AARAKOCRA -> aarakocraUtils.formAbilities(character);
             case FALLEN_AASIMAR -> fallenAasimarUtils.formAbilities(character);

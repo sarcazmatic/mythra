@@ -41,12 +41,13 @@ public class ClassUtils {
 
 
     public List<CharClassAbility> charClassAbilityFormer(Character character) {
-        log.info("Собираем абилки персонажа '{}' для вывода на чаршит", character.getCharName());
+        log.info("Собираем классовые абилки персонажа '{}' для вывода на чаршит", character.getCharName());
         //в дальнейшем добавить сет классов
         List<CharClassLevel> cclList = charClassLevelRepo.findAllByCharacter_IdOrderByCharClass(character.getId());
         log.info("Собираем список классов персонажа '{}'. Кол-во классов = {}", character.getCharName(), cclList.size());
         List<CharClassAbility> charClassAbilitiesList = new ArrayList<>();
         for (CharClassLevel ccl : cclList) {
+            log.info("Собираем абилки для персонажа '{}' из класса '{}', character.getCharName()", cclList.size(), ccl.getCharClass().getName());
             switch (ccl.getCharClass().getName()) {
                 case "BARD" -> charClassAbilitiesList.addAll(bardUtils.formAbilities(ccl));
                 case "BARBARIAN" -> charClassAbilitiesList.addAll(barbarianUtils.formAbilities(ccl));
