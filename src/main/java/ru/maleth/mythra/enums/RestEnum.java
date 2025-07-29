@@ -7,7 +7,7 @@ public enum RestEnum {
 
     NONE("Не требует отдыха"),
     SHORT("Короткий отдых"),
-    LONG("Продолжительный отдых");
+    LONG("Долгий отдых");
 
     private final String name;
 

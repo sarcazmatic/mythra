@@ -196,6 +196,16 @@
             border: solid 1px #444;
         }
 
+        .container-left-bottom-bottom-skillbox {
+            display: grid;
+            height: 11em;
+            background-color: #222;
+            border-radius: 10px;
+            grid-auto-rows: max-content;
+            overflow-y: scroll;
+            scrollbar-width: none;
+        }
+
         .abilities-row {
             position: relative;
             padding: 1% 1% 1% 1%;
@@ -387,14 +397,14 @@
 
         .container-third-left {
             display: grid;
-            padding-left: 1.15%;
+            padding: 0% 1% 0% 1%;
             position: absolute;
             grid-template-rows: 15% 25% 15% 25%;
             row-gap: 5%;
             top: 2.5%;
             left: 57%;
             width: 35%;
-            height: 35%;
+            height: 32%;
             text-align: left;
             background-color: #222;
             border-radius: 10px;
@@ -403,46 +413,18 @@
 
         .container-third-left-bottom {
             display: grid;
-            padding-left: 1.15%;
+            padding: 0% 1% 0% 1%;
             position: absolute;
             grid-template-rows: 15% 80%;
             row-gap: normal;
-            top: 39.5%;
+            top: 36.5%;
             left: 57%;
             width: 35%;
-            height: 33%;
+            height: 36%;
             text-align: left;
             background-color: #222;
             border-radius: 10px;
             border: solid 1px #444;
-        }
-
-        .item-input-class {
-            margin-top: 3px;
-            margin-bottom: 3px;
-            margin-left: 2px;
-            height: available;
-            width: 65%;
-            padding-left: 10px;
-            border-radius: 6px;
-            border: solid 1px #444;
-        }
-
-
-        .conditions-columns {
-            display: grid;
-            padding-left: 1.15%;
-            grid-template-rows: 10% 10% 10% 10% 10% 10% 10%;
-            row-gap: 3%;
-            text-align: left;
-            border-radius: 10px;
-            align-content: center;
-            margin-right: 5%;
-        }
-
-        .conditions-input {
-            text-align-last: justify;
-            border-bottom: solid 1px #444;
         }
 
         .weapons-rows {
@@ -463,10 +445,6 @@
         }
 
         .weapons-column-output {
-        }
-
-        .item-output {
-            align-self: end;
         }
 
         .inventory-add-button {
@@ -744,6 +722,8 @@
         <output>Заряды</output>
         <output>Восстановление</output>
     </div>
+    <div id="abilities-prnt" class="container-left-bottom-bottom-skillbox">
+    </div>
 </div>
 
 <script>
@@ -762,12 +742,12 @@
                 var newDiv = document.createElement("div");
                 newDiv.id = "abilities-row-" + i;
                 newDiv.className = "abilities-row";
-                document.getElementById('clbb-parent').appendChild(newDiv);
+                document.getElementById('abilities-prnt').appendChild(newDiv);
                 var newDivClass = document.createElement("output");
                 newDivClass.id = "is-class-based-" + i;
                 newDivClass.innerText = ourData[i].isFromClass;
                 newDivClass.hidden = true;
-                document.getElementById('clbb-parent').appendChild(newDivClass);
+                document.getElementById('abilities-prnt').appendChild(newDivClass);
                 var newDiv1 = document.createElement("output");
                 newDiv1.id = "ability-name-" + i;
                 newDiv1.style.textAlign = "center";
