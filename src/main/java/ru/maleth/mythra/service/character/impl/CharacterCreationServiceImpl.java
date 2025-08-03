@@ -14,7 +14,6 @@ import ru.maleth.mythra.utility.CharacterCalculator;
 import ru.maleth.mythra.service.character.CharacterCreationService;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +25,7 @@ public class CharacterCreationServiceImpl implements CharacterCreationService {
     private final ClassesRepo classesRepo;
     private final ProficiencyRepo proficiencyRepo;
     private final CharClassLevelRepo charClassLevelRepo;
+    private final CustomEditsRepo customEditsRepo;
     private final UserRepo userRepo;
 
 
@@ -205,7 +205,10 @@ public class CharacterCreationServiceImpl implements CharacterCreationService {
         Тут находим юзера по имени, переданному из контроера
         */
         User user = userRepo.findByName(userName).orElseThrow(() -> new RuntimeException("Нет такого юзера"));
-
+        Set<CustomEdits> customEdits = new HashSet<>();
+        for (CustomEditEnum cee : CustomEditEnum.values()) {
+            customEdits.add(customEditsRepo.save(CustomEdits.builder().name(cee).modificator(0).build()));
+        }
         /*
         Ну и создаем персонажа через @Builder
         */
@@ -228,6 +231,7 @@ public class CharacterCreationServiceImpl implements CharacterCreationService {
                 .proficiencies(proficiencies)
                 .creator(user)
                 .mainClass(charClass)
+                .customEdits(customEdits)
                 .build());
         CharClassLevel charClassLevel = CharClassLevel.builder()
                 .character(character)

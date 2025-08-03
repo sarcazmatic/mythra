@@ -59,4 +59,9 @@ public class Character {
     private Boolean isLevelUpReady;
     @Column(name = "is_feat_or_stats_ready")
     private Boolean isFeatOrStatsReady;
+    @ManyToMany
+    @JoinTable(name = "characters_custom_edits",
+            joinColumns = {@JoinColumn(name = "fk_character")},
+            inverseJoinColumns = {@JoinColumn(name = "fk_custom_edit")})
+    private Set<CustomEdits> customEdits;
 }
