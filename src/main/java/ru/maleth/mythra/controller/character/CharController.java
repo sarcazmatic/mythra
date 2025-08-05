@@ -102,4 +102,11 @@ public class CharController {
         return attributes.get(PAGE);
     }
 
+    @GetMapping("/manual")
+    @ResponseStatus(HttpStatus.OK)
+    public String manualEdit(@PathVariable("name") String userName, @PathVariable("charName") String charName, Model model) {
+        log.info("Пришел запрос на ручную обработку атрибутов и навыков персонажа {}", charName);
+        return "manual";
+    }
+
 }

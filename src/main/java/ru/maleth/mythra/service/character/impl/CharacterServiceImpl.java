@@ -116,13 +116,20 @@ public class CharacterServiceImpl implements CharacterService {
         List<AttribEnum> savingThrows = new ArrayList<>();
         savingThrows.add(character.getMainClass().getSavingThrowOne());
         savingThrows.add(character.getMainClass().getSavingThrowTwo());
-
+        /*
+        Собираем список СпБ, в которых персонаж профиш
+        */
         List<AttribEnum> allSavingThrows = Arrays.stream(AttribEnum.values()).toList();
+        /*
+        Собираем список вообще всех возможных СпБ.
+        */
 
         for (AttribEnum s : allSavingThrows) {
             if (savingThrows.contains(s)) {
-                AttribEnum baseAttrib = AttribEnum.getAttribByName(s.getName());
-                switch (baseAttrib.toString()) {
+                /*
+                Если СпБ из общего списка есть в СпБ персонажа, ему присваивается базовое значение атрибута + мастерство.
+                 */
+                switch (s.toString()) {
                     case "STRENGTH" -> attrsAndSkills.put(s.toString().toLowerCase() + "save",
                             formatMods(CharacterCalculator.calculateAttributeModifier(strength) + CharacterCalculator.getProfBonus(character.getExperience())));
                     case "DEXTERITY" -> attrsAndSkills.put(s.toString().toLowerCase() + "save",
@@ -139,8 +146,7 @@ public class CharacterServiceImpl implements CharacterService {
                 }
             } else {
                 /*
-                Если навык из общего списка отсутствует в специализациях персонажа, ему присваивается базовое значение.
-                И засовывается в мапу. Формат навыка, который отправляется в мапу в итоге получается sleight_of_hand.
+                Если СпБ из общего списка отсутствует в СпБ персонажа, ему присваивается базовое значение атрибута.
                  */
                 switch (s.toString()) {
                     case "STRENGTH" ->

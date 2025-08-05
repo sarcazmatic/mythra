@@ -852,7 +852,6 @@
     <div class="atrbs-rows-left">
         <div class="input-field-attr-withname">
             <p id="str"></p>
-            <button id="strEdit" class="attr-edit-button">...</button>
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
@@ -870,7 +869,7 @@
     <div class="atrbs-rows-right">
         <div class="input-field-attr-withname">
             <p id="int"></p>
-            <button id="intEdit" class="attr-edit-button">...</button>
+            <button id="atrEdit" class="attr-edit-button" onclick="loadCustomEdits()">...</button>
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
@@ -896,8 +895,6 @@
     <div class="atrbs-rows-left">
         <div class="input-field-attr-withname">
             <p id="dex"></p>
-            <button id="dexEdit" class="attr-edit-button">...</button>
-
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
@@ -922,7 +919,6 @@
     <div class="atrbs-rows-right">
         <div class="input-field-attr-withname">
             <p id="wis"></p>
-            <button id="wisEdit" class="attr-edit-button">...</button>
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
@@ -948,7 +944,6 @@
     <div class="atrbs-rows-left">
         <div class="input-field-attr-withname">
             <p id="con"></p>
-            <button id="conEdit" class="attr-edit-button">...</button>
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
@@ -981,7 +976,6 @@
     <div class="atrbs-rows-right">
         <div class="input-field-attr-withname">
             <p id="cha"></p>
-            <button id="chaEdit" class="attr-edit-button">...</button>
         </div>
         <div class="atrbs-collumns">
             <div class="input-field-attr">
@@ -1003,6 +997,19 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    var userName = document.getElementById("user-name").innerText;
+    var charName = document.getElementById("char-name").innerText;
+
+    function loadCustomEdits() {
+        var host = window.location.protocol
+        var urlAddress = host + "/" + userName + "/" + charName + "/manual"
+        window.location.replace(urlAddress)
+    }
+
+</script>
 
 <div class="container-third-left">
     <div class="input-field-attr-withname">
