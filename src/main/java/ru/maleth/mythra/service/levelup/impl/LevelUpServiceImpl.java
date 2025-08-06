@@ -139,12 +139,18 @@ public class LevelUpServiceImpl implements LevelUpService {
         Character character = characterRepo.findByCreator_NameAndCharName(userName, charName).orElseThrow(()
                 -> new RuntimeException("Не нашли персонажа в таблице Персонажи по имени " + charName));
         Map<String, Integer> characterCustomeEdits = character.getCustomEdits().stream().collect(Collectors.toMap(p -> p.getName().toString(), p -> p.getModificator()));
-        attributes.put("attribStr", String.valueOf(character.getStrength()+characterCustomeEdits.get("STRENGTH")));
-        attributes.put("attribDex", String.valueOf(character.getDexterity()+characterCustomeEdits.get("DEXTERITY")));
-        attributes.put("attribCon", String.valueOf(character.getConstitution()+characterCustomeEdits.get("CONSTITUTION")));
-        attributes.put("attribInt", String.valueOf(character.getIntelligence()+characterCustomeEdits.get("INTELLIGENCE")));
-        attributes.put("attribWis", String.valueOf(character.getWisdom()+characterCustomeEdits.get("WISDOM")));
-        attributes.put("attribCha", String.valueOf(character.getCharisma()+characterCustomeEdits.get("CHARISMA")));
+        attributes.put("attribStr", String.valueOf(character.getStrength() + characterCustomeEdits.get("STRENGTH")));
+        attributes.put("attribStrMan", String.valueOf(characterCustomeEdits.get("STRENGTH")));
+        attributes.put("attribDex", String.valueOf(character.getDexterity() + characterCustomeEdits.get("DEXTERITY")));
+        attributes.put("attribDexMan", String.valueOf(characterCustomeEdits.get("DEXTERITY")));
+        attributes.put("attribCon", String.valueOf(character.getConstitution() + characterCustomeEdits.get("CONSTITUTION")));
+        attributes.put("attribConMan", String.valueOf(characterCustomeEdits.get("CONSTITUTION")));
+        attributes.put("attribInt", String.valueOf(character.getIntelligence() + characterCustomeEdits.get("INTELLIGENCE")));
+        attributes.put("attribIntMan", String.valueOf(characterCustomeEdits.get("INTELLIGENCE")));
+        attributes.put("attribWis", String.valueOf(character.getWisdom() + characterCustomeEdits.get("WISDOM")));
+        attributes.put("attribWisMan", String.valueOf(characterCustomeEdits.get("WISDOM")));
+        attributes.put("attribCha", String.valueOf(character.getCharisma() + characterCustomeEdits.get("CHARISMA")));
+        attributes.put("attribChaMan", String.valueOf(characterCustomeEdits.get("CHARISMA")));
         attributes.put(PAGE, "manual");
         return attributes;
     }

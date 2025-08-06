@@ -93,38 +93,44 @@
         <div id="attributes">
             <div class="field-row" data-name="Сила">
                 <span>Сила</span>
+                <output>${attribStr}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribStr}" />
+                <input type="number" value="${attribStrMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Ловкость">
                 <span>Ловкость</span>
+                <output>${attribDex}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribDex}" />
+                <input type="number" value="${attribDexMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Телосложение">
                 <span>Телосложение</span>
+                <output>${attribCon}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribCon}" />
+                <input type="number" value="${attribConMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Интеллект">
                 <span>Интеллект</span>
+                <output>${attribInt}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribInt}" />
+                <input type="number" value="${attribIntMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Мудрость">
                 <span>Мудрость</span>
+                <output>${attribWis}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribWis}" />
+                <input type="number" value="${attribWisMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Харизма">
                 <span>Харизма</span>
+                <output>${attribCha}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribCha}" />
+                <input type="number" value="${attribChaMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
         </div>
@@ -256,7 +262,9 @@
 <script>
     function changeValue(button, delta) {
         const input = button.parentElement.querySelector('input'); <%-- тут у нас, значит, он выискивыает родителя у элемента button и уже родителя ищет блок input  --%>
+        const output = button.parentElement.querySelector('output');
         input.value = parseInt(input.value) + delta;
+        output.value = parseInt(output.value) + delta;
     }
 
     function updateAttributes() {
