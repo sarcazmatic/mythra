@@ -106,7 +106,9 @@ public class CharController {
     @ResponseStatus(HttpStatus.OK)
     public String manualEdit(@PathVariable("name") String userName, @PathVariable("charName") String charName, Model model) {
         log.info("Пришел запрос на ручную обработку атрибутов и навыков персонажа {}", charName);
-        return "manual";
+        Map<String, String> manualEdit = levelUpService.formManualEdit(userName, charName);
+        model.addAllAttributes(manualEdit);
+        return manualEdit.get(PAGE);
     }
 
 }

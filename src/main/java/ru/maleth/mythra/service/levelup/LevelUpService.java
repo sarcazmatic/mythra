@@ -13,6 +13,8 @@ public interface LevelUpService {
 
     Map<String, String> formCompetencePage(String userName, String charName);
 
+    Map<String, String> formManualEdit(String userName, String charName);
+
     void levelUp(CharClassToLevelUpDTO charClassToLevelUp);
 
     void multiClass(CharClassToLevelUpDTO charClassToLevelUp);

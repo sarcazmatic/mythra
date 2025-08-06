@@ -5,11 +5,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.maleth.mythra.dto.CharClassToLevelUpDTO;
+import ru.maleth.mythra.enums.AttribEnum;
 import ru.maleth.mythra.enums.ClassEnum;
 import ru.maleth.mythra.enums.ProfEnum;
 import ru.maleth.mythra.model.CharClass;
 import ru.maleth.mythra.model.CharClassLevel;
 import ru.maleth.mythra.model.Character;
+import ru.maleth.mythra.model.CustomEdits;
 import ru.maleth.mythra.repo.CharClassLevelRepo;
 import ru.maleth.mythra.repo.CharacterRepo;
 import ru.maleth.mythra.repo.ClassesRepo;
@@ -20,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -128,6 +132,22 @@ public class LevelUpServiceImpl implements LevelUpService {
         return attributes;
     }
 
+    @Override
+    public Map<String, String> formManualEdit(String userName, String charName) {
+        log.info("Создаем страницу для ручной корректировки атрибутов и навыков персонажа '{}'", charName);
+        Map<String, String> attributes = new HashMap<>();
+        Character character = characterRepo.findByCreator_NameAndCharName(userName, charName).orElseThrow(()
+                -> new RuntimeException("Не нашли персонажа в таблице Персонажи по имени " + charName));
+        Map<String, Integer> characterCustomeEdits = character.getCustomEdits().stream().collect(Collectors.toMap(p -> p.getName().toString(), p -> p.getModificator()));
+        attributes.put("attribStr", String.valueOf(character.getStrength()+characterCustomeEdits.get("STRENGTH")));
+        attributes.put("attribDex", String.valueOf(character.getDexterity()+characterCustomeEdits.get("DEXTERITY")));
+        attributes.put("attribCon", String.valueOf(character.getConstitution()+characterCustomeEdits.get("CONSTITUTION")));
+        attributes.put("attribInt", String.valueOf(character.getIntelligence()+characterCustomeEdits.get("INTELLIGENCE")));
+        attributes.put("attribWis", String.valueOf(character.getWisdom()+characterCustomeEdits.get("WISDOM")));
+        attributes.put("attribCha", String.valueOf(character.getCharisma()+characterCustomeEdits.get("CHARISMA")));
+        attributes.put(PAGE, "manual");
+        return attributes;
+    }
 
     @Override
     public void levelUp(CharClassToLevelUpDTO charClassToLevelUp) {

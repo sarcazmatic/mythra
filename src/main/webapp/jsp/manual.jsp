@@ -94,37 +94,37 @@
             <div class="field-row" data-name="Сила">
                 <span>Сила</span>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${attribStr}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Ловкость">
                 <span>Ловкость</span>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${attribDex}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Телосложение">
                 <span>Телосложение</span>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${attribCon}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Интеллект">
                 <span>Интеллект</span>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${attribInt}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Мудрость">
                 <span>Мудрость</span>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${attribWis}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Харизма">
                 <span>Харизма</span>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${attribCha}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
         </div>
