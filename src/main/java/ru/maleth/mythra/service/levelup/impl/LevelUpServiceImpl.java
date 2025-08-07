@@ -139,6 +139,9 @@ public class LevelUpServiceImpl implements LevelUpService {
         Character character = characterRepo.findByCreator_NameAndCharName(userName, charName).orElseThrow(()
                 -> new RuntimeException("Не нашли персонажа в таблице Персонажи по имени " + charName));
         Map<String, Integer> characterCustomeEdits = character.getCustomEdits().stream().collect(Collectors.toMap(p -> p.getName().toString(), p -> p.getModificator()));
+        attributes.put("charId", String.valueOf(character.getId()));
+        attributes.put("charName", charName);
+        attributes.put("userName", userName);
         attributes.put("attribStr", String.valueOf(character.getStrength() + characterCustomeEdits.get("STRENGTH")));
         attributes.put("attribStrMan", String.valueOf(characterCustomeEdits.get("STRENGTH")));
         attributes.put("attribDex", String.valueOf(character.getDexterity() + characterCustomeEdits.get("DEXTERITY")));

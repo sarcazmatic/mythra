@@ -88,6 +88,9 @@
 <body>
 
 <div class="flex-container">
+    <p id="user-name" hidden>${userName}</p>
+    <p id="char-name" hidden>${charName}</p>
+    <p id="char-id" hidden>${charId}</p>
     <div class="section">
         <h2>Редактирование атрибутов</h2>
         <div id="attributes">
@@ -260,6 +263,13 @@
 </div>
 
 <script>
+    var userName = document.getElementById("user-name").innerText;
+    var charName = document.getElementById("char-name").innerText;
+    var charId = document.getElementById("char-id").innerText;
+    var uriText = "/api/manualEdit/" + charId;
+    const urlChar = '/' + userName + '/' + charName + '/charsheet';
+
+
     function changeValue(button, delta) {
         const input = button.parentElement.querySelector('input'); <%-- тут у нас, значит, он выискивыает родителя у элемента button и уже родителя ищет блок input  --%>
         const output = button.parentElement.querySelector('output');
@@ -275,8 +285,15 @@
             const value = row.querySelector('input').value;
             result[name] = value;
         });
-        console.log("Атрибуты:", result);
-        alert("Атрибуты обновлены!");
+        const xhr = new XMLHttpRequest()
+        const data = attrs;
+        console.log(uriText)
+        console.log(result)
+        xhr.open('PUT', uriText)
+        xhr.send(data)
+        xhr.onload = function () {
+            location.replace(urlChar)
+        }
     }
 
     function updateSkills() {
