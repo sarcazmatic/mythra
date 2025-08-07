@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.maleth.mythra.enums.AttribEnum;
 import ru.maleth.mythra.enums.ProfEnum;
+import ru.maleth.mythra.model.CharCustomEdits;
 import ru.maleth.mythra.model.Character;
-import ru.maleth.mythra.model.Proficiency;
 import ru.maleth.mythra.repo.CharacterRepo;
+import ru.maleth.mythra.repo.CustomEditsRepo;
 import ru.maleth.mythra.service.character.CharacterService;
 import ru.maleth.mythra.utility.CharacterCalculator;
 
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 public class CharacterServiceImpl implements CharacterService {
 
     private final CharacterRepo characterRepo;
+    private final CustomEditsRepo customEditsRepo;
     private final Gson gson = new Gson();
 
     @Override
@@ -34,7 +37,7 @@ public class CharacterServiceImpl implements CharacterService {
         log.info("Собираем атрибуты и навыки для персонажа с id {}", charId);
         Character character = characterRepo.findById(charId).get();
         Map<String, String> attrsAndSkills = new HashMap<>();
-        Map<String, Integer> characterCustomeEdits = character.getCustomEdits().stream().collect(Collectors.toMap(p -> p.getName().toString(), p -> p.getModificator()));
+        Map<String, Integer> characterCustomeEdits = customEditsRepo.findAllByCharacterId(charId).stream().collect(Collectors.toMap(p -> p.getCustomEdits().toString(), CharCustomEdits::getModificator));
 
         int strength = character.getStrength() + characterCustomeEdits.get("STRENGTH");
         int dexterity = character.getDexterity() + characterCustomeEdits.get("DEXTERITY");
@@ -182,6 +185,25 @@ public class CharacterServiceImpl implements CharacterService {
         attrsAndSkills.put("charismamod", formatMods(CharacterCalculator.calculateAttributeModifier(charisma)));
         String result = gson.toJson(attrsAndSkills);
         return result;
+    }
+
+    @Override
+    @Transactional
+    public void attrManualEdit(Long charId, Map<String, Integer> manualEdits) {
+        log.info("Обновляем атрибуты для персонажа с id {}", charId);
+        Set<CharCustomEdits> customEdits = customEditsRepo.findAllByCharacterId(charId);
+        for (CharCustomEdits ce : customEdits) {
+            switch (ce.getCustomEdits().getName()) {
+                case "Сила" -> ce.setModificator(manualEdits.get("Сила"));
+                case "Ловкость" -> ce.setModificator(manualEdits.get("Ловкость"));
+                case "Телосложение" -> ce.setModificator(manualEdits.get("Телосложение"));
+                case "Интеллект" -> ce.setModificator(manualEdits.get("Интеллект"));
+                case "Мудрость" -> ce.setModificator(manualEdits.get("Мудрость"));
+                case "Харизма" -> ce.setModificator(manualEdits.get("Харизма"));
+            }
+            log.info("Обновили атрибут {} на {}", ce.getCustomEdits().getName(), manualEdits.get(ce.getCustomEdits().getName()));
+            customEditsRepo.save(ce);
+        }
     }
 
     private String formatMods(int mod) {

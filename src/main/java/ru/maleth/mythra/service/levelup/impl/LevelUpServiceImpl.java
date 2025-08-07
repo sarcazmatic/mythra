@@ -5,16 +5,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.maleth.mythra.dto.CharClassToLevelUpDTO;
-import ru.maleth.mythra.enums.AttribEnum;
 import ru.maleth.mythra.enums.ClassEnum;
 import ru.maleth.mythra.enums.ProfEnum;
 import ru.maleth.mythra.model.CharClass;
 import ru.maleth.mythra.model.CharClassLevel;
 import ru.maleth.mythra.model.Character;
-import ru.maleth.mythra.model.CustomEdits;
 import ru.maleth.mythra.repo.CharClassLevelRepo;
 import ru.maleth.mythra.repo.CharacterRepo;
 import ru.maleth.mythra.repo.ClassesRepo;
+import ru.maleth.mythra.repo.CustomEditsRepo;
 import ru.maleth.mythra.service.levelup.LevelUpService;
 import ru.maleth.mythra.utility.CharacterCalculator;
 
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +31,7 @@ public class LevelUpServiceImpl implements LevelUpService {
     private final CharacterRepo characterRepo;
     private final CharClassLevelRepo charClassLevelRepo;
     private final ClassesRepo charClassRepo;
+    private final CustomEditsRepo customEditsRepo;
     private final Gson gson = new Gson();
 
     private static final String PAGE = "directToPage";
@@ -138,7 +137,7 @@ public class LevelUpServiceImpl implements LevelUpService {
         Map<String, String> attributes = new HashMap<>();
         Character character = characterRepo.findByCreator_NameAndCharName(userName, charName).orElseThrow(()
                 -> new RuntimeException("Не нашли персонажа в таблице Персонажи по имени " + charName));
-        Map<String, Integer> characterCustomeEdits = character.getCustomEdits().stream().collect(Collectors.toMap(p -> p.getName().toString(), p -> p.getModificator()));
+        Map<String, Integer> characterCustomeEdits = customEditsRepo.findAllByCharacterId(character.getId()).stream().collect(Collectors.toMap(p -> p.getCustomEdits().toString(), p -> p.getModificator()));
         attributes.put("charId", String.valueOf(character.getId()));
         attributes.put("charName", charName);
         attributes.put("userName", userName);

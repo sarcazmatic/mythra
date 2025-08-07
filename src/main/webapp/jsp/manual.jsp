@@ -286,11 +286,10 @@
             result[name] = value;
         });
         const xhr = new XMLHttpRequest()
-        const data = attrs;
-        console.log(uriText)
-        console.log(result)
         xhr.open('PUT', uriText)
-        xhr.send(data)
+        xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+        const body = JSON.stringify(result);
+        xhr.send(body)
         xhr.onload = function () {
             location.replace(urlChar)
         }

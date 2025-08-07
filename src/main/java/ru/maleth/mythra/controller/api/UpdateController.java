@@ -12,6 +12,9 @@ import ru.maleth.mythra.service.character.CharacterService;
 import ru.maleth.mythra.service.levelup.LevelUpService;
 import ru.maleth.mythra.service.sheet.CharsheetService;
 
+import java.util.Map;
+import java.util.Set;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -107,6 +110,13 @@ public class UpdateController {
                 charClassToLevelUp.getCharId(),
                 charClassToLevelUp.getCharClassToLevelUp());
         levelUpService.multiClass(charClassToLevelUp);
+    }
+
+    @PutMapping("/manualEdit/{charId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void manualEdits(@RequestBody Map<String, Integer> edits, @PathVariable Long charId) {
+        log.info("Пришел обновление атрибутов для персонажа с id {} по РУЧНОЙ КОРРЕКТИРОВКЕ", charId);
+        characterService.attrManualEdit(charId, edits);
     }
 
 }
