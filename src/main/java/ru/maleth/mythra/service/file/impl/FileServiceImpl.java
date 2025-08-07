@@ -12,12 +12,9 @@ import ru.maleth.mythra.repo.FileRepo;
 import ru.maleth.mythra.service.character.CharacterService;
 import ru.maleth.mythra.service.file.FileService;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Optional;
 
 @Slf4j
 @Service

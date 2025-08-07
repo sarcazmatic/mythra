@@ -2,7 +2,6 @@ package ru.maleth.mythra.service.character;
 
 import ru.maleth.mythra.model.Character;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public interface CharacterService {

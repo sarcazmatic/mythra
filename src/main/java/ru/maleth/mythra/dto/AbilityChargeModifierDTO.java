@@ -1,6 +1,9 @@
 package ru.maleth.mythra.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Builder
 @Data

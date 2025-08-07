@@ -13,7 +13,6 @@ import ru.maleth.mythra.service.levelup.LevelUpService;
 import ru.maleth.mythra.service.sheet.CharsheetService;
 
 import java.util.Map;
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class UpdateController {
     @GetMapping("/charAbil/{charId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String abilityLoader(@PathVariable(name = "charId") Long charId) {
-        log.info("Пришел запрос на подгрузку абилок для персонажа с id {}", charId);
+        log.info("Пришел запрос на подгрузку на чаршит абилок для персонажа с id {}", charId);
         String response = charsheetService.abilityLoader(charId);
         return response;
     }
@@ -37,7 +36,7 @@ public class UpdateController {
     @GetMapping("/attrsAndSkills/{charId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String attrsAndSkillsLoader(@PathVariable(name = "charId") Long charId) {
-        log.info("Пришел запрос на подгрузку атрибутов и навыков для персонажа с id {}", charId);
+        log.info("Пришел запрос на подгрузку на чаршит атрибутов и навыков для персонажа с id {}", charId);
         String response = characterService.loadAttrsAndSkills(charId);
         return response;
     }

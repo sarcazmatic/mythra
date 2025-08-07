@@ -15,7 +15,12 @@ import ru.maleth.mythra.repo.CustomEditsRepo;
 import ru.maleth.mythra.service.character.CharacterService;
 import ru.maleth.mythra.utility.CharacterCalculator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service

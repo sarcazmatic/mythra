@@ -3,11 +3,7 @@ package ru.maleth.mythra.repo;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.maleth.mythra.enums.RaceEnum;
-import ru.maleth.mythra.model.Ability;
 import ru.maleth.mythra.model.File;
-
-import java.util.List;
 
 public interface FileRepo extends JpaRepository<File, Long> {
 
