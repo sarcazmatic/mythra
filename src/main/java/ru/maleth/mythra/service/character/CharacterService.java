@@ -11,7 +11,7 @@ public interface CharacterService {
 
     String loadAttrsAndSkills(Long charId);
 
-    void attrManualEdit(Long charId, Map<String, Integer> manualEdits);
+    void manualEdit(Long charId, Map<String, Integer> manualEdits);
 
 
 }

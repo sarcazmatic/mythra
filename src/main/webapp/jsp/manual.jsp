@@ -145,116 +145,135 @@
         <div id="skills">
             <div class="field-row" data-name="Атлетика">
                 <span>Атлетика</span>
+                <output>${athletics}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${athleticsMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Акробатика">
                 <span>Акробатика</span>
+                <output>${acrobatics}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${acrobaticsMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Ловкость-рук">
                 <span>Ловкость рук</span>
+                <output>${sleight_of_hand}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${sleight_of_handMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Скрытность">
                 <span>Скрытность</span>
+                <output>${stealth}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${stealthMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Инициатива">
                 <span>Инициатива</span>
+                <output>${initiative}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${initiativeMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Аркана">
                 <span>Аркана</span>
+                <output>${arcana}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${arcanaMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="История">
                 <span>История</span>
+                <output>${history}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${historyMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Расследование">
                 <span>Расследование</span>
+                <output>${investigation}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${investigationMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Природа">
                 <span>Природа</span>
+                <output>${nature}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${natureMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Религия">
                 <span>Религия</span>
+                <output>${religion}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${religionMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Проницательность">
                 <span>Проницательность</span>
+                <output>${insight}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${insightMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Медицина">
                 <span>Медицина</span>
+                <output>${medicine}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${medicineMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Восприятие">
                 <span>Восприятие</span>
+                <output>${perception}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${perceptionMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Выживание">
                 <span>Выживание</span>
+                <output>${survival}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${survivalMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Обращение с животными">
                 <span>Обращение с животными</span>
+                <output>${animal_handling}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${animal_handlingMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Обман">
                 <span>Обман</span>
+                <output>${deception}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${deceptionMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Запугивание">
                 <span>Запугивание</span>
+                <output>${intimidation}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${intimidationMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Выступление">
                 <span>Выступление</span>
+                <output>${performance}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${performanceMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Убеждение">
                 <span>Убеждение</span>
+                <output>${persuasion}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="10" />
+                <input type="number" value="${persuasionMan}" />
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
         </div>
@@ -281,10 +300,12 @@
         const attrs = document.querySelectorAll('#attributes .field-row');
         const result = {};
         attrs.forEach(row => {
-            const name = row.getAttribute('data-name');
+            const name = row.querySelector('span').innerText;
             const value = row.querySelector('input').value;
             result[name] = value;
         });
+        console.log(attrs)
+        console.log(result)
         const xhr = new XMLHttpRequest()
         xhr.open('PUT', uriText)
         xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
@@ -299,12 +320,18 @@
         const skills = document.querySelectorAll('#skills .field-row');
         const result = {};
         skills.forEach(row => {
-            const name = row.getAttribute('data-name');
+            const name = row.querySelector('span').innerText;
             const value = row.querySelector('input').value;
             result[name] = value;
         });
-        console.log("Навыки:", result);
-        alert("Навыки обновлены!");
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT', uriText)
+        xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+        const body = JSON.stringify(result);
+        xhr.send(body)
+        xhr.onload = function () {
+            location.replace(urlChar)
+        }
     }
 </script>
 

@@ -114,9 +114,9 @@ public class UpdateController {
 
     @PutMapping("/manualEdit/{charId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void manualEdits(@RequestBody Map<String, Integer> edits, @PathVariable Long charId) {
-        log.info("Пришел обновление атрибутов для персонажа с id {} по РУЧНОЙ КОРРЕКТИРОВКЕ", charId);
-        characterService.attrManualEdit(charId, edits);
+    public void manualEdit(@RequestBody Map<String, Integer> edits, @PathVariable Long charId) {
+        log.info("Пришел запрос на обновление атрибутов ИЛИ навыков для персонажа с id {} по РУЧНОЙ КОРРЕКТИРОВКЕ", charId);
+        characterService.manualEdit(charId, edits);
     }
 
 }

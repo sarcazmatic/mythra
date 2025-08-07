@@ -18,9 +18,11 @@ import ru.maleth.mythra.service.levelup.LevelUpService;
 import ru.maleth.mythra.utility.CharacterCalculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -141,6 +143,7 @@ public class LevelUpServiceImpl implements LevelUpService {
         attributes.put("charId", String.valueOf(character.getId()));
         attributes.put("charName", charName);
         attributes.put("userName", userName);
+        //собираем атрибуты
         attributes.put("attribStr", String.valueOf(character.getStrength() + characterCustomeEdits.get("STRENGTH")));
         attributes.put("attribStrMan", String.valueOf(characterCustomeEdits.get("STRENGTH")));
         attributes.put("attribDex", String.valueOf(character.getDexterity() + characterCustomeEdits.get("DEXTERITY")));
@@ -153,6 +156,99 @@ public class LevelUpServiceImpl implements LevelUpService {
         attributes.put("attribWisMan", String.valueOf(characterCustomeEdits.get("WISDOM")));
         attributes.put("attribCha", String.valueOf(character.getCharisma() + characterCustomeEdits.get("CHARISMA")));
         attributes.put("attribChaMan", String.valueOf(characterCustomeEdits.get("CHARISMA")));
+        //собираем навыки
+        Set<String> allProficienciesList = Arrays.stream(ProfEnum.values()).map(Enum::toString).collect(Collectors.toSet());
+        Set<String> characterProficienciesList = character.getProficiencies().stream().map(p
+                -> p.getName().toUpperCase().replace('-', '_')).collect(Collectors.toSet());
+        for (String s : allProficienciesList) {
+            if (characterProficienciesList.contains(s)) {
+                switch (s) {
+                    case "ATHLETICS" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getStrength()
+                                        + characterCustomeEdits.get("STRENGTH"))
+                                        + CharacterCalculator.getProfBonus(character.getExperience())
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "ACROBATICS", "STEALTH", "SLEIGHT_OF_HAND" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getDexterity()
+                                        + characterCustomeEdits.get("DEXTERITY"))
+                                        + CharacterCalculator.getProfBonus(character.getExperience())
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "ARCANA", "HISTORY", "INVESTIGATION", "NATURE", "RELIGION" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getIntelligence()
+                                        + characterCustomeEdits.get("INTELLIGENCE"))
+                                        + CharacterCalculator.getProfBonus(character.getExperience())
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "INSIGHT", "MEDICINE", "PERCEPTION", "SURVIVAL", "ANIMAL_HANDLING" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getWisdom()
+                                        + characterCustomeEdits.get("WISDOM"))
+                                        + CharacterCalculator.getProfBonus(character.getExperience())
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "DECEPTION", "INTIMIDATION", "PERFORMANCE", "PERSUASION" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getCharisma()
+                                        + characterCustomeEdits.get("CHARISMA"))
+                                        + CharacterCalculator.getProfBonus(character.getExperience())
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    default -> throw new RuntimeException("Тут такое вообще произошло");
+                }
+            } else {
+                switch (s) {
+                    case "ATHLETICS" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getStrength()
+                                        + characterCustomeEdits.get("STRENGTH"))
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "ACROBATICS", "STEALTH", "SLEIGHT_OF_HAND" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getDexterity()
+                                        + characterCustomeEdits.get("DEXTERITY"))
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+
+                    }
+                    case "ARCANA", "HISTORY", "INVESTIGATION", "NATURE", "RELIGION" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getIntelligence()
+                                        + characterCustomeEdits.get("INTELLIGENCE"))
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "INSIGHT", "MEDICINE", "PERCEPTION", "SURVIVAL", "ANIMAL_HANDLING" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getWisdom()
+                                        + characterCustomeEdits.get("WISDOM"))
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "DECEPTION", "INTIMIDATION", "PERFORMANCE", "PERSUASION" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getCharisma()
+                                        + characterCustomeEdits.get("CHARISMA"))
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    default -> throw new RuntimeException("Тут такое вообще произошло");
+                }
+            }
+        }
+        attributes.put("initiative", String.valueOf(character.getInitiative()+characterCustomeEdits.get("INITIATIVE")));
+        attributes.put("initiativeMan", String.valueOf(characterCustomeEdits.get("INITIATIVE")));
         attributes.put(PAGE, "manual");
         return attributes;
     }
