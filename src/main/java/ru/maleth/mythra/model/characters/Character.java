@@ -1,4 +1,4 @@
-package ru.maleth.mythra.model;
+package ru.maleth.mythra.model.characters;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import ru.maleth.mythra.model.User;
+import ru.maleth.mythra.model.classes.CharClass;
 
 import java.util.Set;
 

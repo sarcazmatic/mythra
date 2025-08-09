@@ -3,7 +3,7 @@ package ru.maleth.mythra.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ru.maleth.mythra.enums.RaceEnum;
-import ru.maleth.mythra.model.Ability;
+import ru.maleth.mythra.model.abilities.Ability;
 
 import java.util.List;
 

@@ -8,7 +8,12 @@ import ru.maleth.mythra.dto.NewCharacterDTO;
 import ru.maleth.mythra.dto.NewCharacterFullDTO;
 import ru.maleth.mythra.enums.*;
 import ru.maleth.mythra.model.*;
-import ru.maleth.mythra.model.Character;
+import ru.maleth.mythra.model.characters.CharCustomEdits;
+import ru.maleth.mythra.model.characters.Character;
+import ru.maleth.mythra.model.characters.Proficiency;
+import ru.maleth.mythra.model.characters.Race;
+import ru.maleth.mythra.model.classes.CharClass;
+import ru.maleth.mythra.model.classes.CharClassLevel;
 import ru.maleth.mythra.repo.*;
 import ru.maleth.mythra.utility.CharacterCalculator;
 import ru.maleth.mythra.service.character.CharacterCreationService;
@@ -260,7 +265,9 @@ public class CharacterCreationServiceImpl implements CharacterCreationService {
         int experience = character.getExperience();
         int curHitPoints = character.getCurrentHP();
         int maxHitPoints = character.getMaxHP();
+        double maxWeight = CharacterCalculator.calculateMaxWeight(character.getStrength());
 
+        attributes.put("maxWeight", String.valueOf(maxWeight));
         attributes.put("userName", userName);
         attributes.put("charName", character.getCharName());
         attributes.put("charRace", character.getCharRace().getRaceEnum().getName());

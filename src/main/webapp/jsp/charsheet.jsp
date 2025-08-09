@@ -1108,7 +1108,7 @@
 
 <div class="container-third-left-bottom">
     <div class="input-field-attr-withname">
-        <p>Инвентарь</p>
+        <p>Инвентарь  xxx/${maxWeight}</p>
         <button id="itemAdd" class="inventory-add-button">+</button>
     </div>
     <div class="input-item-withname">

@@ -1,11 +1,11 @@
 package ru.maleth.mythra.model.items;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +13,6 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import ru.maleth.mythra.enums.ItemTypeEnum;
 import ru.maleth.mythra.enums.SlotEnum;
-import ru.maleth.mythra.model.Character;
 
 @Entity
 @Table(name = "items")
@@ -27,13 +26,12 @@ public class Item {
     private Long id;
     private String name;
     private String description;
-    private Long weight;
-    private SlotEnum slot;
+    @Builder.Default
+    private Double weight = 0.00;
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private SlotEnum slot = SlotEnum.MISC;
+    @Enumerated(EnumType.STRING)
     private ItemTypeEnum type;
-    private Integer numberOfUses;
-    private Integer enchantment;
-    @ManyToOne
-    @JoinColumn(name = "character_id")
-    private Character character;
 
 }

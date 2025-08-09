@@ -2,8 +2,11 @@ package ru.maleth.mythra.utility.classes.warrior;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.maleth.mythra.model.*;
-import ru.maleth.mythra.model.Character;
+import ru.maleth.mythra.model.characters.Character;
+import ru.maleth.mythra.model.abilities.Ability;
+import ru.maleth.mythra.model.abilities.CharClassAbility;
+import ru.maleth.mythra.model.classes.CharClass;
+import ru.maleth.mythra.model.classes.CharClassLevel;
 import ru.maleth.mythra.repo.AbilityRepo;
 import ru.maleth.mythra.repo.CharClassAbilityRepo;
 import ru.maleth.mythra.repo.ClassesRepo;

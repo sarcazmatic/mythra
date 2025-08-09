@@ -1,7 +1,7 @@
 package ru.maleth.mythra.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.maleth.mythra.model.CharClassLevel;
+import ru.maleth.mythra.model.classes.CharClassLevel;
 
 import java.util.List;
 

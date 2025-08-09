@@ -3,12 +3,13 @@ package ru.maleth.mythra.utility.classes.barbarian;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ru.maleth.mythra.model.*;
-import ru.maleth.mythra.model.Character;
+import ru.maleth.mythra.model.characters.Character;
+import ru.maleth.mythra.model.abilities.Ability;
+import ru.maleth.mythra.model.abilities.CharClassAbility;
+import ru.maleth.mythra.model.classes.CharClass;
+import ru.maleth.mythra.model.classes.CharClassLevel;
 import ru.maleth.mythra.repo.AbilityRepo;
 import ru.maleth.mythra.repo.CharClassAbilityRepo;
-import ru.maleth.mythra.repo.ClassesRepo;
-import ru.maleth.mythra.utility.CharacterCalculator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,6 @@ public class BarbarianUtils {
                     }
                     default -> cca.setNumberOfUses(0);
                 }
-                System.out.println(cca);
                 charClassAbilityRepo.save(cca);
             } else {
                 log.info("Абилка '{}' уже есть у класса '{}' на уровне {}", a.getName(), ccl.getCharClass().getName(), level);

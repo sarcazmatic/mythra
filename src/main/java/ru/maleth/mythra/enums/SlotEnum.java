@@ -16,6 +16,7 @@ public enum SlotEnum {
     PAULDRONS("Наплечники"),
     GAUNTLETS("Перчатки"),
     LEGGINGS("Поножи"),
+    GRIEVES("Сапоги"),
     CLOAK("Плащ"),
     MISC("Прочее"),
     CONSUMABLE("Полезное"),
@@ -26,6 +27,15 @@ public enum SlotEnum {
 
     SlotEnum(String name) {
         this.name = name;
+    }
+
+    public static SlotEnum getSlotEnumByName(String name) {
+        for (SlotEnum s : SlotEnum.values()) {
+            if (s.getName().equals(name)) {
+                return s;
+            }
+        }
+        return null;
     }
 
 }

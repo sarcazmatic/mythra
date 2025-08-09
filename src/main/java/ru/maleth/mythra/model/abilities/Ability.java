@@ -1,4 +1,4 @@
-package ru.maleth.mythra.model;
+package ru.maleth.mythra.model.abilities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import ru.maleth.mythra.enums.AbilityEnum;
 import ru.maleth.mythra.enums.ActionCostEnum;
 import ru.maleth.mythra.enums.RestEnum;
+import ru.maleth.mythra.model.classes.CharClass;
+import ru.maleth.mythra.model.characters.Race;
 
 @Entity
 @Table(name = "abilities")

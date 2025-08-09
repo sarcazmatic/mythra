@@ -1,8 +1,8 @@
 package ru.maleth.mythra.dto.mapper;
 
 import ru.maleth.mythra.dto.AbilityJsonResponseDTO;
-import ru.maleth.mythra.model.CharClassAbility;
-import ru.maleth.mythra.model.CharRaceAbility;
+import ru.maleth.mythra.model.abilities.CharClassAbility;
+import ru.maleth.mythra.model.abilities.CharRaceAbility;
 
 public class AbilityJsonResponseMapper {
 

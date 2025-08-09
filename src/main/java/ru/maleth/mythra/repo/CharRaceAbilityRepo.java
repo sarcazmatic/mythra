@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-import ru.maleth.mythra.model.CharRaceAbility;
-import ru.maleth.mythra.model.Race;
+import ru.maleth.mythra.model.abilities.CharRaceAbility;
+import ru.maleth.mythra.model.characters.Race;
 
 
 

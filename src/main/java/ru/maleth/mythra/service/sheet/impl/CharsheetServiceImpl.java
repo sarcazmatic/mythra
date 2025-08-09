@@ -11,10 +11,10 @@ import ru.maleth.mythra.dto.mapper.AbilityJsonResponseMapper;
 import ru.maleth.mythra.dto.AttributesRaiserDTO;
 import ru.maleth.mythra.dto.NumberModifierDTO;
 import ru.maleth.mythra.enums.ClassEnum;
-import ru.maleth.mythra.model.CharClassAbility;
-import ru.maleth.mythra.model.CharClassLevel;
-import ru.maleth.mythra.model.CharRaceAbility;
-import ru.maleth.mythra.model.Character;
+import ru.maleth.mythra.model.abilities.CharClassAbility;
+import ru.maleth.mythra.model.classes.CharClassLevel;
+import ru.maleth.mythra.model.abilities.CharRaceAbility;
+import ru.maleth.mythra.model.characters.Character;
 import ru.maleth.mythra.repo.CharClassAbilityRepo;
 import ru.maleth.mythra.repo.CharClassLevelRepo;
 import ru.maleth.mythra.repo.CharRaceAbilityRepo;
@@ -62,6 +62,7 @@ public class CharsheetServiceImpl implements CharsheetService {
         int experience = character.getExperience();
         int curHitPoints = character.getCurrentHP();
         int maxHitPoints = character.getMaxHP();
+        double maxWeight = CharacterCalculator.calculateMaxWeight(character.getStrength());
 
         List<CharClassLevel> charClasses = charClassLevelRepo.findAllByCharacter_IdOrderByCharClass(character.getId());
         StringBuilder charClassesStringBuilder = new StringBuilder();
@@ -80,10 +81,10 @@ public class CharsheetServiceImpl implements CharsheetService {
         }
 
         String charClassesString = charClassesStringBuilder.toString();
-
         /*
         Тут переносим атрибуты в мапу. И указываем адрес страницы.
         */
+        attributes.put("maxWeight", String.valueOf(maxWeight));
         attributes.put("userName", userName);
         attributes.put("charName", character.getCharName());
         attributes.put("charRace", character.getCharRace().getRaceEnum().getName());

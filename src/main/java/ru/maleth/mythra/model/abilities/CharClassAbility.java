@@ -1,4 +1,4 @@
-package ru.maleth.mythra.model;
+package ru.maleth.mythra.model.abilities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.maleth.mythra.model.classes.CharClass;
+import ru.maleth.mythra.model.characters.Character;
 
 @Entity
 @Table (name = "character_classes_abilities")

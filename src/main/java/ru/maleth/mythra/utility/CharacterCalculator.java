@@ -19,7 +19,11 @@ public class CharacterCalculator {
     }
 
     public static int calculateAttributeModifier(int attributeValue) {
-        return (int) Math.floor((double)(attributeValue - 10)/2);
+        return (int) Math.floor((double) (attributeValue - 10) / 2);
+    }
+
+    public static double calculateMaxWeight(int strengthValue) {
+        return strengthValue * 15.00;
     }
 
     public static int getLevel(int experience) {

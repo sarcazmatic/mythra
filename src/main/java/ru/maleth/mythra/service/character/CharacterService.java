@@ -1,6 +1,6 @@
 package ru.maleth.mythra.service.character;
 
-import ru.maleth.mythra.model.Character;
+import ru.maleth.mythra.model.characters.Character;
 
 import java.util.Map;
 

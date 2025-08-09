@@ -1,4 +1,4 @@
-package ru.maleth.mythra.model;
+package ru.maleth.mythra.model.characters;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

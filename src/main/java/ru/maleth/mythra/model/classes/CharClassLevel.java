@@ -1,4 +1,4 @@
-package ru.maleth.mythra.model;
+package ru.maleth.mythra.model.classes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,14 +12,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import ru.maleth.mythra.model.characters.Character;
 
+@Table(name = "character_classes_level")
 @Entity
-@Table (name = "character_race_abilities")
-@RequiredArgsConstructor
-@AllArgsConstructor
-@Data
 @Builder
-public class CharRaceAbility {
+@AllArgsConstructor
+@RequiredArgsConstructor
+@Data
+public class CharClassLevel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,13 +29,9 @@ public class CharRaceAbility {
     @JoinColumn(name = "character_id")
     private Character character;
     @ManyToOne
-    @JoinColumn(name = "char_race_id")
-    private Race race;
-    @ManyToOne
-    @JoinColumn(name = "ability_id")
-    private Ability ability;
-    @Column(name = "number_of_uses")
-    private Integer numberOfUses;
-    @Column(name = "max_number_of_uses")
-    private Integer maxNumberOfUses;
+    @JoinColumn(name = "character_class_id")
+    private CharClass charClass;
+    @Column(name = "char_level")
+    private Integer classLevel;
+
 }

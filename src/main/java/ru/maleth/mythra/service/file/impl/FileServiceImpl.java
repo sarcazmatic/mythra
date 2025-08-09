@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.maleth.mythra.dto.FileDTO;
 import ru.maleth.mythra.dto.mapper.FileMapper;
-import ru.maleth.mythra.model.Character;
+import ru.maleth.mythra.model.characters.Character;
 import ru.maleth.mythra.model.File;
 import ru.maleth.mythra.repo.FileRepo;
 import ru.maleth.mythra.service.character.CharacterService;

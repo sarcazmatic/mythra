@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.maleth.mythra.model.Character;
+import ru.maleth.mythra.model.characters.Character;
 
 import java.util.Optional;
 

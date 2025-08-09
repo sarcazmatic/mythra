@@ -2,7 +2,7 @@ package ru.maleth.mythra.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.maleth.mythra.model.Proficiency;
+import ru.maleth.mythra.model.characters.Proficiency;
 
 @Repository
 public interface ProficiencyRepo extends JpaRepository<Proficiency, Long> {
