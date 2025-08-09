@@ -10,14 +10,11 @@ import ru.maleth.mythra.dto.AbilityJsonResponseDTO;
 import ru.maleth.mythra.dto.mapper.AbilityJsonResponseMapper;
 import ru.maleth.mythra.dto.AttributesRaiserDTO;
 import ru.maleth.mythra.dto.NumberModifierDTO;
-import ru.maleth.mythra.enums.AttribEnum;
 import ru.maleth.mythra.enums.ClassEnum;
-import ru.maleth.mythra.enums.ProfEnum;
 import ru.maleth.mythra.model.CharClassAbility;
 import ru.maleth.mythra.model.CharClassLevel;
 import ru.maleth.mythra.model.CharRaceAbility;
 import ru.maleth.mythra.model.Character;
-import ru.maleth.mythra.model.Proficiency;
 import ru.maleth.mythra.repo.CharClassAbilityRepo;
 import ru.maleth.mythra.repo.CharClassLevelRepo;
 import ru.maleth.mythra.repo.CharRaceAbilityRepo;
@@ -29,12 +26,9 @@ import ru.maleth.mythra.utility.classes.ClassUtils;
 import ru.maleth.mythra.utility.races.RaceUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

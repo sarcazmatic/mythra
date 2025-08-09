@@ -12,6 +12,8 @@ import ru.maleth.mythra.service.character.CharacterService;
 import ru.maleth.mythra.service.levelup.LevelUpService;
 import ru.maleth.mythra.service.sheet.CharsheetService;
 
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -26,7 +28,7 @@ public class UpdateController {
     @GetMapping("/charAbil/{charId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String abilityLoader(@PathVariable(name = "charId") Long charId) {
-        log.info("Пришел запрос на подгрузку абилок для персонажа с id {}", charId);
+        log.info("Пришел запрос на подгрузку на чаршит абилок для персонажа с id {}", charId);
         String response = charsheetService.abilityLoader(charId);
         return response;
     }
@@ -34,7 +36,7 @@ public class UpdateController {
     @GetMapping("/attrsAndSkills/{charId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public String attrsAndSkillsLoader(@PathVariable(name = "charId") Long charId) {
-        log.info("Пришел запрос на подгрузку атрибутов и навыков для персонажа с id {}", charId);
+        log.info("Пришел запрос на подгрузку на чаршит атрибутов и навыков для персонажа с id {}", charId);
         String response = characterService.loadAttrsAndSkills(charId);
         return response;
     }
@@ -107,6 +109,13 @@ public class UpdateController {
                 charClassToLevelUp.getCharId(),
                 charClassToLevelUp.getCharClassToLevelUp());
         levelUpService.multiClass(charClassToLevelUp);
+    }
+
+    @PutMapping("/manualEdit/{charId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void manualEdit(@RequestBody Map<String, Integer> edits, @PathVariable Long charId) {
+        log.info("Пришел запрос на обновление атрибутов ИЛИ навыков для персонажа с id {} по РУЧНОЙ КОРРЕКТИРОВКЕ", charId);
+        characterService.manualEdit(charId, edits);
     }
 
 }

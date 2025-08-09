@@ -5,20 +5,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 import ru.maleth.mythra.model.CharRaceAbility;
-import ru.maleth.mythra.model.Character;
 import ru.maleth.mythra.model.Race;
 
-import java.util.List;
 
 
 public interface CharRaceAbilityRepo extends JpaRepository<CharRaceAbility, Long> {
-
-    @Query("SELECT cra FROM CharRaceAbility cra " +
-            "WHERE cra.race = :race " +
-            "AND cra.character = :character " +
-            "AND cra.ability.levelAvailable <= :level " +
-            "ORDER BY cra.ability.name asc")
-    List<CharRaceAbility> findAllByCharacter_IdAndRaceLimitByLevelOrderByAbility_Name(Character character, Race race, Integer level);
 
     CharRaceAbility findByCharacter_IdAndAbility_Name(Long id, String name);
 

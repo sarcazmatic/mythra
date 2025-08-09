@@ -1,11 +1,21 @@
 package ru.maleth.mythra.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import ru.maleth.mythra.enums.ClassEnum;
 
 import java.util.Set;
 
@@ -59,9 +69,4 @@ public class Character {
     private Boolean isLevelUpReady;
     @Column(name = "is_feat_or_stats_ready")
     private Boolean isFeatOrStatsReady;
-    @ManyToMany
-    @JoinTable(name = "characters_custom_edits",
-            joinColumns = {@JoinColumn(name = "fk_character")},
-            inverseJoinColumns = {@JoinColumn(name = "fk_custom_edit")})
-    private Set<CustomEdits> customEdits;
 }

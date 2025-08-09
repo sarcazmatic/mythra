@@ -5,20 +5,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.maleth.mythra.dto.CharClassToLevelUpDTO;
-import ru.maleth.mythra.enums.AttribEnum;
 import ru.maleth.mythra.enums.ClassEnum;
 import ru.maleth.mythra.enums.ProfEnum;
 import ru.maleth.mythra.model.CharClass;
 import ru.maleth.mythra.model.CharClassLevel;
 import ru.maleth.mythra.model.Character;
-import ru.maleth.mythra.model.CustomEdits;
 import ru.maleth.mythra.repo.CharClassLevelRepo;
 import ru.maleth.mythra.repo.CharacterRepo;
 import ru.maleth.mythra.repo.ClassesRepo;
+import ru.maleth.mythra.repo.CustomEditsRepo;
 import ru.maleth.mythra.service.levelup.LevelUpService;
 import ru.maleth.mythra.utility.CharacterCalculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +33,7 @@ public class LevelUpServiceImpl implements LevelUpService {
     private final CharacterRepo characterRepo;
     private final CharClassLevelRepo charClassLevelRepo;
     private final ClassesRepo charClassRepo;
+    private final CustomEditsRepo customEditsRepo;
     private final Gson gson = new Gson();
 
     private static final String PAGE = "directToPage";
@@ -138,7 +139,11 @@ public class LevelUpServiceImpl implements LevelUpService {
         Map<String, String> attributes = new HashMap<>();
         Character character = characterRepo.findByCreator_NameAndCharName(userName, charName).orElseThrow(()
                 -> new RuntimeException("Не нашли персонажа в таблице Персонажи по имени " + charName));
-        Map<String, Integer> characterCustomeEdits = character.getCustomEdits().stream().collect(Collectors.toMap(p -> p.getName().toString(), p -> p.getModificator()));
+        Map<String, Integer> characterCustomeEdits = customEditsRepo.findAllByCharacterId(character.getId()).stream().collect(Collectors.toMap(p -> p.getCustomEdits().toString(), p -> p.getModificator()));
+        attributes.put("charId", String.valueOf(character.getId()));
+        attributes.put("charName", charName);
+        attributes.put("userName", userName);
+        //собираем атрибуты
         attributes.put("attribStr", String.valueOf(character.getStrength() + characterCustomeEdits.get("STRENGTH")));
         attributes.put("attribStrMan", String.valueOf(characterCustomeEdits.get("STRENGTH")));
         attributes.put("attribDex", String.valueOf(character.getDexterity() + characterCustomeEdits.get("DEXTERITY")));
@@ -151,6 +156,99 @@ public class LevelUpServiceImpl implements LevelUpService {
         attributes.put("attribWisMan", String.valueOf(characterCustomeEdits.get("WISDOM")));
         attributes.put("attribCha", String.valueOf(character.getCharisma() + characterCustomeEdits.get("CHARISMA")));
         attributes.put("attribChaMan", String.valueOf(characterCustomeEdits.get("CHARISMA")));
+        //собираем навыки
+        Set<String> allProficienciesList = Arrays.stream(ProfEnum.values()).map(Enum::toString).collect(Collectors.toSet());
+        Set<String> characterProficienciesList = character.getProficiencies().stream().map(p
+                -> p.getName().toUpperCase().replace('-', '_')).collect(Collectors.toSet());
+        for (String s : allProficienciesList) {
+            if (characterProficienciesList.contains(s)) {
+                switch (s) {
+                    case "ATHLETICS" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getStrength()
+                                        + characterCustomeEdits.get("STRENGTH"))
+                                        + CharacterCalculator.getProfBonus(character.getExperience())
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "ACROBATICS", "STEALTH", "SLEIGHT_OF_HAND" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getDexterity()
+                                        + characterCustomeEdits.get("DEXTERITY"))
+                                        + CharacterCalculator.getProfBonus(character.getExperience())
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "ARCANA", "HISTORY", "INVESTIGATION", "NATURE", "RELIGION" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getIntelligence()
+                                        + characterCustomeEdits.get("INTELLIGENCE"))
+                                        + CharacterCalculator.getProfBonus(character.getExperience())
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "INSIGHT", "MEDICINE", "PERCEPTION", "SURVIVAL", "ANIMAL_HANDLING" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getWisdom()
+                                        + characterCustomeEdits.get("WISDOM"))
+                                        + CharacterCalculator.getProfBonus(character.getExperience())
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "DECEPTION", "INTIMIDATION", "PERFORMANCE", "PERSUASION" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getCharisma()
+                                        + characterCustomeEdits.get("CHARISMA"))
+                                        + CharacterCalculator.getProfBonus(character.getExperience())
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    default -> throw new RuntimeException("Тут такое вообще произошло");
+                }
+            } else {
+                switch (s) {
+                    case "ATHLETICS" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getStrength()
+                                        + characterCustomeEdits.get("STRENGTH"))
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "ACROBATICS", "STEALTH", "SLEIGHT_OF_HAND" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getDexterity()
+                                        + characterCustomeEdits.get("DEXTERITY"))
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+
+                    }
+                    case "ARCANA", "HISTORY", "INVESTIGATION", "NATURE", "RELIGION" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getIntelligence()
+                                        + characterCustomeEdits.get("INTELLIGENCE"))
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "INSIGHT", "MEDICINE", "PERCEPTION", "SURVIVAL", "ANIMAL_HANDLING" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getWisdom()
+                                        + characterCustomeEdits.get("WISDOM"))
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    case "DECEPTION", "INTIMIDATION", "PERFORMANCE", "PERSUASION" -> {
+                        attributes.put(s.toLowerCase(),
+                                String.valueOf(CharacterCalculator.calculateAttributeModifier(character.getCharisma()
+                                        + characterCustomeEdits.get("CHARISMA"))
+                                        + characterCustomeEdits.get(s)));
+                        attributes.put(s.toLowerCase() + "Man", String.valueOf(characterCustomeEdits.get(s)));
+                    }
+                    default -> throw new RuntimeException("Тут такое вообще произошло");
+                }
+            }
+        }
+        attributes.put("initiative", String.valueOf(character.getInitiative()+characterCustomeEdits.get("INITIATIVE")));
+        attributes.put("initiativeMan", String.valueOf(characterCustomeEdits.get("INITIATIVE")));
         attributes.put(PAGE, "manual");
         return attributes;
     }

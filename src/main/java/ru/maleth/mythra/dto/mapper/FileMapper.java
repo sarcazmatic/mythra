@@ -24,7 +24,6 @@ public class FileMapper {
                 .name(file.getName())
                 .contentType(file.getContentType())
                 .build();
-
         return fileDTO;
     }
 

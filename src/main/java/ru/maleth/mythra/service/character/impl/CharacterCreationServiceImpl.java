@@ -13,7 +13,13 @@ import ru.maleth.mythra.repo.*;
 import ru.maleth.mythra.utility.CharacterCalculator;
 import ru.maleth.mythra.service.character.CharacterCreationService;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
 
 @Service
 @RequiredArgsConstructor
@@ -205,10 +211,6 @@ public class CharacterCreationServiceImpl implements CharacterCreationService {
         Тут находим юзера по имени, переданному из контроера
         */
         User user = userRepo.findByName(userName).orElseThrow(() -> new RuntimeException("Нет такого юзера"));
-        Set<CustomEdits> customEdits = new HashSet<>();
-        for (CustomEditEnum cee : CustomEditEnum.values()) {
-            customEdits.add(customEditsRepo.save(CustomEdits.builder().name(cee).modificator(0).build()));
-        }
         /*
         Ну и создаем персонажа через @Builder
         */
@@ -231,13 +233,15 @@ public class CharacterCreationServiceImpl implements CharacterCreationService {
                 .proficiencies(proficiencies)
                 .creator(user)
                 .mainClass(charClass)
-                .customEdits(customEdits)
                 .build());
         CharClassLevel charClassLevel = CharClassLevel.builder()
                 .character(character)
                 .charClass(charClass)
                 .classLevel(1)
                 .build();
+        for (CustomEditEnum cee : CustomEditEnum.values()) {
+            customEditsRepo.save(CharCustomEdits.builder().character(character).customEdits(cee).modificator(0).build());
+        }
         charClassLevelRepo.save(charClassLevel);
 
         log.info("Персонаж под именем " + character.getCharName() + " для пользователя " + character.getCreator().getName() + " создан!");
