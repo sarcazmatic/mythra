@@ -147,6 +147,9 @@
 <h1>Создание предмета</h1>
 
 <div class="wrap">
+    <p id="char-id" hidden>${charId}</p>
+    <p id="user-name" hidden>${userName}</p>
+    <p id="char-name" hidden>${charName}</p>
     <!-- Форма -->
     <form id="itemForm" class="card grid" novalidate>
         <div>
@@ -309,8 +312,21 @@
         if (!ok) return;
 
         try {
+            var charId = document.getElementById('char-id').innerText
+            var userName = document.getElementById('user-name').innerText
+            var charName = document.getElementById('char-name').innerText
             const data = collectData(true);
-            console.log(data)
+            var url = window.location.protocol + '/api/addItem/' + charId;
+            const urlChar = '/' + userName + '/' + charName + '/charsheet';
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url)
+            xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+            const body = JSON.stringify(data);
+            console.log(body)
+            xhr.send(body)
+            xhr.onload = function () {
+                location.replace(urlChar)
+            }
         } catch (err) {
             if (err.message === 'bad_weight') {
                 showError('weightErr', true);

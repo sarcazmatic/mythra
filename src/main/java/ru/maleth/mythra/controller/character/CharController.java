@@ -115,6 +115,9 @@ public class CharController {
     @ResponseStatus(HttpStatus.OK)
     public String addItem(@PathVariable("name") String userName, @PathVariable("charName") String charName, Model model) {
         log.info("Пришел запрос на добавление предмета персонажу {}", charName);
+        model.addAttribute("charId", "1");
+        model.addAttribute("userName", userName);
+        model.addAttribute("charName", charName);
         return "newitem";
     }
 

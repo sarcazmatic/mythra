@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum ArmorTypeEnum {
-    HEAVY("Тяжелый"),
-    MEDIUM("Средний"),
-    LIGHT("Легкий");
+    HEAVY_ARMOR("Тяжелый"),
+    MEDIUM_ARMOR("Средний"),
+    LIGHT_ARMOR("Легкий");
 
     private final String name;
 

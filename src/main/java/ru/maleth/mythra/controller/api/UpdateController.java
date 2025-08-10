@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.maleth.mythra.dto.AbilityChargeModifierDTO;
 import ru.maleth.mythra.dto.AttributesRaiserDTO;
 import ru.maleth.mythra.dto.CharClassToLevelUpDTO;
+import ru.maleth.mythra.dto.ItemDTO;
 import ru.maleth.mythra.dto.NumberModifierDTO;
 import ru.maleth.mythra.service.character.CharacterService;
 import ru.maleth.mythra.service.levelup.LevelUpService;
@@ -116,6 +117,12 @@ public class UpdateController {
     public void manualEdit(@RequestBody Map<String, Integer> edits, @PathVariable Long charId) {
         log.info("Пришел запрос на обновление атрибутов ИЛИ навыков для персонажа с id {} по РУЧНОЙ КОРРЕКТИРОВКЕ", charId);
         characterService.manualEdit(charId, edits);
+    }
+
+    @PostMapping("/addItem/{charId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addItem(@RequestBody ItemDTO itemDTO, @PathVariable Long charId) {
+        log.info("Пришел запрос на добавление предмета {} персонажу с id {}", itemDTO, charId);
     }
 
 }
