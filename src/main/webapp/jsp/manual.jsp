@@ -9,10 +9,11 @@
     <style>
         body {
             font-family: 'Philosopher', cursive;
-            background-color: #1e1e1e;
+            background-color: #0d0d0d;
             color: #fff;
             margin: 0;
             padding: 20px;
+            zoom: 80%;
         }
 
         h2 {
@@ -28,8 +29,8 @@
 
         .section {
             flex: 1 1 450px;
-            background-color: #2a2a2a;
-            padding: 20px;
+            background-color: #222;
+            padding: 0px 20px 20px 20px;
             border-radius: 10px;
             min-width: 300px;
             max-width: 500px;
@@ -72,16 +73,17 @@
             display: block;
             margin: 20px auto 0;
             padding: 10px 20px;
-            background-color: #007acc;
+            font-family: 'Philosopher', cursive;
+            background-color: #666;
             border: none;
             border-radius: 5px;
-            color: white;
+            color: #fff;
             font-size: 16px;
             cursor: pointer;
         }
 
         .update-button:hover {
-            background-color: #005fa3;
+            background-color: #646060;
         }
     </style>
 </head>
@@ -98,42 +100,42 @@
                 <span>Сила</span>
                 <output>${attribStr}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribStrMan}" />
+                <input type="number" value="${attribStrMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Ловкость">
                 <span>Ловкость</span>
                 <output>${attribDex}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribDexMan}" />
+                <input type="number" value="${attribDexMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Телосложение">
                 <span>Телосложение</span>
                 <output>${attribCon}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribConMan}" />
+                <input type="number" value="${attribConMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Интеллект">
                 <span>Интеллект</span>
                 <output>${attribInt}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribIntMan}" />
+                <input type="number" value="${attribIntMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Мудрость">
                 <span>Мудрость</span>
                 <output>${attribWis}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribWisMan}" />
+                <input type="number" value="${attribWisMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Харизма">
                 <span>Харизма</span>
                 <output>${attribCha}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${attribChaMan}" />
+                <input type="number" value="${attribChaMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
         </div>
@@ -147,133 +149,133 @@
                 <span>Атлетика</span>
                 <output>${athletics}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${athleticsMan}" />
+                <input type="number" value="${athleticsMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Акробатика">
                 <span>Акробатика</span>
                 <output>${acrobatics}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${acrobaticsMan}" />
+                <input type="number" value="${acrobaticsMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Ловкость-рук">
                 <span>Ловкость рук</span>
                 <output>${sleight_of_hand}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${sleight_of_handMan}" />
+                <input type="number" value="${sleight_of_handMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Скрытность">
                 <span>Скрытность</span>
                 <output>${stealth}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${stealthMan}" />
+                <input type="number" value="${stealthMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Инициатива">
                 <span>Инициатива</span>
                 <output>${initiative}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${initiativeMan}" />
+                <input type="number" value="${initiativeMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Аркана">
                 <span>Аркана</span>
                 <output>${arcana}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${arcanaMan}" />
+                <input type="number" value="${arcanaMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="История">
                 <span>История</span>
                 <output>${history}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${historyMan}" />
+                <input type="number" value="${historyMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Расследование">
                 <span>Расследование</span>
                 <output>${investigation}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${investigationMan}" />
+                <input type="number" value="${investigationMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Природа">
                 <span>Природа</span>
                 <output>${nature}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${natureMan}" />
+                <input type="number" value="${natureMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Религия">
                 <span>Религия</span>
                 <output>${religion}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${religionMan}" />
+                <input type="number" value="${religionMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Проницательность">
                 <span>Проницательность</span>
                 <output>${insight}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${insightMan}" />
+                <input type="number" value="${insightMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Медицина">
                 <span>Медицина</span>
                 <output>${medicine}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${medicineMan}" />
+                <input type="number" value="${medicineMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Восприятие">
                 <span>Восприятие</span>
                 <output>${perception}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${perceptionMan}" />
+                <input type="number" value="${perceptionMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Выживание">
                 <span>Выживание</span>
                 <output>${survival}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${survivalMan}" />
+                <input type="number" value="${survivalMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Обращение с животными">
                 <span>Обращение с животными</span>
                 <output>${animal_handling}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${animal_handlingMan}" />
+                <input type="number" value="${animal_handlingMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Обман">
                 <span>Обман</span>
                 <output>${deception}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${deceptionMan}" />
+                <input type="number" value="${deceptionMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Запугивание">
                 <span>Запугивание</span>
                 <output>${intimidation}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${intimidationMan}" />
+                <input type="number" value="${intimidationMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Выступление">
                 <span>Выступление</span>
                 <output>${performance}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${performanceMan}" />
+                <input type="number" value="${performanceMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
             <div class="field-row" data-name="Убеждение">
                 <span>Убеждение</span>
                 <output>${persuasion}</output>
                 <button onclick="changeValue(this, -1)">-</button>
-                <input type="number" value="${persuasionMan}" />
+                <input type="number" value="${persuasionMan}" disabled/>
                 <button onclick="changeValue(this, 1)">+</button>
             </div>
         </div>

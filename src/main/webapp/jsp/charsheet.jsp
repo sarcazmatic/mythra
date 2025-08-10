@@ -523,85 +523,7 @@
         </div>
     </div>
 </div>
-<script>
-    var userName = document.getElementById("user-name").innerText;
-    var charName = document.getElementById("char-name").innerText;
-    var charId = document.getElementById("char-id").innerText;
 
-    const form = document.getElementById('imgForm');
-    document.getElementById('avatarLoader').addEventListener('change', button_clicker)
-
-    //при изменении input value (например, файл появился для аватарки) срабатывается button clicker
-
-    function inputFile() {
-        document.getElementById('avatarLoader').click()
-        //при клике открывается окно выбора файла так как avatarLoader – input type file
-    }
-
-    function button_clicker(evt) {
-        evt.preventDefault();
-        uploadFiles();
-    }
-
-    function uploadFiles() {
-        const userName = document.getElementById('user-name').innerText
-        const charName = document.getElementById('char-name').innerText
-        const url = '/file/' + userName + '/' + charName + '/upload';
-        const method = 'post';
-        const xhr = new XMLHttpRequest();
-        const data = new FormData(form);
-        xhr.open(method, url);
-        xhr.send(data);
-        xhr.onload = function () {
-            location.reload()
-        }
-    }
-
-    var expModal = document.getElementById("expModal");
-    var expButton = document.getElementById("sec-exp-button");
-    var incomingExp;
-    var currentExperience = document.getElementById("expNumber");
-
-    function expShow() {
-        expModal.style.display = "block";
-        window.onclick = function (event) {
-            if (event.target === expModal) {
-                expModal.style.display = "none";
-            }
-        }
-    }
-
-    expButton.addEventListener("click", function () {
-        incomingExp = document.getElementById("incoming-exp").value;
-        if (incomingExp < 1) {
-            alert("Значение не может быть меньше 1")
-            return;
-        }
-        expModal.style.display = "none";
-        var ourRequest = new XMLHttpRequest();
-        ourRequest.open('PUT', '/api/calcExp');
-        ourRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
-        const body = JSON.stringify({
-            charId: charId,
-            charName: charName,
-            modifier: incomingExp
-        });
-        ourRequest.onload = function () {
-            var ourData = JSON.parse(ourRequest.responseText);
-            if (ourData.isLevelUpReady === true) {
-                window.location.replace("levelup?charId=" + charId);
-            } else {
-                renderExp(ourData);
-            }
-        }
-        ourRequest.send(body);
-    })
-
-    function renderExp(data) {
-        currentExperience.innerText = data.experience;
-    }
-
-</script>
 <div class="modal" id="healModal">
     <div class="modal-content">
         <div class="modal-header">
@@ -613,50 +535,6 @@
         </div>
     </div>
 </div>
-<script>
-    var charName = document.getElementById("char-name").innerText;
-
-    var healModal = document.getElementById("healModal");
-    var healButton = document.getElementById("sec-heal-button");
-
-    var incomingHeal;
-    var currentHP = document.getElementById("currentHP");
-
-    function hpHealShow() {
-        healModal.style.display = "block";
-        window.onclick = function (event) {
-            if (event.target === healModal) {
-                healModal.style.display = "none";
-            }
-        }
-    }
-
-    healButton.addEventListener("click", function () {
-        incomingHeal = document.getElementById("incoming-heal").value;
-        if (incomingHeal < 1) {
-            alert("Значение не может быть меньше 1")
-            return;
-        }
-        healModal.style.display = "none";
-        var ourRequest = new XMLHttpRequest();
-        ourRequest.open('PUT', '/api/calcHeal');
-        ourRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
-        const body = JSON.stringify({
-            charName: charName,
-            modifier: incomingHeal
-        });
-        ourRequest.onload = function () {
-            var ourData = JSON.parse(ourRequest.responseText);
-            renderHeal(ourData);
-        }
-        ourRequest.send(body);
-    })
-
-    function renderHeal(data) {
-        currentHP.innerText = data.currentHP;
-    }
-
-</script>
 
 <div class="modal" id="dmgModal">
     <div class="modal-content">
@@ -669,51 +547,6 @@
         </div>
     </div>
 </div>
-<script>
-    var charName = document.getElementById("char-name").innerText;
-
-    var dmgModal = document.getElementById("dmgModal");
-    var dmgButton = document.getElementById("sec-dmg-button");
-
-    var incomingDamage;
-    var currentHP = document.getElementById("currentHP");
-
-    function hpDmgShow() {
-        dmgModal.style.display = "block";
-        window.onclick = function (event) {
-            if (event.target === dmgModal) {
-                dmgModal.style.display = "none";
-            }
-        }
-    }
-
-    dmgButton.addEventListener("click", function () {
-        incomingDamage = document.getElementById("incoming-damage").value;
-        if (incomingDamage < 1) {
-            alert("Значение не может быть меньше 1")
-            return;
-        }
-        dmgModal.style.display = "none";
-        var ourRequest = new XMLHttpRequest();
-        ourRequest.open('PUT', '/api/calcDmg');
-        ourRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
-        const body = JSON.stringify({
-            charName: charName,
-            modifier: incomingDamage
-        });
-        ourRequest.onload = function () {
-            var ourData = JSON.parse(ourRequest.responseText);
-            renderDmg(ourData);
-        }
-        ourRequest.send(body);
-
-    })
-
-    function renderDmg(data) {
-        currentHP.innerText = data.currentHP;
-    }
-
-</script>
 
 <div id="clbb-parent" class="container-left-bottom-bottom">
     <div id="abilities-main" style="border-bottom: 1px #444 solid; font-size: medium" class="abilities-row">
@@ -725,128 +558,6 @@
     <div id="abilities-prnt" class="container-left-bottom-bottom-skillbox">
     </div>
 </div>
-
-<script>
-    var charId = document.getElementById("char-id").innerText;
-
-    var uriText = "/api/charAbil/" + charId;
-    var elementToAdd = document.getElementById("abilities-locator");
-
-    function loadLine() {
-        var abilRequest = new XMLHttpRequest();
-        abilRequest.open('GET', uriText);
-        abilRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
-        abilRequest.onload = function () {
-            var ourData = JSON.parse(abilRequest.responseText);
-            for (let i = 0; i < ourData.length; i++) {
-                var newDiv = document.createElement("div");
-                newDiv.id = "abilities-row-" + i;
-                newDiv.className = "abilities-row";
-                document.getElementById('abilities-prnt').appendChild(newDiv);
-                var newDivClass = document.createElement("output");
-                newDivClass.id = "is-class-based-" + i;
-                newDivClass.innerText = ourData[i].isFromClass;
-                newDivClass.hidden = true;
-                document.getElementById('abilities-prnt').appendChild(newDivClass);
-                var newDiv1 = document.createElement("output");
-                newDiv1.id = "ability-name-" + i;
-                newDiv1.style.textAlign = "center";
-                newDiv1.className = "ability-name";
-                newDiv1.innerText = ourData[i].name;
-                newDiv1.setAttribute("onclick", "descriptionShow(" + i + ")");
-                document.getElementById(newDiv.id).appendChild(newDiv1);
-                var newDiv2 = document.createElement("output");
-                newDiv2.innerText = ourData[i].cost;
-                document.getElementById(newDiv.id).appendChild(newDiv2);
-                var newDiv3 = document.createElement("button");
-                newDiv3.id = "ability-use-button-" + i;
-                newDiv3.className = "ability-use-button";
-                newDiv3.name = "ability-use-button";
-                if (ourData[i].recharge === "Не требует отдыха") {
-                    newDiv3.innerText = "-";
-                } else {
-                    newDiv3.innerText = ourData[i].numberOfCharges;
-                }
-                document.getElementById(newDiv.id).appendChild(newDiv3);
-                var newDiv4 = document.createElement("output");
-                newDiv4.innerText = ourData[i].recharge;
-                document.getElementById(newDiv.id).appendChild(newDiv4);
-
-                var modalDesc = document.createElement("div");
-                modalDesc.id = "descModal" + i;
-                modalDesc.className = "modal";
-                document.querySelector('body').appendChild(modalDesc);
-                var modalCont = document.createElement("div");
-                modalCont.id = "contModal" + i;
-                modalCont.className = "modal-content";
-                document.getElementById(modalDesc.id).appendChild(modalCont);
-                var modalHead = document.createElement("div");
-                modalHead.id = "headModal" + i;
-                modalHead.className = "modal-header";
-                document.getElementById(modalCont.id).appendChild(modalHead);
-                var abName = document.createElement("h2");
-                abName.innerText = ourData[i].name
-                document.getElementById(modalHead.id).appendChild(abName);
-                var modalBody = document.createElement("div");
-                modalBody.id = "bodyModal" + i;
-                modalBody.className = "modal-body";
-                document.getElementById(modalCont.id).appendChild(modalBody);
-                var abDesc = document.createElement("p");
-                abDesc.innerText = ourData[i].description
-                document.getElementById(modalBody.id).appendChild(abDesc);
-            }
-            const buttons = document.querySelectorAll('.ability-use-button');
-            for (let k = 0; k < buttons.length; k++) {
-                document.getElementById(buttons[k].id).setAttribute("onclick", "minusCharge(" + k + ")");
-            }
-        }
-        abilRequest.send();
-    }
-
-    window.onload = loadLine();
-
-    function descriptionShow(id) {
-        let elId = "descModal" + id;
-
-        var modal = document.getElementById(elId);
-
-        modal.style.display = "block";
-
-        window.onclick = function (event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        }
-    }
-
-    function minusCharge(id) {
-        var elId = "ability-name-" + id;
-        var butId = "ability-use-button-" + id;
-        var isFromClassId = "is-class-based-" + id;
-
-        var abilName = document.getElementById(elId).innerText;
-        var button = document.getElementById(butId);
-        var isFromClassBool = document.getElementById(isFromClassId).innerText;
-
-        var currentCharge = button.innerText;
-
-        if (currentCharge > 0) {
-            currentCharge--;
-            button.innerText = currentCharge;
-            var abilRequest = new XMLHttpRequest();
-            abilRequest.open('PUT', '/api/abilCharge');
-            abilRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
-            const body = JSON.stringify({
-                charId: charId,
-                abilName: abilName,
-                modifier: currentCharge,
-                isFromClass: isFromClassBool
-            });
-            abilRequest.send(body);
-        }
-    }
-
-</script>
 
 <div class="container-second-left">
     <div class="atrbs-rows-left">
@@ -998,19 +709,6 @@
     </div>
 </div>
 
-<script>
-
-    var userName = document.getElementById("user-name").innerText;
-    var charName = document.getElementById("char-name").innerText;
-
-    function loadCustomEdits() {
-        var host = window.location.protocol
-        var urlAddress = host + "/" + userName + "/" + charName + "/manual"
-        window.location.replace(urlAddress)
-    }
-
-</script>
-
 <div class="container-third-left">
     <div class="input-field-attr-withname">
         <p>Оружие ближнего боя:</p>
@@ -1108,8 +806,8 @@
 
 <div class="container-third-left-bottom">
     <div class="input-field-attr-withname">
-        <p>Инвентарь  xxx/${maxWeight}</p>
-        <button id="itemAdd" class="inventory-add-button">+</button>
+        <p>Инвентарь xxx/${maxWeight}</p>
+        <button id="itemAdd" class="inventory-add-button" onclick="addItem()">+</button>
     </div>
     <div class="input-item-withname">
         <div class="items-rows">
@@ -1117,7 +815,7 @@
                 <div class="weapons-column-output">
                 </div>
                 <div class="weapons-column-output">
-                    Кости
+                    Тип
                 </div>
                 <div class="weapons-column-output">
                     Атака
@@ -1126,38 +824,28 @@
                     Урон
                 </div>
             </div>
-            <div class="weapons-column">
-                <div class="weapons-column-output">
-                    Секира безбашенности
-                </div>
-                <div class="weapons-column-output">
-                    2к6
-                </div>
-                <div class="weapons-column-output">
-                    +7
-                </div>
-                <div class="weapons-column-output">
-                    +3
-                </div>
-            </div>
-            <div class="weapons-column">
-                <div class="weapons-column-output">
-                    Лоботряска
-                </div>
-                <div class="weapons-column-output">
-                    2к8
-                </div>
-                <div class="weapons-column-output">
-                    +7
-                </div>
-                <div class="weapons-column-output">
-                    +3
-                </div>
-            </div>
+            <%-- <div class="weapons-column">
+                     <div class="weapons-column-output">
+                         Секира безбашенности
+                     </div>
+                     <div class="weapons-column-output">
+                         2к6
+                     </div>
+                     <div class="weapons-column-output">
+                         +7
+                     </div>
+                     <div class="weapons-column-output">
+                         +3
+                     </div>
+                 </div> --%>
         </div>
     </div>
 </div>
+<script>
+    <%-- тут у нас скрипт инвенторя --%>
 
+
+</script>
 <%--<div class="container-third-left-bottom">--%>
 <%--    <div class="conditions-columns">--%>
 <%--        <div class="conditions-input">--%>
@@ -1222,11 +910,306 @@
 <%--</div>--%>
 
 <script>
+    <%-- тут загружаем основные элементы --%>
     var userName = document.getElementById("user-name").innerText;
     var charName = document.getElementById("char-name").innerText;
     var charId = document.getElementById("char-id").innerText;
+    var host = window.location.protocol
 
+    <%-- тут скрипт по подгрузке аватара --%>
+    window.onload = loadImg();
+    const form = document.getElementById('imgForm');
+
+    function loadImg() {
+        var img = document.createElement("img");
+        img.class = "img-class"
+        img.id = "avatar"
+        img.alt = "avatar"
+        img.setAttribute("style", "object-fit: cover")
+        img.setAttribute("onclick", "inputFile()")
+        document.getElementById('imgForm').appendChild(img);
+        renderImg(img)
+    }
+
+    function renderImg(img) {
+        img.width = "265"
+        img.height = "265"
+        img.src = host + "/file/" + userName + "/" + charName
+    }
+
+    document.getElementById('avatarLoader').addEventListener('change', button_clicker)
+    //при изменении input value (например, файл появился для аватарки) срабатывается button clicker
+    //change используем, потому что он срабатывает без клика кнопки, а при изменении содержания
+
+    function inputFile() {
+        document.getElementById('avatarLoader').click()
+        //при клике открывается окно выбора файла так как avatarLoader – это input type file
+    }
+
+    function button_clicker(evt) {
+        evt.preventDefault();
+        uploadFiles();
+    }
+
+    function uploadFiles() {
+        const userName = document.getElementById('user-name').innerText
+        const charName = document.getElementById('char-name').innerText
+        const url = '/file/' + userName + '/' + charName + '/upload';
+        const method = 'post';
+        const xhr = new XMLHttpRequest();
+        const data = new FormData(form);
+        xhr.open(method, url);
+        xhr.send(data);
+        xhr.onload = function () {
+            location.reload()
+        }
+    }
+
+    <%-- тут скрипт по подгрузке опыта --%>
+    var expModal = document.getElementById("expModal");
+    var expButton = document.getElementById("sec-exp-button");
+    var currentExperience = document.getElementById("expNumber");
+    var incomingExp;
+
+    function expShow() {
+        expModal.style.display = "block";
+        window.onclick = function (event) {
+            if (event.target === expModal) {
+                expModal.style.display = "none";
+            }
+        }
+    }
+
+    expButton.addEventListener("click", function () {
+        incomingExp = document.getElementById("incoming-exp").value;
+        if (incomingExp < 1) {
+            alert("Значение не может быть меньше 1")
+            return;
+        }
+        expModal.style.display = "none";
+        var ourRequest = new XMLHttpRequest();
+        ourRequest.open('PUT', '/api/calcExp');
+        ourRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+        const body = JSON.stringify({
+            charId: charId,
+            charName: charName,
+            modifier: incomingExp
+        });
+        ourRequest.onload = function () {
+            var ourData = JSON.parse(ourRequest.responseText);
+            if (ourData.isLevelUpReady === true) {
+                window.location.replace("levelup?charId=" + charId);
+            } else {
+                renderExp(ourData);
+            }
+        }
+        ourRequest.send(body);
+    })
+
+    function renderExp(data) {
+        currentExperience.innerText = data.experience;
+    }
+
+    <%-- тут скрипт по подгрузке hp и урона --%>
     var currentHP = document.getElementById("currentHP");
+
+    var healModal = document.getElementById("healModal");
+    var healButton = document.getElementById("sec-heal-button");
+    var incomingHeal;
+
+    var dmgModal = document.getElementById("dmgModal");
+    var dmgButton = document.getElementById("sec-dmg-button");
+    var incomingDamage;
+
+    window.onload = loadHP();
+
+    function loadHP() {
+        currentHP.innerText = ${curHitPoints};
+    }
+
+
+    function hpHealShow() {
+        healModal.style.display = "block";
+        window.onclick = function (event) {
+            if (event.target === healModal) {
+                healModal.style.display = "none";
+            }
+        }
+    }
+
+    healButton.addEventListener("click", function () {
+        incomingHeal = document.getElementById("incoming-heal").value;
+        if (incomingHeal < 1) {
+            alert("Значение не может быть меньше 1")
+            return;
+        }
+        healModal.style.display = "none";
+        var ourRequest = new XMLHttpRequest();
+        ourRequest.open('PUT', '/api/calcHeal');
+        ourRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+        const body = JSON.stringify({
+            charName: charName,
+            modifier: incomingHeal
+        });
+        ourRequest.onload = function () {
+            var ourData = JSON.parse(ourRequest.responseText);
+            renderHP(ourData);
+        }
+        ourRequest.send(body);
+    })
+
+    function hpDmgShow() {
+        dmgModal.style.display = "block";
+        window.onclick = function (event) {
+            if (event.target === dmgModal) {
+                dmgModal.style.display = "none";
+            }
+        }
+    }
+
+    dmgButton.addEventListener("click", function () {
+        incomingDamage = document.getElementById("incoming-damage").value;
+        if (incomingDamage < 1) {
+            alert("Значение не может быть меньше 1")
+            return;
+        }
+        dmgModal.style.display = "none";
+        var ourRequest = new XMLHttpRequest();
+        ourRequest.open('PUT', '/api/calcDmg');
+        ourRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+        const body = JSON.stringify({
+            charName: charName,
+            modifier: incomingDamage
+        });
+        ourRequest.onload = function () {
+            var ourData = JSON.parse(ourRequest.responseText);
+            renderHP(ourData);
+        }
+        ourRequest.send(body);
+    })
+
+    function renderHP(data) {
+        currentHP.innerText = data.currentHP;
+    }
+
+    <%-- тут скрипт по подгрузке абилок персонажа --%>
+    var uriText = "/api/charAbil/" + charId;
+    var elementToAdd = document.getElementById("abilities-locator");
+
+    window.onload = loadLine();
+
+    function loadLine() {
+        var abilRequest = new XMLHttpRequest();
+        abilRequest.open('GET', uriText);
+        abilRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+        abilRequest.onload = function () {
+            var ourData = JSON.parse(abilRequest.responseText);
+            for (let i = 0; i < ourData.length; i++) {
+                var newDiv = document.createElement("div");
+                newDiv.id = "abilities-row-" + i;
+                newDiv.className = "abilities-row";
+                document.getElementById('abilities-prnt').appendChild(newDiv);
+                var newDivClass = document.createElement("output");
+                newDivClass.id = "is-class-based-" + i;
+                newDivClass.innerText = ourData[i].isFromClass;
+                newDivClass.hidden = true;
+                document.getElementById('abilities-prnt').appendChild(newDivClass);
+                var newDiv1 = document.createElement("output");
+                newDiv1.id = "ability-name-" + i;
+                newDiv1.style.textAlign = "center";
+                newDiv1.className = "ability-name";
+                newDiv1.innerText = ourData[i].name;
+                newDiv1.setAttribute("onclick", "descriptionShow(" + i + ")");
+                document.getElementById(newDiv.id).appendChild(newDiv1);
+                var newDiv2 = document.createElement("output");
+                newDiv2.innerText = ourData[i].cost;
+                document.getElementById(newDiv.id).appendChild(newDiv2);
+                var newDiv3 = document.createElement("button");
+                newDiv3.id = "ability-use-button-" + i;
+                newDiv3.className = "ability-use-button";
+                newDiv3.name = "ability-use-button";
+                if (ourData[i].recharge === "Не требует отдыха") {
+                    newDiv3.innerText = "-";
+                } else {
+                    newDiv3.innerText = ourData[i].numberOfCharges;
+                }
+                document.getElementById(newDiv.id).appendChild(newDiv3);
+                var newDiv4 = document.createElement("output");
+                newDiv4.innerText = ourData[i].recharge;
+                document.getElementById(newDiv.id).appendChild(newDiv4);
+
+                var modalDesc = document.createElement("div");
+                modalDesc.id = "descModal" + i;
+                modalDesc.className = "modal";
+                document.querySelector('body').appendChild(modalDesc);
+                var modalCont = document.createElement("div");
+                modalCont.id = "contModal" + i;
+                modalCont.className = "modal-content";
+                document.getElementById(modalDesc.id).appendChild(modalCont);
+                var modalHead = document.createElement("div");
+                modalHead.id = "headModal" + i;
+                modalHead.className = "modal-header";
+                document.getElementById(modalCont.id).appendChild(modalHead);
+                var abName = document.createElement("h2");
+                abName.innerText = ourData[i].name
+                document.getElementById(modalHead.id).appendChild(abName);
+                var modalBody = document.createElement("div");
+                modalBody.id = "bodyModal" + i;
+                modalBody.className = "modal-body";
+                document.getElementById(modalCont.id).appendChild(modalBody);
+                var abDesc = document.createElement("p");
+                abDesc.innerText = ourData[i].description
+                document.getElementById(modalBody.id).appendChild(abDesc);
+            }
+            const buttons = document.querySelectorAll('.ability-use-button');
+            for (let k = 0; k < buttons.length; k++) {
+                document.getElementById(buttons[k].id).setAttribute("onclick", "minusCharge(" + k + ")");
+            }
+        }
+        abilRequest.send();
+    }
+
+    function descriptionShow(id) {
+        let elId = "descModal" + id;
+        var modal = document.getElementById(elId);
+
+        modal.style.display = "block";
+
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+
+    function minusCharge(id) {
+        var elId = "ability-name-" + id;
+        var butId = "ability-use-button-" + id;
+        var isFromClassId = "is-class-based-" + id;
+
+        var abilName = document.getElementById(elId).innerText;
+        var button = document.getElementById(butId);
+        var isFromClassBool = document.getElementById(isFromClassId).innerText;
+        var currentCharge = button.innerText;
+
+        if (currentCharge > 0) {
+            currentCharge--;
+            button.innerText = currentCharge;
+            var abilRequest = new XMLHttpRequest();
+            abilRequest.open('PUT', '/api/abilCharge');
+            abilRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+            const body = JSON.stringify({
+                charId: charId,
+                abilName: abilName,
+                modifier: currentCharge,
+                isFromClass: isFromClassBool
+            });
+            abilRequest.send(body);
+        }
+    }
+
+    <%-- тут скрипт по подгрузке атрибутов и навыков --%>
+    window.onload = loadAttrsAndSkills();
 
     var currentStr = document.getElementById("str");
     var currentStrMod = document.getElementById("strMod");
@@ -1263,7 +1246,6 @@
     var insSkill = document.getElementById("insSkill");
     var anhSkill = document.getElementById("anhSkill");
 
-
     var currentCha = document.getElementById("cha");
     var currentChaMod = document.getElementById("chaMod");
     var currentChaSave = document.getElementById("chaSave");
@@ -1271,36 +1253,6 @@
     var intSkill = document.getElementById("intSkill");
     var decSkill = document.getElementById("decSkill");
     var persSkill = document.getElementById("persSkill");
-
-    window.onload = loadImg();
-    window.onload = loadHP();
-    window.onload = loadAttrsAndSkills();
-
-    function loadHP() {
-        currentHP.innerText = ${curHitPoints};
-    }
-
-    function loadImg() {
-        var img = document.createElement("img");
-        img.class = "img-class"
-        img.id = "avatar"
-        img.alt = "avatar"
-        img.setAttribute("style", "object-fit: cover")
-        img.setAttribute("onclick", "inputFile()")
-        document.getElementById('imgForm').appendChild(img);
-        renderImg(img)
-    }
-
-    function renderImg(img) {
-        var host = window.location.protocol
-        img.width = "265"
-        img.height = "265"
-        img.src = host + "/file/" + userName + "/" + charName
-    }
-
-    function loadHP() {
-        currentHP.innerText = ${curHitPoints};
-    }
 
     function loadAttrsAndSkills() {
         var attrsAndSkillRequest = new XMLHttpRequest()
@@ -1316,8 +1268,7 @@
 
     function updateFields(responseData) {
         if (responseData.featReady === "true") {
-            var host = window.location.protocol
-            window.location.replace(host + "/" + userName + "/" + charName + "/raiseattributes");
+            window.location.replace(host + "/" + userName + "/" + charName + "/raise-attributes");
         }
         currentStr.innerText = "Сила: " + responseData.strength;
         currentStrMod.innerText = responseData.strengthmod;
@@ -1363,7 +1314,18 @@
         persSkill.innerText = responseData.persuasion + " Убеждение";
     }
 
+    function loadCustomEdits() {
+        var urlAddress = host + "/" + userName + "/" + charName + "/manual"
+        window.location.replace(urlAddress)
+    }
+
+    <%-- тут скрипт по работе инвентаря --%>
+    function addItem() {
+        var urlAddress = host + "/" + userName + "/" + charName + "/add-item"
+        window.location.replace(urlAddress)
+    }
 </script>
+
 </body>
 
 </html>

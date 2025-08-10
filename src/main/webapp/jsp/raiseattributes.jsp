@@ -69,6 +69,8 @@
         }
 
         .summary-box .atrb-container .atrb-collumn .input-field {
+            width: max-content;
+            display: contents;
             padding: 8px;
         }
 

@@ -22,7 +22,6 @@ import ru.maleth.mythra.enums.SlotEnum;
 @Data
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
@@ -31,7 +30,5 @@ public class Item {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private SlotEnum slot = SlotEnum.MISC;
-    @Enumerated(EnumType.STRING)
-    private ItemTypeEnum type;
 
 }

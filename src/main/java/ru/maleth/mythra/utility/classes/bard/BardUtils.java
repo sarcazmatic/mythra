@@ -3,6 +3,8 @@ package ru.maleth.mythra.utility.classes.bard;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import ru.maleth.mythra.enums.CustomEditEnum;
+import ru.maleth.mythra.model.characters.CharCustomEdits;
 import ru.maleth.mythra.model.characters.Character;
 import ru.maleth.mythra.model.abilities.Ability;
 import ru.maleth.mythra.model.abilities.CharClassAbility;
@@ -10,6 +12,7 @@ import ru.maleth.mythra.model.classes.CharClass;
 import ru.maleth.mythra.model.classes.CharClassLevel;
 import ru.maleth.mythra.repo.AbilityRepo;
 import ru.maleth.mythra.repo.CharClassAbilityRepo;
+import ru.maleth.mythra.repo.CustomEditsRepo;
 import ru.maleth.mythra.utility.CharacterCalculator;
 
 import java.util.ArrayList;
@@ -23,11 +26,13 @@ public class BardUtils {
 
     private final AbilityRepo abilityRepo;
     private final CharClassAbilityRepo charClassAbilityRepo;
+    private final CustomEditsRepo customEditsRepo;
 
     public List<CharClassAbility> formAbilities(CharClassLevel ccl) {
         log.info("Собираем абилки персонажа '{}' для класса '{}' для вывода на чаршит", ccl.getCharacter().getCharName(), ccl.getCharClass().getName());
         Character character = ccl.getCharacter();
         CharClass charClass = ccl.getCharClass();
+        CharCustomEdits cceCharisma = customEditsRepo.findByCharacterIdAndCustomEdits(character.getId(), CustomEditEnum.CHARISMA);
         Integer level = ccl.getClassLevel();
         List<CharClassAbility> ccaList = new ArrayList<>();
         List<Ability> abilitiesUnfiltered = abilityRepo.findAllByClassLimitByLevel(ccl.getCharClass().getName(), level);
@@ -45,7 +50,8 @@ public class BardUtils {
                         .build();
                 switch (a.getName()) {
                     case "ВДОХНОВЕНИЕ БАРДА (к6)" -> {
-                        cca.setMaxNumberOfUses(Math.max(CharacterCalculator.calculateAttributeModifier(character.getCharisma()), 1));
+                        cca.setMaxNumberOfUses(Math.max(CharacterCalculator.calculateAttributeModifier(character.getCharisma()
+                                + cceCharisma.getModificator()), 1));
                         cca.setNumberOfUses(cca.getMaxNumberOfUses());
                     }
                     case "ВДОХНОВЕНИЕ БАРДА (к8)" -> {
@@ -70,7 +76,8 @@ public class BardUtils {
                 log.info("Абилка '{}' уже есть у класса '{}' на уровне {}", a.getName(), ccl.getCharClass().getName(), level);
                 cca = ccaOptional.get();
                 if (a.getName().contains("ВДОХНОВЕНИЕ БАРДА")) {
-                    cca.setMaxNumberOfUses(Math.max(CharacterCalculator.calculateAttributeModifier(character.getCharisma()), 1));
+                    cca.setMaxNumberOfUses(Math.max(CharacterCalculator.calculateAttributeModifier(character.getCharisma()
+                            + cceCharisma.getModificator()), 1));
                 }
             }
             ccaList.add(cca);

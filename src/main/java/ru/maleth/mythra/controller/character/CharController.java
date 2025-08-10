@@ -84,7 +84,7 @@ public class CharController {
         return attributes.get(PAGE);
     }
 
-    @GetMapping("/raiseattributes")
+    @GetMapping("/raise-attributes")
     @ResponseStatus(HttpStatus.OK)
     public String raiseAttributes(@PathVariable("name") String userName, @PathVariable("charName") String charName, Model model) {
         log.info("Пришел запрос на загрузку страницы поднятия атрибутов для персонажа {}", charName);
@@ -109,6 +109,13 @@ public class CharController {
         Map<String, String> manualEdit = levelUpService.formManualEdit(userName, charName);
         model.addAllAttributes(manualEdit);
         return manualEdit.get(PAGE);
+    }
+
+    @GetMapping("/add-item")
+    @ResponseStatus(HttpStatus.OK)
+    public String addItem(@PathVariable("name") String userName, @PathVariable("charName") String charName, Model model) {
+        log.info("Пришел запрос на добавление предмета персонажу {}", charName);
+        return "newitem";
     }
 
 }

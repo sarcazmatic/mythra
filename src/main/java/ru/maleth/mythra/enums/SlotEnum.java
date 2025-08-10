@@ -22,7 +22,6 @@ public enum SlotEnum {
     CONSUMABLE("Полезное"),
     TEXTS("Тексты");
 
-
     private final String name;
 
     SlotEnum(String name) {
