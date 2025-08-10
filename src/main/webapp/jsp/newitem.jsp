@@ -311,6 +311,7 @@
 
         if (!ok) return;
 
+        // Если return не случился, значит ok === true. Давайте пробовать отправить запрос
         try {
             var charId = document.getElementById('char-id').innerText
             var userName = document.getElementById('user-name').innerText
