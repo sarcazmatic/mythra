@@ -195,12 +195,12 @@ CREATE table IF NOT EXISTS items
     slot                 VARCHAR                                 not null,
     --armor fields lower
     armor                INTEGER,
-    stealth_disadvantage TEXT,
+    stealth_disadvantage BOOLEAN,
     armor_type           VARCHAR,
     --weapon fields lower
     number_of_dice       INTEGER,
     quality_of_dice      INTEGER,
-    base_modificator     INTEGER,
+    base_modificator     VARCHAR,
     is_universal         BOOLEAN,
     is_finesse           BOOLEAN,
     CONSTRAINT pk_items PRIMARY KEY (id)

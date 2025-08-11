@@ -1,11 +1,11 @@
 package ru.maleth.mythra.dto.mapper;
 
 import ru.maleth.mythra.dto.ItemDTO;
+import ru.maleth.mythra.enums.AttribEnum;
 import ru.maleth.mythra.enums.SlotEnum;
 import ru.maleth.mythra.model.items.Armor;
 import ru.maleth.mythra.model.items.Item;
 import ru.maleth.mythra.model.items.Weapon;
-
 
 public class ItemMapper {
 
@@ -13,7 +13,7 @@ public class ItemMapper {
         Item item = Item.builder()
                 .name(itemDTO.getName())
                 .description(itemDTO.getDescription())
-                .weight((double) itemDTO.getWeight())
+                .weight(itemDTO.getWeight())
                 .slot(itemDTO.getType())
                 .build();
         if (itemDTO.getArmorType() != null) {
@@ -24,9 +24,18 @@ public class ItemMapper {
                     .build();
             item.setArmor(armor);
         }
-        if (itemDTO.getType().equals(SlotEnum.MELEE_WEAPON) || itemDTO.getType().equals(SlotEnum.RANGED_WEAPON)) {
+        if (itemDTO.getType().equals(SlotEnum.MELEE_WEAPON)) {
             Weapon weapon = Weapon.builder()
-                    .baseModificator(1)
+                    .baseModificator(AttribEnum.STRENGTH)
+                    .isFinesse(true)
+                    .isUniversal(true)
+                    .numberOfDice(1)
+                    .qualityOfDice(8)
+                    .build();
+            item.setWeapon(weapon);
+        } else if (itemDTO.getType().equals(SlotEnum.RANGED_WEAPON)) {
+            Weapon weapon = Weapon.builder()
+                    .baseModificator(AttribEnum.DEXTERITY)
                     .isFinesse(true)
                     .isUniversal(true)
                     .numberOfDice(1)

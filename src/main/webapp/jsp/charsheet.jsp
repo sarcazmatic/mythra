@@ -527,7 +527,7 @@
 <div class="modal" id="healModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>${curHitPoints}</h2>
+            <h2 id="healCurHitPoints">${curHitPoints}</h2>
         </div>
         <div class="modal-body">
             <input type="number" id="incoming-heal" min="1" required placeholder="От 1">
@@ -539,7 +539,7 @@
 <div class="modal" id="dmgModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>${curHitPoints}</h2>
+            <h2 id="dmgCurHitPoints">${curHitPoints}</h2>
         </div>
         <div class="modal-body">
             <input type="number" id="incoming-damage" min="1" required placeholder="От 1">
@@ -1016,10 +1016,14 @@
     var healModal = document.getElementById("healModal");
     var healButton = document.getElementById("sec-heal-button");
     var incomingHeal;
+    var healCurHP = document.getElementById("healCurHitPoints");
+
 
     var dmgModal = document.getElementById("dmgModal");
     var dmgButton = document.getElementById("sec-dmg-button");
     var incomingDamage;
+    var dmgCurHP = document.getElementById("dmgCurHitPoints");
+
 
     window.onload = loadHP();
 
@@ -1090,6 +1094,8 @@
 
     function renderHP(data) {
         currentHP.innerText = data.currentHP;
+        healCurHP.innerText = data.currentHP;
+        dmgCurHP.innerText = data.currentHP;
     }
 
     <%-- тут скрипт по подгрузке абилок персонажа --%>
