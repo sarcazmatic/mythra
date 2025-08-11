@@ -1,13 +1,11 @@
 package ru.maleth.mythra.dto.mapper;
 
 import ru.maleth.mythra.dto.ItemDTO;
-import ru.maleth.mythra.enums.ArmorTypeEnum;
 import ru.maleth.mythra.enums.SlotEnum;
 import ru.maleth.mythra.model.items.Armor;
 import ru.maleth.mythra.model.items.Item;
 import ru.maleth.mythra.model.items.Weapon;
 
-import java.util.Optional;
 
 public class ItemMapper {
 

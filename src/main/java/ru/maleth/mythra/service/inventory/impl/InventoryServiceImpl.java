@@ -11,12 +11,11 @@ import ru.maleth.mythra.model.items.Item;
 import ru.maleth.mythra.repo.CharInventoryRepo;
 import ru.maleth.mythra.repo.CharacterRepo;
 import ru.maleth.mythra.repo.InventoryRepo;
-import ru.maleth.mythra.service.character.CharacterService;
 import ru.maleth.mythra.service.inventory.InventoryService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -56,7 +55,7 @@ public class InventoryServiceImpl implements InventoryService {
         log.info("ID предмета закреплен за персонажем успешно в репо персонаж-предмет");
     }
 
-    public void getItems(Long charId) {
-
+    public List<CharacterItems> getItems(Long charId) {
+        return null;
     }
 }
