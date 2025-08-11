@@ -7,8 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.maleth.mythra.model.abilities.CharRaceAbility;
 import ru.maleth.mythra.model.characters.Race;
 
-
-
 public interface CharRaceAbilityRepo extends JpaRepository<CharRaceAbility, Long> {
 
     CharRaceAbility findByCharacter_IdAndAbility_Name(Long id, String name);

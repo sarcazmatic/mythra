@@ -22,13 +22,12 @@ import java.nio.file.Paths;
 public class FileServiceImpl implements FileService {
 
     private final CharacterService characterService;
-    private final FileMapper fileMapper;
     private final FileRepo fileRepo;
 
     @Override
     public void save(MultipartFile mpFile, String userName, String charName) throws IOException {
         log.info("Сохраняем за юзером '{}' и персонажем '{}' аватар", userName, charName);
-        File file = fileMapper.fromMPFile(mpFile);
+        File file = FileMapper.fromMPFile(mpFile);
         try {
             File fileToChange = fileRepo.findByCharacterCharNameAnd(userName, charName);
             file.setId(fileToChange.getId());
@@ -55,7 +54,7 @@ public class FileServiceImpl implements FileService {
                     .contentType("image/jpeg")
                     .build();;
         }
-        return fileMapper.fromFile(file);
+        return FileMapper.fromFile(file);
     }
 
 }

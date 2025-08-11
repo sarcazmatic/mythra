@@ -317,8 +317,9 @@
             var userName = document.getElementById('user-name').innerText
             var charName = document.getElementById('char-name').innerText
             const data = collectData(true);
-            var url = window.location.protocol + '/api/addItem/' + charId;
-            const urlChar = '/' + userName + '/' + charName + '/charsheet';
+            var host = window.location.protocol;
+            var url = host + '/api/addItem/' + charId;
+            const urlChar = host + '/' + userName + '/' + charName + '/charsheet';
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url)
             xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")

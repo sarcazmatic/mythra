@@ -10,6 +10,7 @@ import ru.maleth.mythra.dto.CharClassToLevelUpDTO;
 import ru.maleth.mythra.dto.ItemDTO;
 import ru.maleth.mythra.dto.NumberModifierDTO;
 import ru.maleth.mythra.service.character.CharacterService;
+import ru.maleth.mythra.service.inventory.InventoryService;
 import ru.maleth.mythra.service.levelup.LevelUpService;
 import ru.maleth.mythra.service.sheet.CharsheetService;
 
@@ -24,6 +25,7 @@ public class UpdateController {
     private final CharsheetService charsheetService;
     private final CharacterService characterService;
     private final LevelUpService levelUpService;
+    private final InventoryService inventoryService;
 
 
     @GetMapping("/charAbil/{charId}")
@@ -123,6 +125,7 @@ public class UpdateController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addItem(@RequestBody ItemDTO itemDTO, @PathVariable Long charId) {
         log.info("Пришел запрос на добавление предмета {} персонажу с id {}", itemDTO, charId);
+        inventoryService.saveItem(charId, itemDTO);
     }
 
 }

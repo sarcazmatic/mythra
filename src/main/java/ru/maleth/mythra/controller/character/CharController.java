@@ -11,6 +11,7 @@ import ru.maleth.mythra.dto.NewCharacterDTO;
 import ru.maleth.mythra.dto.NewCharacterFullDTO;
 import ru.maleth.mythra.service.character.CharacterCreationService;
 import ru.maleth.mythra.service.character.CharacterService;
+import ru.maleth.mythra.service.inventory.InventoryService;
 import ru.maleth.mythra.service.levelup.LevelUpService;
 import ru.maleth.mythra.service.sheet.CharsheetService;
 
@@ -26,6 +27,7 @@ public class CharController {
     private final CharacterCreationService characterCreationService;
     private final CharsheetService charsheetService;
     private final LevelUpService levelUpService;
+    private final InventoryService inventoryService;
     private static final String PAGE = "directToPage";
 
     @PostMapping("/attributes")
@@ -115,10 +117,9 @@ public class CharController {
     @ResponseStatus(HttpStatus.OK)
     public String addItem(@PathVariable("name") String userName, @PathVariable("charName") String charName, Model model) {
         log.info("Пришел запрос на добавление предмета персонажу {}", charName);
-        model.addAttribute("charId", "1");
-        model.addAttribute("userName", userName);
-        model.addAttribute("charName", charName);
-        return "newitem";
+        Map<String, String> itemPageFormer = inventoryService.addItemPageFormer(userName, charName);
+        model.addAllAttributes(itemPageFormer);
+        return itemPageFormer.get("PAGE");
     }
 
 }

@@ -1,24 +1,22 @@
 package ru.maleth.mythra.model.items;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Entity
-@Table(name = "weapons")
+@Embeddable
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Data
+@Builder
+@Getter
+@Setter
 public class Weapon {
 
-    @Id
-    private Long id;
     @Column(name = "number_of_dice")
     private Integer numberOfDice;
     @Column(name = "quality_of_dice")
@@ -29,8 +27,5 @@ public class Weapon {
     private Boolean isUniversal;
     @Column(name = "is_finesse")
     private Boolean isFinesse;
-    @OneToOne
-    @JoinColumn(name = "item_id")
-    private Item item;
 
 }
