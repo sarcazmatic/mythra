@@ -193,6 +193,20 @@
             <div class="error" id="armorTypeErr">Укажите тип доспеха.</div>
         </div>
 
+        <div class="optional-field" id="weapon_opt">
+            <label for="numberOfDice">Кол-во костей урона</label>
+            <input id="numberOfDice" name="numberOfDice" type="number" placeholder="Это первая цифра в 1к6" required maxlength="120"/>
+            <label for="qualityOfDice">Тип костей урона</label>
+            <input id="qualityOfDice" name="qualityOfDice" type="number" placeholder="Это вторая цифра в 1к6" required maxlength="120"/>
+            <div style="display: flex; justify-content: space-between;">
+            <label for="isFinesse">Оружие фехтовальное?</label>
+            <input id="isFinesse" name="isFinesse" type="checkbox"/>
+            <label for="isUniversal">Оружие универсальное?</label>
+            <input id="isUniversal" name="isUniversal" type="checkbox"/>
+            </div>
+            <div class="error" id="weaponErr">Укажите особенности оружия.</div>
+        </div>
+
         <div>
             <label for="desc">Описание предмета</label>
             <textarea id="desc" name="description" placeholder="Кратко опишите внешний вид и свойства…"
@@ -234,8 +248,14 @@
                 selectedType === "HELM" ||
                 selectedType === "SHIELD" ||
                 selectedType === "PAULDRONS") {
+                document.getElementById('weapon_opt').style.display = "none";
                 document.getElementById('armor_opt').style.display = "block";
+            }else if (selectedType === "RANGED_WEAPON" ||
+                selectedType === "MELEE_WEAPON") {
+                document.getElementById('weapon_opt').style.display = "block";
+                document.getElementById('armor_opt').style.display = "none";
             } else {
+                document.getElementById('weapon_opt').style.display = "none";
                 document.getElementById('armor_opt').style.display = "none";
             }
         }
@@ -250,9 +270,16 @@
     function collectData(strict = true) {
         const type = form.type.value || null;
         const name = form.name.value.trim() || null;
-        const armorType = form.armorType.value || null;
         const description = form.description.value.trim() || null;
         let weightRaw = (form.weight.value || '').replace(',', '.').trim();
+
+        const armorType = form.armorType.value || null;
+
+        const numberOfDice = form.numberOfDice.value || null;
+        const qualityOfDice = form.qualityOfDice.value || null;
+        const isUniversal = form.isUniversal.checked;
+        const isFinesse = form.isFinesse.checked;
+
 
         // Валидируем по RegExp (точка, до 2 знаков)
         const weightPattern = /^\d{1,4}(?:\.\d{1,2})?$/;
@@ -265,7 +292,7 @@
             }
         }
 
-        return {type, name, armorType, description, weight};
+        return {type, name, armorType, description, weight, numberOfDice, qualityOfDice, isUniversal, isFinesse};
     }
 
     function showError(id, show) {
@@ -281,11 +308,11 @@
         showError('nameErr', false);
         showError('weightErr', false);
         showError('armorTypeErr', false);
+        showError('weaponErr', false);
 
         // Простая проверка обязательных полей
         let ok = true;
-        console.log(form.type.value)
-        if (!form.type.value) {
+        if (!form.type.value) { //если пустое
             showError('typeErr', true);
             ok = false;
         }
@@ -293,9 +320,17 @@
             showError('nameErr', true);
             ok = false;
         }
+
         if (document.getElementById('armor_opt').style.display === "block"
             && !form.armorType.value) {
             showError('armorTypeErr', true);
+            ok = false;
+        }
+
+        if (document.getElementById('weapon_opt').style.display === "block"
+            && !form.numberOfDice.value
+            || !form.qualityOfDice.value) {
+            showError('weaponErr', true);
             ok = false;
         }
 
@@ -344,6 +379,7 @@
         showError('nameErr', false);
         showError('weightErr', false);
         showError('armorTypeErr', false);
+        showError('weaponErr', false);
     });
 
 </script>

@@ -27,19 +27,19 @@ public class ItemMapper {
         if (itemDTO.getType().equals(SlotEnum.MELEE_WEAPON)) {
             Weapon weapon = Weapon.builder()
                     .baseModificator(AttribEnum.STRENGTH)
-                    .isFinesse(true)
-                    .isUniversal(true)
-                    .numberOfDice(1)
-                    .qualityOfDice(8)
+                    .isFinesse(itemDTO.getIsFinesse())
+                    .isUniversal(itemDTO.getIsUniversal())
+                    .numberOfDice(itemDTO.getNumberOfDice())
+                    .qualityOfDice(itemDTO.getQualityOfDice())
                     .build();
             item.setWeapon(weapon);
         } else if (itemDTO.getType().equals(SlotEnum.RANGED_WEAPON)) {
             Weapon weapon = Weapon.builder()
                     .baseModificator(AttribEnum.DEXTERITY)
-                    .isFinesse(true)
-                    .isUniversal(true)
-                    .numberOfDice(1)
-                    .qualityOfDice(8)
+                    .isFinesse(itemDTO.getIsFinesse())
+                    .isUniversal(itemDTO.getIsUniversal())
+                    .numberOfDice(itemDTO.getNumberOfDice())
+                    .qualityOfDice(itemDTO.getQualityOfDice())
                     .build();
             item.setWeapon(weapon);
         }
