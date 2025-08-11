@@ -56,6 +56,6 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     public List<CharacterItems> getItems(Long charId) {
-        return null;
+        return charInventoryRepo.findAllByCharacter_Id(charId);
     }
 }
