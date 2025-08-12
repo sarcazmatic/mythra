@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Epic D&D Character Sheet</title>
+    <title>Mythra D&D Service</title>
     <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
     <style>
         body {
@@ -199,7 +199,6 @@
                         <input type="checkbox" id="history" name="profs" value="history">
                     </div>
                     <div class="input-field">
-                        <br>
                         <label for="insight">Проницательность:</label>
                         <input name="insight" value="${wisdomMod}" readonly>
                         <input type="checkbox" id="insight" name="profs" value="insight">
@@ -232,7 +231,6 @@
                         <input type="checkbox" id="perception" name="profs" value="perception">
                     </div>
                     <div class="input-field">
-                        <br>
                         <label for="performance">Выступление:</label>
                         <input name="performance" value="${charismaMod}" readonly>
                         <input type="checkbox" id="performance" name="profs" value="performance">

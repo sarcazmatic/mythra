@@ -33,4 +33,6 @@ public class CharacterItems {
     @Column(name = "number_of_uses")
     @Builder.Default
     private Integer numberOfUses = 0;
+    @Column(name = "is_equipped")
+    private Boolean isEquipped;
 }

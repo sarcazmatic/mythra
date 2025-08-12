@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Epic D&D Character Sheet</title>
+    <title>Mythra D&D Service</title>
     <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
     <style>
         body {
@@ -162,7 +162,7 @@
                 </div>
             </div>
             <button type="submit" class="submit-button">Дальше</button>
-            <input type="text" name="charName" value=${charName} hidden>
+            <input type="text" name="charName" value='${charName}' hidden>
             <input type="text" name="charRace" value="${charRaceOne}${charRaceTwo}" hidden>
             <input type="text" name="charClass" value="${charClassOne}${charClassTwo}" hidden>
         </form>

@@ -214,5 +214,6 @@ CREATE table IF NOT EXISTS characters_items
     character_id   BIGINT                                  not null references characters (id),
     item_id        BIGINT                                  not null references items (id),
     number_of_uses INTEGER                                 not null,
+    is_equipped    BOOLEAN                                 not null,
     CONSTRAINT pk_characters_items PRIMARY KEY (id)
 );

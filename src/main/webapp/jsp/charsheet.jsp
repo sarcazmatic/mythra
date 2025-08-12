@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Epic D&D Character Sheet</title>
+    <title>Mythra D&D Service</title>
     <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
     <style>
         body {
@@ -186,11 +186,15 @@
 
         .container-left-bottom-bottom {
             display: grid;
+            padding: 0% 1% 0% 1%;
             position: absolute;
-            top: 74.5%;
-            left: 5%;
-            width: 51%;
-            height: auto;
+            grid-template-rows: 15% 25% 15% 25%;
+            row-gap: 5%;
+            top: 2.5%;
+            left: 57%;
+            width: 35%;
+            height: 32%;
+            text-align: left;
             background-color: #222;
             border-radius: 10px;
             border: solid 1px #444;
@@ -198,7 +202,7 @@
 
         .container-left-bottom-bottom-skillbox {
             display: grid;
-            height: 11em;
+            height: 14em;
             background-color: #222;
             border-radius: 10px;
             grid-auto-rows: max-content;
@@ -405,15 +409,12 @@
 
         .container-third-left {
             display: grid;
-            padding: 0% 1% 0% 1%;
             position: absolute;
-            grid-template-rows: 15% 25% 15% 25%;
-            row-gap: 5%;
-            top: 2.5%;
-            left: 57%;
-            width: 35%;
-            height: 32%;
-            text-align: left;
+            padding: 0 1% 0 1%;
+            top: 74.5%;
+            left: 5%;
+            width: 49%;
+            height: auto;
             background-color: #222;
             border-radius: 10px;
             border: solid 1px #444;
@@ -446,7 +447,7 @@
         .weapons-column {
             display: grid;
             text-align: left;
-            grid-template-columns: 45% 20% 15% 15%;
+            grid-template-columns: 44% 24.5% 15% 15%;
             font-size: smaller;
             column-gap: 0;
             justify-items: start;
@@ -814,23 +815,13 @@
 
 <div class="container-third-left-bottom">
     <div class="input-field-attr-withname">
-        <p id="weightInfo">Инвентарь xxx/${maxWeight}</p>
+        <p id="weightInfo">loading...</p>
+        <p>Тип</p>
+        <p>Вес</p>
         <button id="itemAdd" class="inventory-add-button" onclick="addItem()">+</button>
     </div>
     <div class="input-item-withname">
         <div class="items-rows" id="items-rows">
-            <div class="weapons-column">
-                <div class="weapons-column-output">
-                </div>
-                <div class="weapons-column-output" style="border-bottom: solid 1px #444">
-                    Тип
-                </div>
-                <div class="weapons-column-output" style="border-bottom: solid 1px #444">
-                    Вес
-                </div>
-                <div class="weapons-column-output">
-                </div>
-            </div>
             <%-- <div class="weapons-column">
                      <div class="weapons-column-output">
                          Секира безбашенности
@@ -1389,7 +1380,7 @@
                 itemName.innerText = ourData[i].name
                 document.getElementById(newModalForItemHead.id).appendChild(itemName);
                 var newModalForItemBody = document.createElement("div");
-                newModalForItemBody.id = "inventory-modal-head-" + i;
+                newModalForItemBody.id = "inventory-modal-body-" + i;
                 newModalForItemBody.className = "modal-body";
                 document.getElementById(newModalForItemCont.id).appendChild(newModalForItemBody);
                 var itemDesc = document.createElement("p");
