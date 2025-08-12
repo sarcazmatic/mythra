@@ -4,9 +4,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.maleth.mythra.model.items.CharacterItems;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CharInventoryRepo extends JpaRepository<CharacterItems, Long> {
 
-    List<CharacterItems> findAllByCharacter_Id(Long charId);
+    List<CharacterItems> findAllByCharacter_IdOrderByIsEquippedDesc(Long charId);
+
+    Optional<CharacterItems> findByCharacter_IdAndItem_Id(Long charId, Long itemId);
+
 
 }

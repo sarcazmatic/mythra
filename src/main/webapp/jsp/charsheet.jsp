@@ -447,10 +447,11 @@
         .weapons-column {
             display: grid;
             text-align: left;
-            grid-template-columns: 44% 24.5% 15% 15%;
+            grid-template-columns: 44% 24.5% 10% 10% 10%;
             font-size: smaller;
             column-gap: 0;
             justify-items: start;
+            align-items: baseline;
         }
 
         .weapons-column-output {
@@ -470,6 +471,29 @@
             color: #fff;
             cursor: pointer;
             transition: background-color 0.3s;
+        }
+
+        .inventory-add-button:hover {
+            background-color: dodgerblue;
+        }
+
+        .inventory-equip-button {
+            width: 5em;
+            height: 2em;
+            align-content: space-evenly;
+            text-align: center;
+            font-size: smaller;
+            font-family: 'Philosopher', cursive;
+            background-color: #666;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .inventory-equip-button:hover {
+            background-color: dodgerblue;
         }
 
     </style>
@@ -1342,45 +1366,61 @@
         inventoryRequest.onload = function () {
             var ourData = JSON.parse(inventoryRequest.responseText);
             for (let i = 0; i < ourData.length; i++) {
+                weight = weight + parseFloat(ourData[i].weight);
                 var newDivRow = document.createElement("div");
-                newDivRow.id = "inventory-row-" + i;
+                newDivRow.id = "inventory-row-" + ourData[i].id;
                 newDivRow.className = "weapons-column";
                 document.getElementById('items-rows').appendChild(newDivRow);
                 var newDiSlot1 = document.createElement("div");
-                newDiSlot1.id = "inventory-col1-" + i;
+                newDiSlot1.id = "inventory-col1-" + ourData[i].id;
                 newDiSlot1.className = "item-name";
                 newDiSlot1.innerText = ourData[i].name
-                newDiSlot1.setAttribute("onclick", "itemDescriptionShow(" + i + ")");
+                newDiSlot1.setAttribute("onclick", "itemDescriptionShow(" + ourData[i].id + ")");
                 document.getElementById(newDivRow.id).appendChild(newDiSlot1);
                 var newDiSlot2 = document.createElement("div");
-                newDiSlot2.id = "inventory-col2-" + i;
+                newDiSlot2.id = "inventory-col2-" + ourData[i].id;
                 newDiSlot2.className = "weapons-column-output";
                 newDiSlot2.innerText = ourData[i].type
                 document.getElementById(newDivRow.id).appendChild(newDiSlot2);
                 var newDiSlot3 = document.createElement("div");
-                newDiSlot3.id = "inventory-col2-" + i;
+                newDiSlot3.id = "inventory-col3-" + ourData[i].id;
                 newDiSlot3.className = "weapons-column-output";
                 newDiSlot3.innerText = ourData[i].weight;
-                weight = weight + parseFloat(ourData[i].weight);
                 document.getElementById(newDivRow.id).appendChild(newDiSlot3);
+                var newDiSlot4 = document.createElement("div");
+                newDiSlot4.id = "inventory-col4-" + ourData[i].id;
+                newDiSlot4.className = "inventory-equip-button";
+                if (ourData[i].isEquipped === false) {
+                    newDiSlot4.innerText = "Надеть";
+                } else {
+                    newDiSlot4.innerText = "Снять";
+                }
+                newDiSlot4.setAttribute("onclick", "equipOrUnequip(" + ourData[i].id + ")");
+                document.getElementById(newDivRow.id).appendChild(newDiSlot4);
+                var newDiSlot5 = document.createElement("div");
+                newDiSlot5.id = "inventory-col5-" + ourData[i].id;
+                newDiSlot5.className = "inventory-equip-button";
+                newDiSlot5.innerText = "Удалить";
+                newDiSlot5.setAttribute("onclick", "deleteItem(" + weight + ", " + ourData[i].id + ")");
+                document.getElementById(newDivRow.id).appendChild(newDiSlot5);
 
                 var newModalForItem = document.createElement("div");
-                newModalForItem.id = "inventory-modal-" + i;
+                newModalForItem.id = "inventory-modal-" + ourData[i].id;
                 newModalForItem.className = "modal";
                 document.querySelector('body').appendChild(newModalForItem);
                 var newModalForItemCont = document.createElement("div");
-                newModalForItemCont.id = "inventory-modal-con-" + i;
+                newModalForItemCont.id = "inventory-modal-con-" + ourData[i].id;
                 newModalForItemCont.className = "modal-content";
                 document.getElementById(newModalForItem.id).appendChild(newModalForItemCont);
                 var newModalForItemHead = document.createElement("div");
-                newModalForItemHead.id = "inventory-modal-head-" + i;
+                newModalForItemHead.id = "inventory-modal-head-" + ourData[i].id;
                 newModalForItemHead.className = "modal-header";
                 document.getElementById(newModalForItemCont.id).appendChild(newModalForItemHead);
                 var itemName = document.createElement("h2");
                 itemName.innerText = ourData[i].name
                 document.getElementById(newModalForItemHead.id).appendChild(itemName);
                 var newModalForItemBody = document.createElement("div");
-                newModalForItemBody.id = "inventory-modal-body-" + i;
+                newModalForItemBody.id = "inventory-modal-body-" + ourData[i].id;
                 newModalForItemBody.className = "modal-body";
                 document.getElementById(newModalForItemCont.id).appendChild(newModalForItemBody);
                 var itemDesc = document.createElement("p");
@@ -1403,6 +1443,40 @@
                 modal.style.display = "none";
             }
         }
+    }
+
+    function equipOrUnequip(id) {
+        let elId = "inventory-col4-" + id;
+        var item = document.getElementById(elId);
+        var urlItemEquip = host + "/api/equipOrUnequip/" + charId
+        var xhr = new XMLHttpRequest();
+        xhr.open('PATCH', urlItemEquip);
+        xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+        const body = JSON.stringify({
+            itemId: id
+        });
+        xhr.onload = function () {
+            var ourData = JSON.parse(xhr.responseText);
+            item.innerText = ourData;
+        }
+        xhr.send(body);
+    }
+
+    function deleteItem(weight, id) {
+        var block = document.getElementById("inventory-row-" + id);
+        var weightToDelete = parseFloat(document.getElementById("inventory-col3-" + id).innerText);
+        var urlItemDelete = host + "/api/deleteItem/" + charId
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', urlItemDelete);
+        xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+        const body = JSON.stringify({
+            itemId: id
+        });
+        xhr.onload = function () {
+            document.getElementById('weightInfo').innerText = 'Носимый вес:  ' + (weight - weightToDelete) + '/' + ${maxWeight};
+            block.remove();
+        }
+        xhr.send(body);
     }
 
 </script>

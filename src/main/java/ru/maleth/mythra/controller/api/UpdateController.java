@@ -136,4 +136,18 @@ public class UpdateController {
         return response;
     }
 
+    @PatchMapping("/equipOrUnequip/{charId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String equipOrUnequip(@RequestBody Map<String, Long> itemId, @PathVariable(name = "charId") Long charId) {
+        log.info("Пришел запрос на экипировку или снятие премета с id {} на/с персонажа с id {}", itemId, charId);
+        String response = inventoryService.equipOrUnequip(charId, itemId.get("itemId"));
+        return response;
+    }
+
+    @DeleteMapping("/deleteItem/{charId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void deleteItem(@RequestBody Map<String, Long> itemId, @PathVariable(name = "charId") Long charId) {
+        log.info("Пришел запрос на удаление связки персонаж/предмет {}/{}", charId, itemId);
+        inventoryService.deleteItem(charId, itemId.get("itemId"));
+    }
 }

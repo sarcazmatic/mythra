@@ -54,6 +54,7 @@ public class InventoryServiceImpl implements InventoryService {
                 .item(item)
                 .character(character)
                 .numberOfUses(0)
+                .isEquipped(false)
                 .build();
         charInventoryRepo.save(characterItems);
         log.info("ID предмета закреплен за персонажем успешно в репо персонаж-предмет");
@@ -62,13 +63,35 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public String loadCharacterItems(Long charId) {
         log.info("Пришел запрос на формирование JSON предметов персонажа с id {}", charId);
-        List<CharacterItems> characterItems = charInventoryRepo.findAllByCharacter_Id(charId);
+        List<CharacterItems> characterItems = charInventoryRepo.findAllByCharacter_IdOrderByIsEquippedDesc(charId);
         log.info("У персонажа с id {} найдено {} предметов", charId, characterItems.size());
         List<ItemDTO> itemDTOList = new ArrayList<>();
         for (CharacterItems ci :characterItems) {
-            itemDTOList.add(ItemMapper.fromItem(ci.getItem()));
+            itemDTOList.add(ItemMapper.fromItem(ci.getItem(), ci.getIsEquipped()));
         }
         String response = gson.toJson(itemDTOList);
         return response;
+    }
+
+    @Override
+    public String equipOrUnequip(Long charId, Long itemId) {
+        log.info("Изменение состояния в связке персонаж/предмет {}/{}", charId, itemId);
+        CharacterItems characterItem = charInventoryRepo.findByCharacter_IdAndItem_Id(charId, itemId).orElseThrow(() ->
+                new RuntimeException("Не нашли связку предмет/персонаж"));
+        characterItem.setIsEquipped(!characterItem.getIsEquipped());
+        charInventoryRepo.save(characterItem);
+        if (characterItem.getIsEquipped()) {
+            return gson.toJson("Снять");
+        } else {
+            return gson.toJson("Надеть");
+        }
+    }
+
+    @Override
+    public void deleteItem(Long charId, Long itemId) {
+        log.info("Удаляем связку персонаж/предмет {}/{}", charId, itemId);
+        CharacterItems characterItem = charInventoryRepo.findByCharacter_IdAndItem_Id(charId, itemId).orElseThrow(() ->
+                new RuntimeException("Не нашли связку предмет/персонаж"));
+        charInventoryRepo.deleteById(characterItem.getId());
     }
 }

@@ -46,12 +46,14 @@ public class ItemMapper {
         return item;
     }
 
-    public static ItemDTO fromItem(Item item) {
+    public static ItemDTO fromItem(Item item, Boolean isEquipped) {
         ItemDTO itemDTO = ItemDTO.builder()
+                .id(item.getId())
                 .type(item.getSlot().getName())
                 .name(item.getName())
                 .description(item.getDescription())
                 .weight(item.getWeight())
+                .isEquipped(isEquipped)
                 .build();
         if (item.getArmor() != null) {
             Armor armor = item.getArmor();

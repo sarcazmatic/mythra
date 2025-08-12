@@ -13,5 +13,8 @@ public interface InventoryService {
 
     String loadCharacterItems(Long charId);
 
+    String equipOrUnequip(Long charId, Long itemId);
+
+    void deleteItem(Long charId, Long itemId);
 
 }

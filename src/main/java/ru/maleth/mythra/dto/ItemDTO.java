@@ -12,6 +12,7 @@ import ru.maleth.mythra.enums.SlotEnum;
 @Data
 public class ItemDTO {
 
+    private Long id;
     @NotNull
     private String type;
     @NotBlank
@@ -20,6 +21,7 @@ public class ItemDTO {
     private String description;
     @NotNull
     private Double weight;
+    private Boolean isEquipped;
 
     private ArmorTypeEnum armorType;
     private Integer ac;
