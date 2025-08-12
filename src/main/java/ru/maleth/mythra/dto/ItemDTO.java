@@ -13,7 +13,7 @@ import ru.maleth.mythra.enums.SlotEnum;
 public class ItemDTO {
 
     @NotNull
-    private SlotEnum type;
+    private String type;
     @NotBlank
     private String name;
     @NotNull

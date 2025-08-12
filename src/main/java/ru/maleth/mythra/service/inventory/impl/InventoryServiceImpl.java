@@ -1,5 +1,6 @@
 package ru.maleth.mythra.service.inventory.impl;
 
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import ru.maleth.mythra.repo.CharacterRepo;
 import ru.maleth.mythra.repo.InventoryRepo;
 import ru.maleth.mythra.service.inventory.InventoryService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,8 @@ public class InventoryServiceImpl implements InventoryService {
     private final CharInventoryRepo charInventoryRepo;
     private final InventoryRepo inventoryRepo;
     private final CharacterRepo characterRepo;
+    private final Gson gson;
+
 
     @Override
     public Map<String, String> addItemPageFormer(String userName, String charName) {
@@ -55,7 +59,16 @@ public class InventoryServiceImpl implements InventoryService {
         log.info("ID предмета закреплен за персонажем успешно в репо персонаж-предмет");
     }
 
-    public List<CharacterItems> getItems(Long charId) {
-        return charInventoryRepo.findAllByCharacter_Id(charId);
+    @Override
+    public String loadCharacterItems(Long charId) {
+        log.info("Пришел запрос на формирование JSON предметов персонажа с id {}", charId);
+        List<CharacterItems> characterItems = charInventoryRepo.findAllByCharacter_Id(charId);
+        log.info("У персонажа с id {} найдено {} предметов", charId, characterItems.size());
+        List<ItemDTO> itemDTOList = new ArrayList<>();
+        for (CharacterItems ci :characterItems) {
+            itemDTOList.add(ItemMapper.fromItem(ci.getItem()));
+        }
+        String response = gson.toJson(itemDTOList);
+        return response;
     }
 }

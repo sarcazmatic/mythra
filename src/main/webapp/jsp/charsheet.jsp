@@ -373,9 +373,17 @@
         .items-rows {
             display: grid;
             text-align: left;
-            grid-template-rows: 35% 31% 30%;
             row-gap: 7px;
             padding-bottom: 1%;
+        }
+
+        .item-name {
+            font-size: medium;
+            transition: color 0.3s;
+        }
+
+        .item-name:hover {
+            color: orangered;
         }
 
         .input-field-attr {
@@ -438,7 +446,7 @@
         .weapons-column {
             display: grid;
             text-align: left;
-            grid-template-columns: 55% 15% 15% 15%;
+            grid-template-columns: 45% 20% 15% 15%;
             font-size: smaller;
             column-gap: 0;
             justify-items: start;
@@ -806,22 +814,21 @@
 
 <div class="container-third-left-bottom">
     <div class="input-field-attr-withname">
-        <p>Инвентарь xxx/${maxWeight}</p>
+        <p id="weightInfo">Инвентарь xxx/${maxWeight}</p>
         <button id="itemAdd" class="inventory-add-button" onclick="addItem()">+</button>
     </div>
     <div class="input-item-withname">
-        <div class="items-rows">
+        <div class="items-rows" id="items-rows">
             <div class="weapons-column">
                 <div class="weapons-column-output">
                 </div>
-                <div class="weapons-column-output">
+                <div class="weapons-column-output" style="border-bottom: solid 1px #444">
                     Тип
                 </div>
-                <div class="weapons-column-output">
-                    Атака
+                <div class="weapons-column-output" style="border-bottom: solid 1px #444">
+                    Вес
                 </div>
                 <div class="weapons-column-output">
-                    Урон
                 </div>
             </div>
             <%-- <div class="weapons-column">
@@ -954,11 +961,11 @@
     function uploadFiles() {
         const userName = document.getElementById('user-name').innerText
         const charName = document.getElementById('char-name').innerText
-        const url = '/file/' + userName + '/' + charName + '/upload';
+        const urlUploadAva = '/file/' + userName + '/' + charName + '/upload';
         const method = 'post';
         const xhr = new XMLHttpRequest();
         const data = new FormData(form);
-        xhr.open(method, url);
+        xhr.open(method, urlUploadAva);
         xhr.send(data);
         xhr.onload = function () {
             location.reload()
@@ -1099,14 +1106,14 @@
     }
 
     <%-- тут скрипт по подгрузке абилок персонажа --%>
-    var uriText = "/api/charAbil/" + charId;
+    var uriAbil = "/api/charAbil/" + charId;
     var elementToAdd = document.getElementById("abilities-locator");
 
     window.onload = loadLine();
 
     function loadLine() {
         var abilRequest = new XMLHttpRequest();
-        abilRequest.open('GET', uriText);
+        abilRequest.open('GET', uriAbil);
         abilRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
         abilRequest.onload = function () {
             var ourData = JSON.parse(abilRequest.responseText);
@@ -1262,8 +1269,8 @@
 
     function loadAttrsAndSkills() {
         var attrsAndSkillRequest = new XMLHttpRequest()
-        var uri = "/api/attrsAndSkills/" + charId
-        attrsAndSkillRequest.open('GET', uri);
+        var uriAtrAndSkills = "/api/attrsAndSkills/" + charId
+        attrsAndSkillRequest.open('GET', uriAtrAndSkills);
         attrsAndSkillRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
         attrsAndSkillRequest.send();
         attrsAndSkillRequest.onload = function () {
@@ -1326,10 +1333,87 @@
     }
 
     <%-- тут скрипт по работе инвентаря --%>
+
     function addItem() {
-        var urlAddress = host + "/" + userName + "/" + charName + "/add-item"
-        window.location.replace(urlAddress)
+        var urlAddItem = host + "/" + userName + "/" + charName + "/add-item"
+        window.location.replace(urlAddItem)
     }
+
+    window.onload = loadInventory(charId);
+
+    function loadInventory(charId) {
+        var weight = 0.0;
+        var urlItems = host + "/api/loadItems/" + charId
+        var inventoryRequest = new XMLHttpRequest();
+        inventoryRequest.open('GET', urlItems);
+        inventoryRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+        inventoryRequest.send()
+        inventoryRequest.onload = function () {
+            var ourData = JSON.parse(inventoryRequest.responseText);
+            for (let i = 0; i < ourData.length; i++) {
+                var newDivRow = document.createElement("div");
+                newDivRow.id = "inventory-row-" + i;
+                newDivRow.className = "weapons-column";
+                document.getElementById('items-rows').appendChild(newDivRow);
+                var newDiSlot1 = document.createElement("div");
+                newDiSlot1.id = "inventory-col1-" + i;
+                newDiSlot1.className = "item-name";
+                newDiSlot1.innerText = ourData[i].name
+                newDiSlot1.setAttribute("onclick", "itemDescriptionShow(" + i + ")");
+                document.getElementById(newDivRow.id).appendChild(newDiSlot1);
+                var newDiSlot2 = document.createElement("div");
+                newDiSlot2.id = "inventory-col2-" + i;
+                newDiSlot2.className = "weapons-column-output";
+                newDiSlot2.innerText = ourData[i].type
+                document.getElementById(newDivRow.id).appendChild(newDiSlot2);
+                var newDiSlot3 = document.createElement("div");
+                newDiSlot3.id = "inventory-col2-" + i;
+                newDiSlot3.className = "weapons-column-output";
+                newDiSlot3.innerText = ourData[i].weight;
+                weight = weight + parseFloat(ourData[i].weight);
+                document.getElementById(newDivRow.id).appendChild(newDiSlot3);
+
+                var newModalForItem = document.createElement("div");
+                newModalForItem.id = "inventory-modal-" + i;
+                newModalForItem.className = "modal";
+                document.querySelector('body').appendChild(newModalForItem);
+                var newModalForItemCont = document.createElement("div");
+                newModalForItemCont.id = "inventory-modal-con-" + i;
+                newModalForItemCont.className = "modal-content";
+                document.getElementById(newModalForItem.id).appendChild(newModalForItemCont);
+                var newModalForItemHead = document.createElement("div");
+                newModalForItemHead.id = "inventory-modal-head-" + i;
+                newModalForItemHead.className = "modal-header";
+                document.getElementById(newModalForItemCont.id).appendChild(newModalForItemHead);
+                var itemName = document.createElement("h2");
+                itemName.innerText = ourData[i].name
+                document.getElementById(newModalForItemHead.id).appendChild(itemName);
+                var newModalForItemBody = document.createElement("div");
+                newModalForItemBody.id = "inventory-modal-head-" + i;
+                newModalForItemBody.className = "modal-body";
+                document.getElementById(newModalForItemCont.id).appendChild(newModalForItemBody);
+                var itemDesc = document.createElement("p");
+                itemDesc.innerText = ourData[i].description
+                document.getElementById(newModalForItemBody.id).appendChild(itemDesc);
+            }
+            document.getElementById('weightInfo').innerText = 'Носимый вес:  ' + weight + '/' + ${maxWeight};
+        }
+    }
+
+
+    function itemDescriptionShow(id) {
+        let elId = "inventory-modal-" + id;
+        var modal = document.getElementById(elId);
+
+        modal.style.display = "block";
+
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+
 </script>
 
 </body>

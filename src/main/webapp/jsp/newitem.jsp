@@ -328,8 +328,8 @@
         }
 
         if (document.getElementById('weapon_opt').style.display === "block"
-            && !form.numberOfDice.value
-            || !form.qualityOfDice.value) {
+            && (!form.numberOfDice.value
+            || !form.qualityOfDice.value)) {
             showError('weaponErr', true);
             ok = false;
         }

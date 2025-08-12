@@ -128,4 +128,12 @@ public class UpdateController {
         inventoryService.saveItem(charId, itemDTO);
     }
 
+    @GetMapping("/loadItems/{charId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String loadItems(@PathVariable(name = "charId") Long charId) {
+        log.info("Пришел запрос на подгрузку на чаршит инвенторя для персонажа с id {}", charId);
+        String response = inventoryService.loadCharacterItems(charId);
+        return response;
+    }
+
 }

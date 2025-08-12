@@ -287,7 +287,7 @@
     var userName = document.getElementById("user-name").innerText;
     var charName = document.getElementById("char-name").innerText;
     var charId = document.getElementById("char-id").innerText;
-    var uriText = "/api/manualEdit/" + charId;
+    var uriManualEdit = "/api/manualEdit/" + charId;
     const urlChar = '/' + userName + '/' + charName + '/charsheet';
 
 
@@ -309,7 +309,7 @@
         console.log(attrs)
         console.log(result)
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT', uriText)
+        xhr.open('PUT', uriManualEdit)
         xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
         const body = JSON.stringify(result);
         xhr.send(body)
@@ -327,7 +327,7 @@
             result[name] = value;
         });
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT', uriText)
+        xhr.open('PUT', uriManualEdit)
         xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
         const body = JSON.stringify(result);
         xhr.send(body)

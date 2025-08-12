@@ -14,7 +14,7 @@ public class ItemMapper {
                 .name(itemDTO.getName())
                 .description(itemDTO.getDescription())
                 .weight(itemDTO.getWeight())
-                .slot(itemDTO.getType())
+                .slot(SlotEnum.valueOf(itemDTO.getType()))
                 .build();
         if (itemDTO.getArmorType() != null) {
             Armor armor = Armor.builder()
@@ -24,7 +24,7 @@ public class ItemMapper {
                     .build();
             item.setArmor(armor);
         }
-        if (itemDTO.getType().equals(SlotEnum.MELEE_WEAPON)) {
+        if (itemDTO.getType().equals(SlotEnum.MELEE_WEAPON.toString())) {
             Weapon weapon = Weapon.builder()
                     .baseModificator(AttribEnum.STRENGTH)
                     .isFinesse(itemDTO.getIsFinesse())
@@ -33,7 +33,7 @@ public class ItemMapper {
                     .qualityOfDice(itemDTO.getQualityOfDice())
                     .build();
             item.setWeapon(weapon);
-        } else if (itemDTO.getType().equals(SlotEnum.RANGED_WEAPON)) {
+        } else if (itemDTO.getType().equals(SlotEnum.RANGED_WEAPON.toString())) {
             Weapon weapon = Weapon.builder()
                     .baseModificator(AttribEnum.DEXTERITY)
                     .isFinesse(itemDTO.getIsFinesse())
@@ -44,5 +44,29 @@ public class ItemMapper {
             item.setWeapon(weapon);
         }
         return item;
+    }
+
+    public static ItemDTO fromItem(Item item) {
+        ItemDTO itemDTO = ItemDTO.builder()
+                .type(item.getSlot().getName())
+                .name(item.getName())
+                .description(item.getDescription())
+                .weight(item.getWeight())
+                .build();
+        if (item.getArmor() != null) {
+            Armor armor = item.getArmor();
+            itemDTO.setAc(armor.getAc());
+            itemDTO.setArmorType(armor.getArmorType());
+            itemDTO.setStealthDisadvantage(armor.getStealthDisadvantage());
+        }
+        if (item.getWeapon() != null) {
+            Weapon weapon = item.getWeapon();
+            itemDTO.setNumberOfDice(weapon.getNumberOfDice());
+            itemDTO.setQualityOfDice(weapon.getQualityOfDice());
+            itemDTO.setBaseModificator(weapon.getBaseModificator());
+            itemDTO.setIsFinesse(weapon.getIsFinesse());
+            itemDTO.setIsUniversal(weapon.getIsUniversal());
+        }
+        return itemDTO;
     }
 }
