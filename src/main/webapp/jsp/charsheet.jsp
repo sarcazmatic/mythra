@@ -447,7 +447,7 @@
         .weapons-column {
             display: grid;
             text-align: left;
-            grid-template-columns: 44% 24.5% 10% 10% 10%;
+            grid-template-columns: 44% 23% 23% 15%;
             font-size: smaller;
             column-gap: 0;
             justify-items: start;
@@ -455,6 +455,19 @@
         }
 
         .weapons-column-output {
+        }
+
+        .inventory-column {
+            display: grid;
+            text-align: left;
+            grid-template-columns: 44% 24.5% 10% 10% 10%;
+            font-size: smaller;
+            column-gap: 0;
+            justify-items: start;
+            align-items: baseline;
+        }
+
+        .inventory-column-output {
         }
 
         .inventory-add-button {
@@ -745,95 +758,19 @@
 <div class="container-third-left">
     <div class="input-field-attr-withname">
         <p>Оружие ближнего боя:</p>
+        <p>Кости</p>
+        <p>Атака</p>
+        <p>Урон</p>
     </div>
-    <div class="weapons-rows">
-        <div class="weapons-column">
-            <div class="weapons-column-output">
-            </div>
-            <div class="weapons-column-output">
-                Кости
-            </div>
-            <div class="weapons-column-output">
-                Атака
-            </div>
-            <div class="weapons-column-output">
-                Урон
-            </div>
-        </div>
-        <div class="weapons-column">
-            <div class="weapons-column-output">
-                Секира безбашенности
-            </div>
-            <div class="weapons-column-output">
-                2к6
-            </div>
-            <div class="weapons-column-output">
-                +7
-            </div>
-            <div class="weapons-column-output">
-                +3
-            </div>
-        </div>
-        <div class="weapons-column">
-            <div class="weapons-column-output">
-                Лоботряска
-            </div>
-            <div class="weapons-column-output">
-                2к8
-            </div>
-            <div class="weapons-column-output">
-                +7
-            </div>
-            <div class="weapons-column-output">
-                +3
-            </div>
-        </div>
+    <div id="melee-weapons" class="weapons-rows">
     </div>
     <div class="input-field-attr-withname">
         <p>Оружие дальнего боя:</p>
+        <p>Кости</p>
+        <p>Атака</p>
+        <p>Урон</p>
     </div>
-    <div class="weapons-rows">
-        <div class="weapons-column">
-            <div class="weapons-column-output">
-            </div>
-            <div class="weapons-column-output">
-                Кости
-            </div>
-            <div class="weapons-column-output">
-                Атака
-            </div>
-            <div class="weapons-column-output">
-                Урон
-            </div>
-        </div>
-        <div class="weapons-column">
-            <div class="weapons-column-output">
-                Просто лук
-            </div>
-            <div class="weapons-column-output">
-                2к8
-            </div>
-            <div class="weapons-column-output">
-                +7
-            </div>
-            <div class="weapons-column-output">
-                +3
-            </div>
-        </div>
-        <div class="weapons-column">
-            <div class="weapons-column-output">
-                Лобострелка
-            </div>
-            <div class="weapons-column-output">
-                2к8
-            </div>
-            <div class="weapons-column-output">
-                +7
-            </div>
-            <div class="weapons-column-output">
-                +3
-            </div>
-        </div>
+    <div id="ranged-weapons" class="weapons-rows">
     </div>
 </div>
 
@@ -1369,7 +1306,7 @@
                 weight = weight + parseFloat(ourData[i].weight);
                 var newDivRow = document.createElement("div");
                 newDivRow.id = "inventory-row-" + ourData[i].id;
-                newDivRow.className = "weapons-column";
+                newDivRow.className = "inventory-column";
                 document.getElementById('items-rows').appendChild(newDivRow);
                 var newDiSlot1 = document.createElement("div");
                 newDiSlot1.id = "inventory-col1-" + ourData[i].id;
@@ -1379,12 +1316,12 @@
                 document.getElementById(newDivRow.id).appendChild(newDiSlot1);
                 var newDiSlot2 = document.createElement("div");
                 newDiSlot2.id = "inventory-col2-" + ourData[i].id;
-                newDiSlot2.className = "weapons-column-output";
+                newDiSlot2.className = "inventory-column-output";
                 newDiSlot2.innerText = ourData[i].type
                 document.getElementById(newDivRow.id).appendChild(newDiSlot2);
                 var newDiSlot3 = document.createElement("div");
                 newDiSlot3.id = "inventory-col3-" + ourData[i].id;
-                newDiSlot3.className = "weapons-column-output";
+                newDiSlot3.className = "inventory-column-output";
                 newDiSlot3.innerText = ourData[i].weight;
                 document.getElementById(newDivRow.id).appendChild(newDiSlot3);
                 var newDiSlot4 = document.createElement("div");
@@ -1458,6 +1395,7 @@
         xhr.onload = function () {
             var ourData = JSON.parse(xhr.responseText);
             item.innerText = ourData;
+            putWeaponsInSlots(charId)
         }
         xhr.send(body);
     }
@@ -1479,6 +1417,69 @@
         xhr.send(body);
     }
 
+    <%-- тут скрипт по подгрузке оружия в слоты --%>
+
+    window.onload = putWeaponsInSlots(charId);
+
+    function putWeaponsInSlots(charId) {
+        let currentStrMod = document.getElementById("strMod");
+        let currentDexMod = document.getElementById("dexMod");
+        var urlWeaponsEquipped = host + "/api/putWeapons/" + charId
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', urlWeaponsEquipped);
+        xhr.send()
+        xhr.onload = function () {
+            var ourData = JSON.parse(xhr.responseText);
+            const containerM = document.getElementById('melee-weapons');
+            while (containerM.firstChild) {
+                containerM.removeChild(containerM.firstChild);
+            }
+            const containerR = document.getElementById('ranged-weapons');
+            while (containerR.firstChild) {
+                containerR.removeChild(containerR.firstChild);
+            }
+            for (let i = 0; i < ourData.length; i++) {
+                if (ourData[i].isEquipped) {
+                    var newDivRow = document.createElement("div");
+                    newDivRow.id = "melle-row-" + ourData[i].id;
+                    newDivRow.className = "weapons-column";
+                    if (ourData[i].type === "Рукопашное оружие") {
+                        document.getElementById('melee-weapons').appendChild(newDivRow);
+                    } else if (ourData[i].type === "Стрелковое оружие") {
+                        document.getElementById('ranged-weapons').appendChild(newDivRow);
+                    }
+                    var newDivAtt1 = document.createElement("div");
+                    newDivAtt1.id = "melle-att1-" + ourData[i].id;
+                    newDivAtt1.className = "weapons-column-output";
+                    newDivAtt1.innerText = ourData[i].name;
+                    document.getElementById(newDivRow.id).appendChild(newDivAtt1);
+                    var newDivAtt2 = document.createElement("div");
+                    newDivAtt2.id = "melle-att2-" + ourData[i].id;
+                    newDivAtt2.className = "weapons-column-output";
+                    newDivAtt2.innerText = ourData[i].numberOfDice + 'к' + ourData[i].qualityOfDice;
+                    document.getElementById(newDivRow.id).appendChild(newDivAtt2);
+                    var newDivAtt3 = document.createElement("div");
+                    newDivAtt3.id = "melle-att3-" + ourData[i].id;
+                    newDivAtt3.className = "weapons-column-output";
+                    if (ourData[i].type === "Рукопашное оружие") {
+                        newDivAtt3.innerText = '+' + (parseInt(currentStrMod.innerText.charAt(1))+parseInt(${proficiency}));
+                    } else if (ourData[i].type === "Стрелковое оружие") {
+                        newDivAtt3.innerText = '+' + (parseInt(currentDexMod.innerText.charAt(1))+parseInt(${proficiency}));
+                    }
+                    document.getElementById(newDivRow.id).appendChild(newDivAtt3);
+                    var newDivAtt4 = document.createElement("div");
+                    newDivAtt4.id = "melle-att4-" + ourData[i].id;
+                    newDivAtt4.className = "weapons-column-output";
+                    if (ourData[i].type === "Рукопашное оружие") {
+                        newDivAtt4.innerText = currentStrMod.innerText;
+                    } else if (ourData[i].type === "Стрелковое оружие") {
+                        newDivAtt4.innerText = currentDexMod.innerText;
+                    }
+                    document.getElementById(newDivRow.id).appendChild(newDivAtt4);
+                }
+            }
+        }
+    }
 </script>
 
 </body>

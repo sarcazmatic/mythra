@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.maleth.mythra.dto.ItemDTO;
 import ru.maleth.mythra.dto.mapper.ItemMapper;
+import ru.maleth.mythra.enums.SlotEnum;
 import ru.maleth.mythra.model.characters.Character;
 import ru.maleth.mythra.model.items.CharacterItems;
 import ru.maleth.mythra.model.items.Item;
@@ -93,5 +94,19 @@ public class InventoryServiceImpl implements InventoryService {
         CharacterItems characterItem = charInventoryRepo.findByCharacter_IdAndItem_Id(charId, itemId).orElseThrow(() ->
                 new RuntimeException("Не нашли связку предмет/персонаж"));
         charInventoryRepo.deleteById(characterItem.getId());
+    }
+
+    @Override
+    public String putWeapons(Long charId) {
+        log.info("Найдем оружие у персонажа {}", charId);
+        List<ItemDTO> itemDTOList = new ArrayList<>();
+        List<ItemDTO> itemDTOMelee = charInventoryRepo.findAllByCharacter_IdAndItem_Slot(charId, SlotEnum.MELEE_WEAPON).stream()
+                .map(ci -> ItemMapper.fromItem(ci.getItem(), ci.getIsEquipped())).toList();
+        List<ItemDTO> itemDTORanged = charInventoryRepo.findAllByCharacter_IdAndItem_Slot(charId, SlotEnum.RANGED_WEAPON).stream()
+                .map(ci -> ItemMapper.fromItem(ci.getItem(), ci.getIsEquipped())).toList();
+        itemDTOList.addAll(itemDTOMelee);
+        itemDTOList.addAll(itemDTORanged);
+        System.out.println(itemDTOList);
+        return gson.toJson(itemDTOList);
     }
 }

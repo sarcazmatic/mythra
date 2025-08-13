@@ -150,4 +150,12 @@ public class UpdateController {
         log.info("Пришел запрос на удаление связки персонаж/предмет {}/{}", charId, itemId);
         inventoryService.deleteItem(charId, itemId.get("itemId"));
     }
+
+    @GetMapping("/putWeapons/{charId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String putWeapons(@PathVariable(name = "charId") Long charId) {
+        log.info("Пришел запрос на вывод оружия в слоты для персонажа с id {}", charId);
+        String response = inventoryService.putWeapons(charId);
+        return response;
+    }
 }

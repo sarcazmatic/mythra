@@ -17,4 +17,6 @@ public interface InventoryService {
 
     void deleteItem(Long charId, Long itemId);
 
+    String putWeapons( Long charId);
+
 }
