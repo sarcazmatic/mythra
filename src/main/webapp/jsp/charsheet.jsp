@@ -437,7 +437,6 @@
         }
 
         .weapons-rows {
-            display: grid;
             text-align: left;
             grid-template-rows: 35% 31% 30%;
             row-gap: 2%;
@@ -446,11 +445,10 @@
 
         .weapons-column {
             display: grid;
-            text-align: left;
-            grid-template-columns: 44% 23% 23% 15%;
+            text-align: center;
+            grid-template-columns: 45% 5% 32% 4% 10%;
             font-size: smaller;
             column-gap: 0;
-            justify-items: start;
             align-items: baseline;
         }
 
@@ -756,7 +754,7 @@
 </div>
 
 <div class="container-third-left">
-    <div class="input-field-attr-withname">
+    <div class="input-field-attr-withname" style="justify-content: space-evenly">
         <p>Оружие ближнего боя:</p>
         <p>Кости</p>
         <p>Атака</p>
@@ -764,7 +762,7 @@
     </div>
     <div id="melee-weapons" class="weapons-rows">
     </div>
-    <div class="input-field-attr-withname">
+    <div class="input-field-attr-withname" style="justify-content: space-evenly">
         <p>Оружие дальнего боя:</p>
         <p>Кости</p>
         <p>Атака</p>
