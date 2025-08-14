@@ -158,7 +158,7 @@
                 <option value="" disabled selected>Выберите тип…</option>
                 <option value="RING">Кольцо</option>
                 <option value="AMULET">Амулет</option>
-                <option value="RANGED_WEAPON">Стрелковое оружие</option>
+                <option value="RANGED_WEAPON">Дальнобойное оружие</option>
                 <option value="MELEE_WEAPON">Рукопашное оружие</option>
                 <option value="AMMUNITION">Амуниция</option>
                 <option value="HELM">Шлем</option>

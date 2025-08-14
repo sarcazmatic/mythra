@@ -21,8 +21,7 @@ public enum ProfEnum {
     RELIGION("Религия"),
     SLEIGHT_OF_HAND("Ловкость рук"),
     STEALTH("Скрытность"),
-    SURVIVAL("Выживание"),
-    ANIMAL_HANDLING("Обращение с животными");
+    SURVIVAL("Выживание");
 
     private final String name;
 
