@@ -186,6 +186,7 @@
             <label for="armor-type">Тип доспеха</label>
             <select id="armor-type" name="armorType">
                 <option value="" disabled selected>Выберите тип…</option>
+                <option value="CLOTH">Ткань</option>
                 <option value="LIGHT_ARMOR">Легкий доспех</option>
                 <option value="MEDIUM_ARMOR">Средний доспех</option>
                 <option value="HEAVY_ARMOR">Тяжелый доспех</option>
