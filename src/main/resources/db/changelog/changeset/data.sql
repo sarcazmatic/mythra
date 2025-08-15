@@ -37,6 +37,54 @@ VALUES ('SURVIVAL', 'WISDOM');
 INSERT INTO proficiencies (name, base_attribute)
 VALUES ('ANIMAL_HANDLING', 'WISDOM');
 
+--changeset masteries:1 armor
+INSERT INTO masteries (name) VALUES ('LIGHT_ARMOR');
+INSERT INTO masteries (name) VALUES ('MEDIUM_ARMOR');
+INSERT INTO masteries (name) VALUES ('HEAVY_ARMOR');
+INSERT INTO masteries (name) VALUES ('SHIELD');
+
+--changeset masteries:2 simple melee
+INSERT INTO masteries (name) VALUES ('CLUB');
+INSERT INTO masteries (name) VALUES ('DAGGER');
+INSERT INTO masteries (name) VALUES ('GREATCLUB');
+INSERT INTO masteries (name) VALUES ('HANDAXE');
+INSERT INTO masteries (name) VALUES ('JAVELIN');
+INSERT INTO masteries (name) VALUES ('LIGHT_HAMMER');
+INSERT INTO masteries (name) VALUES ('MACE');
+INSERT INTO masteries (name) VALUES ('QUARTERSTAFF');
+INSERT INTO masteries (name) VALUES ('SICKLE');
+
+--changeset masteries:3 martial melee
+INSERT INTO masteries (name) VALUES ('BATTLEAXE');
+INSERT INTO masteries (name) VALUES ('FLAIL');
+INSERT INTO masteries (name) VALUES ('GREATAXE');
+INSERT INTO masteries (name) VALUES ('GREATSWORD');
+INSERT INTO masteries (name) VALUES ('HALBERD');
+INSERT INTO masteries (name) VALUES ('LANCE');
+INSERT INTO masteries (name) VALUES ('LONGSWORD');
+INSERT INTO masteries (name) VALUES ('MAUL');
+INSERT INTO masteries (name) VALUES ('MORNINGSTAR');
+INSERT INTO masteries (name) VALUES ('PIKE');
+INSERT INTO masteries (name) VALUES ('RAPIER');
+INSERT INTO masteries (name) VALUES ('SCIMITAR');
+INSERT INTO masteries (name) VALUES ('SHORTSWORD');
+INSERT INTO masteries (name) VALUES ('TRIDENT');
+INSERT INTO masteries (name) VALUES ('WAR_PICK');
+INSERT INTO masteries (name) VALUES ('WARHAMMER');
+INSERT INTO masteries (name) VALUES ('WHIP');
+
+--changeset masteries:4 simple ranged
+INSERT INTO masteries (name) VALUES ('LIGHT_CROSSBOW');
+INSERT INTO masteries (name) VALUES ('DART');
+INSERT INTO masteries (name) VALUES ('SLING');
+
+--changeset masteries:5 martial ranged
+INSERT INTO masteries (name) VALUES ('HAND_CROSSBOW');
+INSERT INTO masteries (name) VALUES ('HEAVY_CROSSBOW');
+INSERT INTO masteries (name) VALUES ('LONGBOW');
+INSERT INTO masteries (name) VALUES ('NET');
+
+
 --changeset classes:1
 INSERT INTO classes (id, name, saving_throw_one, saving_throw_two)
 VALUES (10, 'BARD', 'DEXTERITY', 'CHARISMA');

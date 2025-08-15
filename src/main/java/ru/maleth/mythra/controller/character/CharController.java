@@ -62,6 +62,7 @@ public class CharController {
                 characterFullDto.getCharName(),
                 characterFullDto.getCharClass(),
                 characterFullDto.getCharRace());
+        System.out.println(characterFullDto.getMasteries());
         Map<String, String> attributes = characterCreationService.formSheet(userName, characterFullDto);
         model.addAllAttributes(attributes);
         return attributes.get(PAGE);

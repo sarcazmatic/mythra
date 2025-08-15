@@ -10,6 +10,7 @@ import ru.maleth.mythra.enums.*;
 import ru.maleth.mythra.model.*;
 import ru.maleth.mythra.model.characters.CharCustomEdits;
 import ru.maleth.mythra.model.characters.Character;
+import ru.maleth.mythra.model.characters.Mastery;
 import ru.maleth.mythra.model.characters.Proficiency;
 import ru.maleth.mythra.model.characters.Race;
 import ru.maleth.mythra.model.classes.CharClass;
@@ -35,6 +36,7 @@ public class CharacterCreationServiceImpl implements CharacterCreationService {
     private final RaceRepo raceRepo;
     private final ClassesRepo classesRepo;
     private final ProficiencyRepo proficiencyRepo;
+    private final MasteryRepo masteryRepo;
     private final CharClassLevelRepo charClassLevelRepo;
     private final CustomEditsRepo customEditsRepo;
     private final UserRepo userRepo;
@@ -216,6 +218,16 @@ public class CharacterCreationServiceImpl implements CharacterCreationService {
         Тут находим юзера по имени, переданному из контроера
         */
         User user = userRepo.findByName(userName).orElseThrow(() -> new RuntimeException("Нет такого юзера"));
+
+        /*
+        Теперь собираем владения (masteries)
+        */
+        Set<Mastery> masteries = new HashSet<>();
+        for (MasteryEnum masteryEnum : characterFullDto.getMasteries()) {
+            Mastery mastery = masteryRepo.findByName(masteryEnum);
+            masteries.add(mastery);
+        }
+
         /*
         Ну и создаем персонажа через @Builder
         */
@@ -236,6 +248,7 @@ public class CharacterCreationServiceImpl implements CharacterCreationService {
                 .armorClass(10 + CharacterCalculator.calculateAttributeModifier(characterFullDto.getDexterity()))
                 .initiative(CharacterCalculator.calculateAttributeModifier(characterFullDto.getDexterity()))
                 .proficiencies(proficiencies)
+                .masteries(masteries)
                 .creator(user)
                 .mainClass(charClass)
                 .build());

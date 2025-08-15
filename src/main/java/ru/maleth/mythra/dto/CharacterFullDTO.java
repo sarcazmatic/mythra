@@ -2,6 +2,7 @@ package ru.maleth.mythra.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import ru.maleth.mythra.enums.MasteryEnum;
 
 import java.util.List;
 
@@ -20,5 +21,6 @@ public class CharacterFullDTO {
     private int charisma;
     private int hitPoints;
     private List<String> profs;
+    private List<MasteryEnum> masteries;
 
 }
