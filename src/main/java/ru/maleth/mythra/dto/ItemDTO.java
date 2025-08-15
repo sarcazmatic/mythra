@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import ru.maleth.mythra.enums.ArmorTypeEnum;
 import ru.maleth.mythra.enums.AttribEnum;
+import ru.maleth.mythra.enums.MasteryEnum;
 import ru.maleth.mythra.enums.SlotEnum;
 
 @Builder
@@ -27,6 +28,7 @@ public class ItemDTO {
     private Integer ac;
     private Boolean stealthDisadvantage;
 
+    private MasteryEnum weaponMastery;
     private Integer numberOfDice;
     private Integer qualityOfDice;
     private AttribEnum baseModificator;

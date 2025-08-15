@@ -1411,6 +1411,7 @@
         xhr.onload = function () {
             document.getElementById('weightInfo').innerText = 'Носимый вес:  ' + (weight - weightToDelete) + '/' + ${maxWeight};
             block.remove();
+            putWeaponsInSlots(charId);
         }
         xhr.send(body);
     }

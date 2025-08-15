@@ -195,15 +195,58 @@
         </div>
 
         <div class="optional-field" id="weapon_opt">
+            <label for="melee-weapon-mastery" style="display: none">Вид оружия</label>
+            <select id="melee-weapon-mastery" name="meleeWeaponMastery" style="display: none">
+                <option value="" disabled selected>Выберите вид…</option>
+                <option value="CLUB">Дубинка</option>
+                <option value="DAGGER">Кинжал</option>
+                <option value="GREATCLUB">Тяжёлая дубина</option>
+                <option value="HANDAXE">Топор</option>
+                <option value="JAVELIN">Метательное копьё</option>
+                <option value="LIGHT_HAMMER">Лёгкий молот</option>
+                <option value="MACE">Булавa</option>
+                <option value="QUARTERSTAFF">Посох</option>
+                <option value="SICKLE">Серп</option>
+                <option value="BATTLEAXE">Боевой топор</option>
+                <option value="FLAIL">Цеп</option>
+                <option value="GREATAXE">Грандиозный топор</option>
+                <option value="GREATSWORD">Двуручный меч</option>
+                <option value="HALBERD">Алебарда</option>
+                <option value="LANCE">Копьё (лансерская пика)</option>
+                <option value="LONGSWORD">Длинный меч</option>
+                <option value="MAUL">Кувалда</option>
+                <option value="MORNINGSTAR">Утренняя звезда</option>
+                <option value="PIKE">Пика</option>
+                <option value="RAPIER">Рапира</option>
+                <option value="SCIMITAR">Скимитар</option>
+                <option value="SHORTSWORD">Короткий меч</option>
+                <option value="TRIDENT">Трезубец</option>
+                <option value="WAR_PICK">Боевая кирка</option>
+                <option value="WARHAMMER">Боевой молот</option>
+                <option value="WHIP">Кнут</option>
+            </select>
+            <label for="ranged-weapon-mastery" style="display: none">Вид оружия</label>
+            <select id="ranged-weapon-mastery" name="rangedWeaponMastery" style="display: none">
+                <option value="" disabled selected>Выберите вид…</option>
+                <option value="LIGHT_CROSSBOW">Лёгкий арбалет</option>
+                <option value="DART">Дротик</option>
+                <option value="SLING">Праща</option>
+                <option value="HAND_CROSSBOW">Ручной арбалет</option>
+                <option value="HEAVY_CROSSBOW">Тяжёлый арбалет</option>
+                <option value="LONGBOW">Длинный лук</option>
+                <option value="NET">Сеть</option>
+            </select>
             <label for="numberOfDice">Кол-во костей урона</label>
-            <input id="numberOfDice" name="numberOfDice" type="number" placeholder="Это первая цифра в 1к6" required maxlength="120"/>
+            <input id="numberOfDice" name="numberOfDice" type="number" placeholder="Это первая цифра в 1к6" required
+                   maxlength="120"/>
             <label for="qualityOfDice">Тип костей урона</label>
-            <input id="qualityOfDice" name="qualityOfDice" type="number" placeholder="Это вторая цифра в 1к6" required maxlength="120"/>
+            <input id="qualityOfDice" name="qualityOfDice" type="number" placeholder="Это вторая цифра в 1к6" required
+                   maxlength="120"/>
             <div style="display: flex; justify-content: space-between;">
-            <label for="isFinesse">Оружие фехтовальное?</label>
-            <input id="isFinesse" name="isFinesse" type="checkbox"/>
-            <label for="isUniversal">Оружие универсальное?</label>
-            <input id="isUniversal" name="isUniversal" type="checkbox"/>
+                <label for="isFinesse">Оружие фехтовальное?</label>
+                <input id="isFinesse" name="isFinesse" type="checkbox"/>
+                <label for="isUniversal">Оружие универсальное?</label>
+                <input id="isUniversal" name="isUniversal" type="checkbox"/>
             </div>
             <div class="error" id="weaponErr">Укажите особенности оружия.</div>
         </div>
@@ -249,13 +292,23 @@
                 selectedType === "HELM" ||
                 selectedType === "SHIELD" ||
                 selectedType === "PAULDRONS") {
+                document.getElementById('melee-weapon-mastery').style.display = "none";
+                document.getElementById('ranged-weapon-mastery').style.display = "none";
                 document.getElementById('weapon_opt').style.display = "none";
                 document.getElementById('armor_opt').style.display = "block";
-            }else if (selectedType === "RANGED_WEAPON" ||
-                selectedType === "MELEE_WEAPON") {
+            } else if (selectedType === "MELEE_WEAPON") {
+                document.getElementById('melee-weapon-mastery').style.display = "block";
+                document.getElementById('ranged-weapon-mastery').style.display = "none";
+                document.getElementById('weapon_opt').style.display = "block";
+                document.getElementById('armor_opt').style.display = "none";
+            } else if (selectedType === "RANGED_WEAPON") {
+                document.getElementById('melee-weapon-mastery').style.display = "none";
+                document.getElementById('ranged-weapon-mastery').style.display = "block";
                 document.getElementById('weapon_opt').style.display = "block";
                 document.getElementById('armor_opt').style.display = "none";
             } else {
+                document.getElementById('melee-weapon-mastery').style.display = "none";
+                document.getElementById('ranged-weapon-mastery').style.display = "none";
                 document.getElementById('weapon_opt').style.display = "none";
                 document.getElementById('armor_opt').style.display = "none";
             }
@@ -276,6 +329,7 @@
 
         const armorType = form.armorType.value || null;
 
+        const weaponMastery = form.rangedWeaponMastery.value || form.meleeWeaponMastery.value || null;
         const numberOfDice = form.numberOfDice.value || null;
         const qualityOfDice = form.qualityOfDice.value || null;
         const isUniversal = form.isUniversal.checked;
@@ -293,7 +347,7 @@
             }
         }
 
-        return {type, name, armorType, description, weight, numberOfDice, qualityOfDice, isUniversal, isFinesse};
+        return {type, name, armorType, description, weight, weaponMastery, numberOfDice, qualityOfDice, isUniversal, isFinesse};
     }
 
     function showError(id, show) {
@@ -310,6 +364,7 @@
         showError('weightErr', false);
         showError('armorTypeErr', false);
         showError('weaponErr', false);
+
 
         // Простая проверка обязательных полей
         let ok = true;
@@ -330,7 +385,8 @@
 
         if (document.getElementById('weapon_opt').style.display === "block"
             && (!form.numberOfDice.value
-            || !form.qualityOfDice.value)) {
+                || !form.qualityOfDice.value
+                || (!form.meleeWeaponMastery.value || !form.rangedWeaponMastery.value))) {
             showError('weaponErr', true);
             ok = false;
         }

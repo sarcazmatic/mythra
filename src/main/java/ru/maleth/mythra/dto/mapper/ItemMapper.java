@@ -27,6 +27,7 @@ public class ItemMapper {
         if (itemDTO.getType().equals(SlotEnum.MELEE_WEAPON.toString())) {
             Weapon weapon = Weapon.builder()
                     .baseModificator(AttribEnum.STRENGTH)
+                    .weaponMastery(itemDTO.getWeaponMastery())
                     .isFinesse(itemDTO.getIsFinesse())
                     .isUniversal(itemDTO.getIsUniversal())
                     .numberOfDice(itemDTO.getNumberOfDice())
@@ -36,6 +37,7 @@ public class ItemMapper {
         } else if (itemDTO.getType().equals(SlotEnum.RANGED_WEAPON.toString())) {
             Weapon weapon = Weapon.builder()
                     .baseModificator(AttribEnum.DEXTERITY)
+                    .weaponMastery(itemDTO.getWeaponMastery())
                     .isFinesse(itemDTO.getIsFinesse())
                     .isUniversal(itemDTO.getIsUniversal())
                     .numberOfDice(itemDTO.getNumberOfDice())

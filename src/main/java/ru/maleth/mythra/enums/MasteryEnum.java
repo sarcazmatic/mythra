@@ -41,7 +41,7 @@ public enum MasteryEnum {
     LIGHT_CROSSBOW("Лёгкий арбалет"),
     DART("Дротик"),
     SLING("Праща"),
-    //MATIAL_RANGED("Воинское дальнобойное оружие");
+    //MARTIAL_RANGED("Воинское дальнобойное оружие");
     HAND_CROSSBOW("Ручной арбалет"),
     HEAVY_CROSSBOW("Тяжёлый арбалет"),
     LONGBOW("Длинный лук"),

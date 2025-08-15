@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import ru.maleth.mythra.enums.AttribEnum;
+import ru.maleth.mythra.enums.MasteryEnum;
 
 @Embeddable
 @AllArgsConstructor
@@ -31,5 +32,8 @@ public class Weapon {
     private Boolean isUniversal;
     @Column(name = "is_finesse")
     private Boolean isFinesse;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "weapon_mastery")
+    private MasteryEnum weaponMastery;
 
 }

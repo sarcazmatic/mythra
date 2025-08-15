@@ -48,7 +48,6 @@ public class InventoryServiceImpl implements InventoryService {
         log.info("Пришел запрос на сохранение предмета {} за персонажем с id {}", itemDTO.getName(), charId);
         Character character = characterRepo.findById(charId).orElseThrow(() -> new RuntimeException("А персонажа-то нет"));
         Item item = ItemMapper.fromItemDto(itemDTO);
-        System.out.println(item);
         inventoryRepo.save(item);
         log.info("Сохранение предмета успешно в репо предметов");
         CharacterItems characterItems = CharacterItems.builder()
@@ -106,7 +105,6 @@ public class InventoryServiceImpl implements InventoryService {
                 .map(ci -> ItemMapper.fromItem(ci.getItem(), ci.getIsEquipped())).toList();
         itemDTOList.addAll(itemDTOMelee);
         itemDTOList.addAll(itemDTORanged);
-        System.out.println(itemDTOList);
         return gson.toJson(itemDTOList);
     }
 }

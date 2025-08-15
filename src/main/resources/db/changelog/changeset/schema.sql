@@ -198,6 +198,7 @@ CREATE table IF NOT EXISTS items
     stealth_disadvantage BOOLEAN,
     armor_type           VARCHAR,
     --weapon fields lower
+    weapon_mastery     VARCHAR,
     number_of_dice       INTEGER,
     quality_of_dice      INTEGER,
     base_modificator     VARCHAR,
