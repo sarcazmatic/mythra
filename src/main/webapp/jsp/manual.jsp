@@ -306,8 +306,6 @@
             const value = row.querySelector('input').value;
             result[name] = value;
         });
-        console.log(attrs)
-        console.log(result)
         const xhr = new XMLHttpRequest()
         xhr.open('PUT', uriManualEdit)
         xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")

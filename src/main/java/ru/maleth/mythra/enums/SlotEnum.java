@@ -7,7 +7,7 @@ public enum SlotEnum {
 
     RING("Кольцо"),
     AMULET("Амулет"),
-    RANGED_WEAPON("Стрелковое оружие"),
+    RANGED_WEAPON("Дальнобойное оружие"),
     MELEE_WEAPON("Рукопашное оружие"),
     AMMUNITION("Амуниция"),
     HELM("Доспех"),

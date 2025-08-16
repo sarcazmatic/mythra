@@ -158,4 +158,19 @@ public class UpdateController {
         String response = inventoryService.putWeapons(charId);
         return response;
     }
+
+    @GetMapping("/findItems")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String putWeapons(@RequestParam(name = "search") String search) {
+        log.info("Пришел запрос на поиск предмета с названием {}", search);
+        String response = inventoryService.findItems(search);
+        return response;
+    }
+
+    @GetMapping("/addItemFromDb/{charId}/{itemId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void addItemFromDb(@PathVariable(name = "charId") Long charId, @PathVariable(name = "itemId") Long itemId) {
+        log.info("Пришел запрос на добавление предмета с id {} персонажу с id {}", itemId, charId);
+        inventoryService.saveItem(charId, itemId);
+    }
 }

@@ -5,6 +5,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Mythra D&D Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0d0d0d;
@@ -39,6 +40,7 @@
             margin: 0 auto;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+            display: flex;
         }
 
         .card {
@@ -49,7 +51,24 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
         }
 
-        .grid {
+        .grid-new {
+            display: grid;
+            height: fit-content;
+            gap: 12px;
+        }
+
+        .card-search {
+            height: fit-content;
+            background: var(--panel);
+            border: 1px solid #2b3036;
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+        }
+
+        .grid-search {
+            overflow-y: scroll;
+            max-height: 50em;
             display: grid;
             gap: 12px;
         }
@@ -65,7 +84,7 @@
             margin-bottom: 6px;
         }
 
-        input[type="text"], select, textarea, input[type="number"] {
+        input[type="text"], select, .search, textarea, input[type="number"] {
             width: 100%;
             padding: 10px 12px;
             border-radius: 10px;
@@ -74,6 +93,10 @@
             color: var(--text);
             outline: none;
             transition: border-color .15s ease;
+        }
+
+        .search {
+            width: 25em;
         }
 
         textarea {
@@ -103,6 +126,7 @@
         }
 
         button {
+            height: fit-content;
             appearance: none;
             border: 1px solid #2b3036;
             font-family: 'Philosopher', cursive;
@@ -151,7 +175,7 @@
     <p id="user-name" hidden>${userName}</p>
     <p id="char-name" hidden>${charName}</p>
     <!-- Форма -->
-    <form id="itemForm" class="card grid" novalidate>
+    <form id="itemForm" class="card grid-new" novalidate>
         <div>
             <label for="type">Тип предмета</label>
             <select id="type" name="type" required>
@@ -243,7 +267,7 @@
             <label for="qualityOfDice">Тип костей урона</label>
             <input id="qualityOfDice" name="qualityOfDice" type="number" placeholder="Это вторая цифра в 1к6" required
                    maxlength="120"/>
-            <div style="display: flex; justify-content: space-between;">
+            <div style="display: flex; justify-content: space-evenly;">
                 <label for="isFinesse">Оружие фехтовальное?</label>
                 <input id="isFinesse" name="isFinesse" type="checkbox"/>
                 <label for="isUniversal">Оружие универсальное?</label>
@@ -273,6 +297,17 @@
         <div class="actions">
             <button type="submit">Создать предмет</button>
             <button type="button" class="secondary" id="resetBtn">Сбросить</button>
+        </div>
+    </form>
+
+    <!-- Форма -->
+    <form id="searchForm" class="card grid-search" novalidate>
+        <div>
+            <label for="search">Название предмета</label>
+            <input class="search" type="search" id="search" placeholder="Фильтр по названию…">
+            <div class="error" id="searchErr">Что-то не очень вышло.</div>
+        </div>
+        <div id="searchResults" class="grid-search">
         </div>
     </form>
 
@@ -348,7 +383,18 @@
             }
         }
 
-        return {type, name, armorType, description, weight, weaponMastery, numberOfDice, qualityOfDice, isUniversal, isFinesse};
+        return {
+            type,
+            name,
+            armorType,
+            description,
+            weight,
+            weaponMastery,
+            numberOfDice,
+            qualityOfDice,
+            isUniversal,
+            isFinesse
+        };
     }
 
     function showError(id, show) {
@@ -424,7 +470,6 @@
             xhr.open("POST", url)
             xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
             const body = JSON.stringify(data);
-            console.log(body)
             xhr.send(body)
             xhr.onload = function () {
                 location.replace(urlChar)
@@ -446,6 +491,79 @@
         showError('armorTypeErr', false);
         showError('weaponErr', false);
     });
+
+    <%-- Тут скрипты для поиска --%>
+
+    const search = document.getElementById('search');
+    var hostSearch = window.location.protocol;
+
+    search.addEventListener('input', () => {
+        if (search.value.trim().length > 0) {
+            var urlSearch = hostSearch + '/api/findItems?search=' + search.value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", urlSearch)
+            xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+            xhr.send()
+            xhr.onload = function () {
+                const container = document.getElementById('searchResults');
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+                var ourData = JSON.parse(xhr.responseText);
+                for (let i = 0; i < ourData.length; i++) {
+                    var newDivRow = document.createElement("div");
+                    newDivRow.id = "melle-row-" + ourData[i].id;
+                    newDivRow.className = "card-search";
+                    newDivRow.setAttribute('onclick', 'addItemFromDB(' + ourData[i].id + ')');
+                    document.getElementById('searchResults').appendChild(newDivRow);
+                    var newDivAtt1 = document.createElement("div");
+                    newDivAtt1.id = "melle-att1-" + ourData[i].id;
+                    newDivAtt1.className = "weapons-column-output";
+                    newDivAtt1.innerText = "Название: " + ourData[i].name;
+                    document.getElementById(newDivRow.id).appendChild(newDivAtt1);
+                    var newDivAtt2 = document.createElement("div");
+                    newDivAtt2.id = "melle-att2-" + ourData[i].id;
+                    newDivAtt2.className = "weapons-column-output";
+                    if (ourData[i].numberOfDice != null) {
+                        newDivAtt2.innerText = "Урон: " + ourData[i].numberOfDice + 'к' + ourData[i].qualityOfDice;
+                    } else if (ourData[i].armorType != null) {
+                        newDivAtt2.innerText = "КД: " + ourData[i].ac;
+                    }
+                    document.getElementById(newDivRow.id).appendChild(newDivAtt2);
+                    var newDivAtt3 = document.createElement("div");
+                    newDivAtt3.id = "melle-att3-" + ourData[i].id;
+                    newDivAtt3.className = "weapons-column-output";
+                    newDivAtt3.innerText = "Вес: " + ourData[i].weight;
+                    document.getElementById(newDivRow.id).appendChild(newDivAtt3);
+                    var newDivAtt4 = document.createElement("div");
+                    newDivAtt4.id = "melle-att4-" + ourData[i].id;
+                    newDivAtt4.className = "weapons-column-output";
+                    newDivAtt4.innerText = "Тип предмета: " + ourData[i].type;
+                    document.getElementById(newDivRow.id).appendChild(newDivAtt4);
+                }
+            }
+        } else {
+            const container = document.getElementById('searchResults');
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+        }
+    });
+
+    function addItemFromDB(itemId) {
+        var charId = document.getElementById('char-id').innerText
+        var userName = document.getElementById('user-name').innerText
+        var charName = document.getElementById('char-name').innerText
+        var urlAddItem = hostSearch + '/api/addItemFromDb/' + charId + '/' + itemId;
+        const urlChar = hostSearch + '/' + userName + '/' + charName + '/charsheet';
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", urlAddItem)
+        xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+        xhr.send()
+        xhr.onload = function () {
+            location.replace(urlChar)
+        }
+    }
 
 </script>
 </body>

@@ -1363,7 +1363,7 @@
                     newDivRow.className = "weapons-column";
                     if (ourData[i].type === "Рукопашное оружие") {
                         document.getElementById('melee-weapons').appendChild(newDivRow);
-                    } else if (ourData[i].type === "Стрелковое оружие") {
+                    } else if (ourData[i].type === "Дальнобойное оружие") {
                         document.getElementById('ranged-weapons').appendChild(newDivRow);
                     }
                     var newDivAtt1 = document.createElement("div");
@@ -1385,7 +1385,7 @@
                         } else {
                             newDivAtt3.innerText = '+' + (parseInt(currentStrMod.innerText.charAt(1)));
                         }
-                    } else if (ourData[i].type === "Стрелковое оружие") {
+                    } else if (ourData[i].type === "Дальнобойное оружие") {
                         if (ourData[i].isMasterful) {
                             newDivAtt3.innerText = '+' + (parseInt(currentDexMod.innerText.charAt(1)) + parseInt(${proficiency}));
                         } else {
@@ -1398,7 +1398,7 @@
                     newDivAtt4.className = "weapons-column-output";
                     if (ourData[i].type === "Рукопашное оружие") {
                         newDivAtt4.innerText = currentStrMod.innerText;
-                    } else if (ourData[i].type === "Стрелковое оружие") {
+                    } else if (ourData[i].type === "Дальнобойное оружие") {
                         newDivAtt4.innerText = currentDexMod.innerText;
                     }
                     document.getElementById(newDivRow.id).appendChild(newDivAtt4);

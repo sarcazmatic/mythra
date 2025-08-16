@@ -65,6 +65,21 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    public void saveItem(Long charId, Long itemId) {
+        log.info("Пришел запрос на сохранение предмета c id {} за персонажем с id {}", itemId, charId);
+        Character character = characterRepo.findById(charId).orElseThrow(() -> new RuntimeException("А персонажа-то нет"));
+        Item item = inventoryRepo.findById(itemId).orElseThrow(() -> new RuntimeException("Нет предмета"));
+        CharacterItems characterItems = CharacterItems.builder()
+                .item(item)
+                .character(character)
+                .numberOfUses(0)
+                .isEquipped(false)
+                .build();
+        charInventoryRepo.save(characterItems);
+        log.info("ID предмета закреплен за персонажем успешно в репо персонаж-предмет");
+    }
+
+    @Override
     public String loadCharacterItems(Long charId) {
         log.info("Пришел запрос на формирование JSON предметов персонажа с id {}", charId);
         List<CharacterItems> characterItems = charInventoryRepo.findAllByCharacter_IdOrderByIsEquippedDesc(charId);
@@ -118,5 +133,13 @@ public class InventoryServiceImpl implements InventoryService {
             itemDTOList.add(i);
         }
         return gson.toJson(itemDTOList);
+    }
+
+    @Override
+    public String findItems(String search) {
+        log.info("Собираем все предметы по запросу '{}'", search);
+        Set<ItemDTO> items = inventoryRepo.findIgnoreCaseByName(search).stream().map(i -> ItemMapper.fromItem(i, false)).collect(Collectors.toSet());
+        log.info("Нашли {} записей", items.size());
+        return gson.toJson(items);
     }
 }
