@@ -43,6 +43,7 @@ public class ItemMapper {
                     .isUniversal(itemDTO.getIsUniversal())
                     .numberOfDice(itemDTO.getNumberOfDice())
                     .qualityOfDice(itemDTO.getQualityOfDice())
+                    .damageTypeEnum(itemDTO.getDamageType())
                     .build();
             item.setWeapon(weapon);
         }
@@ -73,6 +74,7 @@ public class ItemMapper {
             itemDTO.setBaseModificator(weapon.getBaseModificator());
             itemDTO.setIsFinesse(weapon.getIsFinesse());
             itemDTO.setIsUniversal(weapon.getIsUniversal());
+            itemDTO.setDamageType(weapon.getDamageTypeEnum());
         }
         return itemDTO;
     }

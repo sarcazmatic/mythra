@@ -204,6 +204,7 @@ CREATE table IF NOT EXISTS items
     base_modificator     VARCHAR,
     is_universal         BOOLEAN,
     is_finesse           BOOLEAN,
+    damage_type          VARCHAR,
     CONSTRAINT pk_items PRIMARY KEY (id)
 );
 

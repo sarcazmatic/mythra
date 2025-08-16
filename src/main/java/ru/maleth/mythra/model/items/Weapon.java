@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import ru.maleth.mythra.enums.AttribEnum;
+import ru.maleth.mythra.enums.DamageTypeEnum;
 import ru.maleth.mythra.enums.MasteryEnum;
 
 @Embeddable
@@ -35,5 +36,8 @@ public class Weapon {
     @Enumerated(EnumType.STRING)
     @Column(name = "weapon_mastery")
     private MasteryEnum weaponMastery;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "damage_type")
+    private DamageTypeEnum damageTypeEnum;
 
 }

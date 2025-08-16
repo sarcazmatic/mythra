@@ -267,6 +267,22 @@
             <label for="qualityOfDice">Тип костей урона</label>
             <input id="qualityOfDice" name="qualityOfDice" type="number" placeholder="Это вторая цифра в 1к6" required
                    maxlength="120"/>
+            <select id="damage-type" name="damageType" style="display: none">
+                <option value="" disabled selected>Выберите вид…</option>
+                <option value="BLUDGEONING">Дробящий</option>
+                <option value="PIERCING">Колющий</option>
+                <option value="SLASHING">Рубящий</option>
+                <option value="FIRE">Огонь</option>
+                <option value="COLD">Холод</option>
+                <option value="LIGHTNING">Электричество</option>
+                <option value="ACID">Кислота</option>
+                <option value="POISON">Яд</option>
+                <option value="FORCE">Силовое поле</option>
+                <option value="SOUND">Гром</option>
+                <option value="NECROTIC">Некротический</option>
+                <option value="RADIANT">Излучение</option>
+                <option value="PSYCHIC">Психический</option>
+            </select>
             <div style="display: flex; justify-content: space-evenly;">
                 <label for="isFinesse">Оружие фехтовальное?</label>
                 <input id="isFinesse" name="isFinesse" type="checkbox"/>
@@ -328,21 +344,25 @@
                 selectedType === "HELM" ||
                 selectedType === "SHIELD" ||
                 selectedType === "PAULDRONS") {
+                document.getElementById('damage-type').style.display = "none";
                 document.getElementById('melee-weapon-mastery').style.display = "none";
                 document.getElementById('ranged-weapon-mastery').style.display = "none";
                 document.getElementById('weapon_opt').style.display = "none";
                 document.getElementById('armor_opt').style.display = "block";
             } else if (selectedType === "MELEE_WEAPON") {
+                document.getElementById('damage-type').style.display = "block";
                 document.getElementById('melee-weapon-mastery').style.display = "block";
                 document.getElementById('ranged-weapon-mastery').style.display = "none";
                 document.getElementById('weapon_opt').style.display = "block";
                 document.getElementById('armor_opt').style.display = "none";
             } else if (selectedType === "RANGED_WEAPON") {
+                document.getElementById('damage-type').style.display = "block";
                 document.getElementById('melee-weapon-mastery').style.display = "none";
                 document.getElementById('ranged-weapon-mastery').style.display = "block";
                 document.getElementById('weapon_opt').style.display = "block";
                 document.getElementById('armor_opt').style.display = "none";
             } else {
+                document.getElementById('damage-type').style.display = "none";
                 document.getElementById('melee-weapon-mastery').style.display = "none";
                 document.getElementById('ranged-weapon-mastery').style.display = "none";
                 document.getElementById('weapon_opt').style.display = "none";
@@ -366,6 +386,7 @@
         const armorType = form.armorType.value || null;
 
         const weaponMastery = form.rangedWeaponMastery.value || form.meleeWeaponMastery.value || null;
+        const damageType = form.damageType.value || null;
         const numberOfDice = form.numberOfDice.value || null;
         const qualityOfDice = form.qualityOfDice.value || null;
         const isUniversal = form.isUniversal.checked;
@@ -392,6 +413,7 @@
             weaponMastery,
             numberOfDice,
             qualityOfDice,
+            damageType,
             isUniversal,
             isFinesse
         };
@@ -434,7 +456,7 @@
         if (document.getElementById('weapon_opt').style.display === "block"
             && (!form.numberOfDice.value
                 || !form.qualityOfDice.value
-                && (!form.meleeWeaponMastery.value || !form.rangedWeaponMastery.value))) {
+                && (!form.meleeWeaponMastery.value || !form.rangedWeaponMastery.value || !form.damageType.value))) {
             showError('weaponErr', true);
             ok = false;
         }

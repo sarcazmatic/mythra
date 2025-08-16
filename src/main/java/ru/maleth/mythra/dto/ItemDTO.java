@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import ru.maleth.mythra.enums.ArmorTypeEnum;
 import ru.maleth.mythra.enums.AttribEnum;
+import ru.maleth.mythra.enums.DamageTypeEnum;
 import ru.maleth.mythra.enums.MasteryEnum;
 import ru.maleth.mythra.enums.SlotEnum;
 
@@ -35,5 +36,6 @@ public class ItemDTO {
     private Boolean isFinesse;
     private Boolean isUniversal;
     private Boolean isMasterful;
+    private DamageTypeEnum damageType;
 
 }
