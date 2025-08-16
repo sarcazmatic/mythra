@@ -2,6 +2,7 @@ package ru.maleth.mythra.dto.mapper;
 
 import ru.maleth.mythra.dto.ItemDTO;
 import ru.maleth.mythra.enums.AttribEnum;
+import ru.maleth.mythra.enums.DamageTypeEnum;
 import ru.maleth.mythra.enums.MasteryEnum;
 import ru.maleth.mythra.enums.SlotEnum;
 import ru.maleth.mythra.model.items.Armor;
@@ -33,7 +34,9 @@ public class ItemMapper {
                     .isUniversal(itemDTO.getIsUniversal())
                     .numberOfDice(itemDTO.getNumberOfDice())
                     .qualityOfDice(itemDTO.getQualityOfDice())
+                    .damageTypeEnum(itemDTO.getDamageType())
                     .build();
+            System.out.println(itemDTO.getDamageType());
             item.setWeapon(weapon);
         } else if (itemDTO.getType().equals(SlotEnum.RANGED_WEAPON.toString())) {
             Weapon weapon = Weapon.builder()

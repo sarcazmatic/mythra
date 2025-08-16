@@ -23,4 +23,13 @@ public enum DamageTypeEnum {
 
     DamageTypeEnum(String name) {this.name = name;}
 
+    public static DamageTypeEnum getDamageTypeEnumFromName(String name) {
+        for (DamageTypeEnum dte : DamageTypeEnum.values()) {
+            if (dte.getName().equals(name)) {
+                return dte;
+            }
+        }
+        return null;
+    }
+
 }

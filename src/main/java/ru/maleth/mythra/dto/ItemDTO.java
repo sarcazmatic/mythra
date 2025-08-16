@@ -37,5 +37,4 @@ public class ItemDTO {
     private Boolean isUniversal;
     private Boolean isMasterful;
     private DamageTypeEnum damageType;
-
 }

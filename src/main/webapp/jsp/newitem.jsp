@@ -68,6 +68,7 @@
 
         .grid-search {
             overflow-y: scroll;
+            scrollbar-width: thin;
             max-height: 50em;
             display: grid;
             gap: 12px;
@@ -454,9 +455,8 @@
         }
 
         if (document.getElementById('weapon_opt').style.display === "block"
-            && (!form.numberOfDice.value
-                || !form.qualityOfDice.value
-                && (!form.meleeWeaponMastery.value || !form.rangedWeaponMastery.value || !form.damageType.value))) {
+            && !form.numberOfDice.value || !form.qualityOfDice.value || !form.damageType.value
+                && (!form.meleeWeaponMastery.value || !form.rangedWeaponMastery.value)) {
             showError('weaponErr', true);
             ok = false;
         }
@@ -547,7 +547,7 @@
                     newDivAtt2.id = "melle-att2-" + ourData[i].id;
                     newDivAtt2.className = "weapons-column-output";
                     if (ourData[i].numberOfDice != null) {
-                        newDivAtt2.innerText = "Урон: " + ourData[i].numberOfDice + 'к' + ourData[i].qualityOfDice;
+                        newDivAtt2.innerText = "Урон: " + ourData[i].numberOfDice + 'к' + ourData[i].qualityOfDice + ' ' + ourData[i].damageType.toLowerCase();
                     } else if (ourData[i].armorType != null) {
                         newDivAtt2.innerText = "КД: " + ourData[i].ac;
                     }
