@@ -781,90 +781,9 @@
     </div>
     <div class="input-item-withname">
         <div class="items-rows" id="items-rows">
-            <%-- <div class="weapons-column">
-                     <div class="weapons-column-output">
-                         Секира безбашенности
-                     </div>
-                     <div class="weapons-column-output">
-                         2к6
-                     </div>
-                     <div class="weapons-column-output">
-                         +7
-                     </div>
-                     <div class="weapons-column-output">
-                         +3
-                     </div>
-                 </div> --%>
         </div>
     </div>
 </div>
-<script>
-    <%-- тут у нас скрипт инвенторя --%>
-
-
-</script>
-<%--<div class="container-third-left-bottom">--%>
-<%--    <div class="conditions-columns">--%>
-<%--        <div class="conditions-input">--%>
-<%--            <output style="display: inline-block;align-self: center">Без сознания</output>--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Невидимость--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Окаменение--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Отравление--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Паралич--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Испуг--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Недееспособность--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--    <div class="conditions-columns">--%>
-<%--        <div class="conditions-input">--%>
-<%--            Путы--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Очарование--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Ничком--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Глухота--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Слепота--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            Ошеломление--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--        <div class="conditions-input">--%>
-<%--            <output style="display: inline-block;align-self: center">В захвате</output>--%>
-<%--            <input type="checkbox">--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
 
 <script>
     <%-- тут загружаем основные элементы --%>
