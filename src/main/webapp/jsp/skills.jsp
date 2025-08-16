@@ -571,11 +571,19 @@
     }
 
     // Быстрые кнопки групп
-    document.querySelectorAll('[data-group]').forEach(btn => {
+    document.querySelectorAll('.btn-mini[data-group]').forEach(btn => {
         btn.addEventListener('click', () => {
             const group = btn.getAttribute('data-group');
-            document.querySelectorAll(`.prof-group[data-group="${group}"] input[type="checkbox"]`)
-                .forEach(ch => ch.checked = true);
+            if (group === "martial-all") {
+                document.querySelectorAll('.prof-group[data-group="martial-all"] input[type="checkbox"]')
+                    .forEach(ch => ch.checked = true)
+            } else if (group === "simple-all") {
+                document.querySelectorAll('.prof-group[data-group="simple-all"] input[type="checkbox"]')
+                    .forEach(ch => ch.checked = true)
+            } else if (group === "armor-all") {
+                document.querySelectorAll('.prof-group[data-group="armor-all"] input[type="checkbox"]')
+                    .forEach(ch => ch.checked = true)
+            }
         });
     });
 
