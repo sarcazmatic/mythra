@@ -290,12 +290,22 @@
     <aside class="card pad summary-box">
         <h2>Твой персонаж</h2>
         <div class="kv">
-            <div class="muted">Имя:</div>
-            <div><span class="pill">${charName}</span></div>
-            <div class="muted">Раса:</div>
-            <div><span class="pill">${charRace}</span></div>
-            <div class="muted">Класс:</div>
-            <div><span class="pill">${charClass}</span></div>
+            <section>
+                <div class="muted">Имя:</div>
+                <div><span class="pill">${charName}</span></div>
+                <div class="muted">Раса:</div>
+                <div><span class="pill">${charRace}</span></div>
+                <div class="muted">Класс:</div>
+                <div><span class="pill">${charClass}</span></div>
+            </section>
+            <!-- HP -->
+            <section class="hp-wrap">
+                <div class="hp">
+                    <div class="muted">Твои хит-поинты</div>
+                    <br>
+                    <output id="hitPoints">${hitPoints}</output>
+                </div>
+            </section>
         </div>
         <h3>Атрибуты</h3>
         <div class="attrs">
@@ -312,14 +322,6 @@
     <main class="content">
         <form action="charsheet" method="post" class="card pad">
             <h1>Mythra D&D Service</h1>
-
-            <!-- HP -->
-            <section class="hp-wrap">
-                <div class="hp">
-                    <div class="muted">Твои хит-поинты</div>
-                    <output id="hitPoints">${hitPoints}</output>
-                </div>
-            </section>
 
             <!-- Навыки (accordion) -->
             <details open>
@@ -499,7 +501,8 @@
 
                     <h3>Боевое ближнее</h3>
                     <div class="grid-3 prof-group" data-group="martial-all">
-                        <label class="field"><input type="checkbox" name="masteries" value="BATTLEAXE"> Боевой топор</label>
+                        <label class="field"><input type="checkbox" name="masteries" value="BATTLEAXE"> Боевой
+                            топор</label>
                         <label class="field"><input type="checkbox" name="masteries" value="FLAIL"> Цеп</label>
                         <label class="field"><input type="checkbox" name="masteries" value="GREATAXE"> Грандиозный
                             топор</label>
@@ -509,7 +512,8 @@
                             Алебарда</label>
                         <label class="field"><input type="checkbox" name="masteries" value="LANCE"> Копьё
                             (лансерская пика)</label>
-                        <label class="field"><input type="checkbox" name="masteries" value="LONGSWORD"> Длинный меч</label>
+                        <label class="field"><input type="checkbox" name="masteries" value="LONGSWORD"> Длинный
+                            меч</label>
                         <label class="field"><input type="checkbox" name="masteries" value="MAUL"> Кувалда</label>
                         <label class="field"><input type="checkbox" name="masteries" value="MORNINGSTAR"> Утренняя
                             звезда</label>
@@ -521,8 +525,10 @@
                             меч</label>
                         <label class="field"><input type="checkbox" name="masteries" value="TRIDENT">
                             Трезубец</label>
-                        <label class="field"><input type="checkbox" name="masteries" value="WAR_PICK"> Боевая кирка</label>
-                        <label class="field"><input type="checkbox" name="masteries" value="WARHAMMER"> Боевой молот</label>
+                        <label class="field"><input type="checkbox" name="masteries" value="WAR_PICK"> Боевая
+                            кирка</label>
+                        <label class="field"><input type="checkbox" name="masteries" value="WARHAMMER"> Боевой
+                            молот</label>
                         <label class="field"><input type="checkbox" name="masteries" value="WHIP"> Кнут</label>
                     </div>
 
@@ -560,15 +566,13 @@
 <script>
     // Фильтр по владениям
     const search = document.getElementById('searchProf');
-    if (search) {
-        search.addEventListener('input', () => {
-            const q = search.value.trim().toLowerCase();
-            document.querySelectorAll('.prof-group label.field').forEach(lab => {
-                const text = lab.textContent.toLowerCase();
-                lab.style.display = text.includes(q) ? '' : 'none';
-            });
+    search.addEventListener('input', () => {
+        const q = search.value.trim().toLowerCase();
+        document.querySelectorAll('.prof-group label.field').forEach(lab => {
+            const text = lab.textContent.toLowerCase();
+            lab.style.display = text.includes(q) ? '' : 'none';
         });
-    }
+    });
 
     // Быстрые кнопки групп
     document.querySelectorAll('.btn-mini[data-group]').forEach(btn => {
