@@ -139,10 +139,6 @@ public class InventoryServiceImpl implements InventoryService {
     public String findItems(String search) {
         log.info("Собираем все предметы по запросу '{}'", search);
         Set<ItemDTO> items = inventoryRepo.findIgnoreCaseByName(search).stream().map(i -> ItemMapper.fromItem(i, false)).collect(Collectors.toSet());
-        for (ItemDTO i:
-             items) {
-            System.out.println(i);
-        }
         log.info("Нашли {} записей", items.size());
         return gson.toJson(items);
     }

@@ -71,13 +71,15 @@ public class ItemMapper {
         }
         if (item.getWeapon() != null) {
             Weapon weapon = item.getWeapon();
+            DamageTypeEnum d = weapon.getDamageTypeEnum();
             itemDTO.setWeaponMastery(weapon.getWeaponMastery());
             itemDTO.setNumberOfDice(weapon.getNumberOfDice());
             itemDTO.setQualityOfDice(weapon.getQualityOfDice());
             itemDTO.setBaseModificator(weapon.getBaseModificator());
             itemDTO.setIsFinesse(weapon.getIsFinesse());
             itemDTO.setIsUniversal(weapon.getIsUniversal());
-            itemDTO.setDamageType(weapon.getDamageTypeEnum());
+            itemDTO.setDamageType(d);
+            itemDTO.setDamageTypeOut(d.getName());
         }
         return itemDTO;
     }
