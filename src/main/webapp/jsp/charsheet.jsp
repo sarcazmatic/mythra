@@ -1380,9 +1380,17 @@
                     newDivAtt3.id = "melle-att3-" + ourData[i].id;
                     newDivAtt3.className = "weapons-column-output";
                     if (ourData[i].type === "Рукопашное оружие") {
-                        newDivAtt3.innerText = '+' + (parseInt(currentStrMod.innerText.charAt(1))+parseInt(${proficiency}));
+                        if (ourData[i].isMasterful) {
+                            newDivAtt3.innerText = '+' + (parseInt(currentStrMod.innerText.charAt(1)) + parseInt(${proficiency}));
+                        } else {
+                            newDivAtt3.innerText = '+' + (parseInt(currentStrMod.innerText.charAt(1)));
+                        }
                     } else if (ourData[i].type === "Стрелковое оружие") {
-                        newDivAtt3.innerText = '+' + (parseInt(currentDexMod.innerText.charAt(1))+parseInt(${proficiency}));
+                        if (ourData[i].isMasterful) {
+                            newDivAtt3.innerText = '+' + (parseInt(currentDexMod.innerText.charAt(1)) + parseInt(${proficiency}));
+                        } else {
+                            newDivAtt3.innerText = '+' + (parseInt(currentDexMod.innerText.charAt(1)));
+                        }
                     }
                     document.getElementById(newDivRow.id).appendChild(newDivAtt3);
                     var newDivAtt4 = document.createElement("div");

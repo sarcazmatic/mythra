@@ -228,6 +228,7 @@
             <label for="ranged-weapon-mastery" style="display: none">Вид оружия</label>
             <select id="ranged-weapon-mastery" name="rangedWeaponMastery" style="display: none">
                 <option value="" disabled selected>Выберите вид…</option>
+                <option value="SHORTBOW">Короткий лук</option>
                 <option value="LIGHT_CROSSBOW">Лёгкий арбалет</option>
                 <option value="DART">Дротик</option>
                 <option value="SLING">Праща</option>
@@ -372,6 +373,7 @@
             showError('typeErr', true);
             ok = false;
         }
+
         if (!form.name.value.trim()) {
             showError('nameErr', true);
             ok = false;
@@ -386,13 +388,19 @@
         if (document.getElementById('weapon_opt').style.display === "block"
             && (!form.numberOfDice.value
                 || !form.qualityOfDice.value
-                || (!form.meleeWeaponMastery.value || !form.rangedWeaponMastery.value))) {
+                && (!form.meleeWeaponMastery.value || !form.rangedWeaponMastery.value))) {
             showError('weaponErr', true);
             ok = false;
         }
 
         // Проверка веса
         const w = form.weight.value.trim();
+
+        if (!w) {
+            showError('weightErr', true);
+            ok = false;
+        }
+
         if (w) {
             const pattern = /^\d{1,4}(?:\.\d{1,2})?$/;
             if (!pattern.test(w.replace(',', '.'))) {

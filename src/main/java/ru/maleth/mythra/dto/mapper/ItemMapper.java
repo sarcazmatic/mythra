@@ -2,6 +2,7 @@ package ru.maleth.mythra.dto.mapper;
 
 import ru.maleth.mythra.dto.ItemDTO;
 import ru.maleth.mythra.enums.AttribEnum;
+import ru.maleth.mythra.enums.MasteryEnum;
 import ru.maleth.mythra.enums.SlotEnum;
 import ru.maleth.mythra.model.items.Armor;
 import ru.maleth.mythra.model.items.Item;
@@ -61,10 +62,12 @@ public class ItemMapper {
             Armor armor = item.getArmor();
             itemDTO.setAc(armor.getAc());
             itemDTO.setArmorType(armor.getArmorType());
+            itemDTO.setWeaponMastery(MasteryEnum.getMasteryByName(armor.getArmorType().getName()));
             itemDTO.setStealthDisadvantage(armor.getStealthDisadvantage());
         }
         if (item.getWeapon() != null) {
             Weapon weapon = item.getWeapon();
+            itemDTO.setWeaponMastery(weapon.getWeaponMastery());
             itemDTO.setNumberOfDice(weapon.getNumberOfDice());
             itemDTO.setQualityOfDice(weapon.getQualityOfDice());
             itemDTO.setBaseModificator(weapon.getBaseModificator());

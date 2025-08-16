@@ -74,6 +74,7 @@ INSERT INTO masteries (name) VALUES ('WARHAMMER');
 INSERT INTO masteries (name) VALUES ('WHIP');
 
 --changeset masteries:4 simple ranged
+INSERT INTO masteries (name) VALUES ('SHORTBOW');
 INSERT INTO masteries (name) VALUES ('LIGHT_CROSSBOW');
 INSERT INTO masteries (name) VALUES ('DART');
 INSERT INTO masteries (name) VALUES ('SLING');

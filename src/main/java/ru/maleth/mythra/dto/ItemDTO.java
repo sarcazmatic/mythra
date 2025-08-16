@@ -34,5 +34,6 @@ public class ItemDTO {
     private AttribEnum baseModificator;
     private Boolean isFinesse;
     private Boolean isUniversal;
+    private Boolean isMasterful;
 
 }

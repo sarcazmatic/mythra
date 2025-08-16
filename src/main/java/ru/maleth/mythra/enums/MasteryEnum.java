@@ -38,6 +38,7 @@ public enum MasteryEnum {
     WARHAMMER("Боевой молот"),
     WHIP("Кнут"),
     //SIMPLE_RANGED("Простое дальнобойное оружие"),
+    SHORTBOW("Короткий лук"),
     LIGHT_CROSSBOW("Лёгкий арбалет"),
     DART("Дротик"),
     SLING("Праща"),

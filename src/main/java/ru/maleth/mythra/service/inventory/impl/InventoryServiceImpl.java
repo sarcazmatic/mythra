@@ -6,8 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.maleth.mythra.dto.ItemDTO;
 import ru.maleth.mythra.dto.mapper.ItemMapper;
+import ru.maleth.mythra.enums.MasteryEnum;
 import ru.maleth.mythra.enums.SlotEnum;
 import ru.maleth.mythra.model.characters.Character;
+import ru.maleth.mythra.model.characters.Mastery;
 import ru.maleth.mythra.model.items.CharacterItems;
 import ru.maleth.mythra.model.items.Item;
 import ru.maleth.mythra.repo.CharInventoryRepo;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -98,13 +102,21 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public String putWeapons(Long charId) {
         log.info("Найдем оружие у персонажа {}", charId);
+        Character character = characterRepo.findById(charId).orElseThrow(() -> new RuntimeException("А персонажа-то нет"));
+        Set<MasteryEnum> masterySet = character.getMasteries().stream().map(Mastery::getName).collect(Collectors.toSet());
         List<ItemDTO> itemDTOList = new ArrayList<>();
         List<ItemDTO> itemDTOMelee = charInventoryRepo.findAllByCharacter_IdAndItem_Slot(charId, SlotEnum.MELEE_WEAPON).stream()
                 .map(ci -> ItemMapper.fromItem(ci.getItem(), ci.getIsEquipped())).toList();
         List<ItemDTO> itemDTORanged = charInventoryRepo.findAllByCharacter_IdAndItem_Slot(charId, SlotEnum.RANGED_WEAPON).stream()
                 .map(ci -> ItemMapper.fromItem(ci.getItem(), ci.getIsEquipped())).toList();
-        itemDTOList.addAll(itemDTOMelee);
-        itemDTOList.addAll(itemDTORanged);
+        for (ItemDTO i : itemDTOMelee) {
+            i.setIsMasterful(masterySet.contains(i.getWeaponMastery()));
+            itemDTOList.add(i);
+        }
+        for (ItemDTO i : itemDTORanged) {
+            i.setIsMasterful(masterySet.contains(i.getWeaponMastery()));
+            itemDTOList.add(i);
+        }
         return gson.toJson(itemDTOList);
     }
 }

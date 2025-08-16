@@ -493,6 +493,8 @@
 
                     <h3>Простое дальнобойное</h3>
                     <div class="grid-3 prof-group" data-group="simple-all">
+                        <label class="field"><input type="checkbox" name="masteries" value="SHORTBOW"> Короткий
+                            лук</label>
                         <label class="field"><input type="checkbox" name="masteries" value="LIGHT_CROSSBOW"> Лёгкий
                             арбалет</label>
                         <label class="field"><input type="checkbox" name="masteries" value="DART"> Дротик</label>
