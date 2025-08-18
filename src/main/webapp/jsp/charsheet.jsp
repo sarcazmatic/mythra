@@ -1243,11 +1243,13 @@
                 document.getElementById(newDivRow.id).appendChild(newDiSlot3);
                 var newDiSlot4 = document.createElement("div");
                 newDiSlot4.id = "inventory-col4-" + ourData[i].id;
-                newDiSlot4.className = "inventory-equip-button";
-                if (ourData[i].isEquipped === false) {
-                    newDiSlot4.innerText = "Надеть";
-                } else {
-                    newDiSlot4.innerText = "Снять";
+                if (ourData[i].armorType != null || ourData[i].weaponMastery != null) {
+                    newDiSlot4.className = "inventory-equip-button";
+                    if (ourData[i].isEquipped === false) {
+                        newDiSlot4.innerText = "Надеть";
+                    } else {
+                        newDiSlot4.innerText = "Снять";
+                    }
                 }
                 newDiSlot4.setAttribute("onclick", "equipOrUnequip(" + ourData[i].id + ")");
                 document.getElementById(newDivRow.id).appendChild(newDiSlot4);

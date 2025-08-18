@@ -7,6 +7,7 @@ public enum ProfEnum {
 
     ACROBATICS("Акробатика"),
     ATHLETICS("Атлетика"),
+    ANIMAL_HANDLING("Обращение с животными"),
     ARCANA("Аркана"),
     DECEPTION("Обман"),
     HISTORY("История"),
